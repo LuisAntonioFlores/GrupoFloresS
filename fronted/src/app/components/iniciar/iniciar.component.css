@@ -1,0 +1,70 @@
+.password-input-container {
+    position: relative;
+  }
+  
+  .password-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .form-control[type="password"] {
+    padding-right: 40px; /* Ajusta este valor según sea necesario */
+  }
+  /* olde contraseña */
+  .password-input-container {
+    position: relative;
+  }
+  
+  .password-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+    margin-top: 10px;
+    text-align: right;
+  }
+  
+  .link-forgot-password {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .link-forgot-password:hover {
+    text-decoration: underline;
+  }
+  /*Crea una cuenta  */
+  .forgot-password {
+    margin-top: 10px;
+    text-align: right;
+  }
+  
+  .link-forgot-password {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .link-forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  .new-account {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .link-new-account {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .link-new-account:hover {
+    text-decoration: underline;
+  }
+  

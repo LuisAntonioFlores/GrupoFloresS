@@ -1,0 +1,34 @@
+.bottom-bar {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .contact-numbers {
+    text-align: left;
+  }
+  
+  .address {
+    text-align: right;
+  }
+  
+  .company-info {
+    margin-bottom: 10px;
+  }
+  
+  .menu-links a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  /* Agrega más estilos según tus preferencias */
+  

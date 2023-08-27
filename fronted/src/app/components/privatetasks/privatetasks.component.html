@@ -1,0 +1,13 @@
+
+  <div>
+    <h1> productos</h1>
+    <app-product-form></app-product-form>
+  </div>
+
+  <h1>Private Tasks</h1>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let tarea of tareas">
+      {{ tarea._id }} : {{ tarea.name }} : {{ tarea.description }}
+    </li>
+  </ul>
+  

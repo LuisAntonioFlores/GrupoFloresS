@@ -1,0 +1,24 @@
+/* Estilos para el contenedor con icono */
+.input-with-icon {
+  position: relative;
+}
+
+/* Estilos para el icono de alternancia */
+.input-with-icon .password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  outline: none; /* Sin contorno */
+  padding: 0; /* Sin padding */
+  color: #3498db; /* Cambia el color del icono según tu diseño */
+  font-size: 18px; /* Ajusta el tamaño del icono según tu diseño */
+  transition: color 0.3s; /* Agrega una transición suave para el color */
+}
+
+.input-with-icon .password-toggle:hover {
+  color: #e74c3c; /* Cambia el color al pasar el mouse por encima */
+}
