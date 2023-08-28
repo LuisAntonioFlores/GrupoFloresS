@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // componentes
-import {IniciarComponent } from './components/iniciar/iniciar.component';
-import{PrivatetasksComponent} from './components/privatetasks/privatetasks.component';
+import {IniciarComponent } from './components/Seguridad/iniciar/iniciar.component';
+import{PrivatetasksComponent} from './components/Seguridad/privatetasks/privatetasks.component';
 import { TareasComponent } from './components/tareas/tareas.component';
-import { RegistroComponent } from './components/registro/registro.component';
+import { RegistroComponent } from './components/Seguridad/registro/registro.component';
 import { PaginaWebInicialComponent } from './components/pagina-web-inicial/pagina-web-inicial.component';
-import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
 import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
