@@ -23,7 +23,7 @@ import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.
 import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { MapComponent } from './components/map/map.component';
-import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductFormComponent } from './components/Productos/product-form/product-form.component';
 
 
 
