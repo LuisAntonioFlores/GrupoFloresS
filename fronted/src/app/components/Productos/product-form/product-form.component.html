@@ -1,5 +1,5 @@
 <div class="product-form-container">
-  <h2>Cargar Producto</h2>
+  <h3>Cargar Producto</h3>
   <!-- es una prueba
    -->
   <form (ngSubmit)="submitForm()" class="product-form">
@@ -27,7 +27,9 @@
       <input type="file" id="image" (change)="handleImageInput($event)" accept="image/*" class="form-control" required>
       <img *ngIf="product.imageURL" [src]="product.imageURL" class="uploaded-image" alt="Producto">
     </div>
-
-    <button type="submit" class="btn btn-primary">Cargar Producto</button>
+<div class="col-md-8">
+  <button type="submit" class="btn btn-info align-items-md-center">Cargar Producto</button>
+</div>
+    
   </form>
 </div>
