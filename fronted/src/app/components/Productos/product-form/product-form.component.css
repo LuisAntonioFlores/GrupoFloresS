@@ -60,16 +60,32 @@ label {
   }
 }
 
-.btn {
+.btn-cen:hover{
   padding: 10px 20px;
-  /* background-color: #16729c; */
-  color: #fff;
-  border: none;
-  border-radius: 0.313rem;
+  color: #24eb0a;
+  background-color: #1825d6;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: 5rem;
+  
+ }
+
+.btn {
+  border: none;
+  border-radius: 5rem;
+  color: #24eb0a;
+	border-bottom: 5px solid #D1D1D4;
+	background: none;
+	padding: 10px;
+	padding-left: 24px;
+	font-weight: 700;
+	width: 100%;
+	transition: .2s; 
+  
 }
 
-.btn:hover {
-  background-color: #0056b3;
-}
+
+
+
+
+
+
