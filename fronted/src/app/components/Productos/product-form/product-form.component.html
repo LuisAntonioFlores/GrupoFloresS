@@ -27,9 +27,10 @@
       <input type="file" id="image" (change)="handleImageInput($event)" accept="image/*" class="form-control" required>
       <img *ngIf="product.imageURL" [src]="product.imageURL" class="uploaded-image" alt="Producto">
     </div>
-<div class="col-md-8">
-  <button type="submit" class="btn btn-info align-items-md-center">Cargar Producto</button>
-</div>
+   
+    <div class="btn-cen">
+      <button type="submit" class="btn">Cargar Producto</button>
+    </div>
     
   </form>
 </div>
