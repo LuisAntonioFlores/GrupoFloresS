@@ -1,3 +1,7 @@
+src 
+npm install bcrypt@5.0.1
+npm rebuild bcrypt --build-from-source
+
 scr_2
 npm i multer
 npm i @types/multer -D
@@ -5,3 +9,5 @@ npm i uuid
 npm i @types/uuid -D
 npm i fs-extra
 npm i @types/fs-extra -D
+npm install cors
+npm i @types/cors -D

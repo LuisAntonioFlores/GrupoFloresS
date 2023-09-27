@@ -1,0 +1,12 @@
+.card-Produc {
+    cursor: pointer;
+    border: 1px solid #ddd; /* Un borde inicial sutil */
+    transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+  }
+  
+  .card-Produc:hover {
+    border: 1px solid #333; /* Borde más oscuro al hacer hover */
+    transform: scale(1.05); /* Escala ligeramente la tarjeta al hacer hover para un efecto de crecimiento */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada en hover */
+  }
+  
