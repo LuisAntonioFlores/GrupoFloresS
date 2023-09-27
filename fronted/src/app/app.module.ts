@@ -25,6 +25,9 @@ import { BottomBarComponent } from './components/Compartidos/bottom-bar/bottom-b
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
 import { MapComponent } from './components/map/map.component';
 import { ProductFormComponent } from './components/Productos/product-form/product-form.component';
+import { SubirProductoComponent } from './components/Productos/subir-producto/subir-producto.component';
+import { ListaProductoComponent } from './components/Productos/lista-producto/lista-producto.component';
+import { PreviewProductoComponent } from './components/Productos/preview-producto/preview-producto.component';
 
 
 
@@ -43,6 +46,9 @@ import { ProductFormComponent } from './components/Productos/product-form/produc
     AdminLoginComponent,
     MapComponent,
     ProductFormComponent,
+    SubirProductoComponent,
+    ListaProductoComponent,
+    PreviewProductoComponent,
   ],
   imports: [
     BrowserModule,
