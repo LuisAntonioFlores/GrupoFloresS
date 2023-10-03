@@ -28,6 +28,8 @@ import { ProductFormComponent } from './components/Productos/product-form/produc
 import { SubirProductoComponent } from './components/Productos/subir-producto/subir-producto.component';
 import { ListaProductoComponent } from './components/Productos/lista-producto/lista-producto.component';
 import { PreviewProductoComponent } from './components/Productos/preview-producto/preview-producto.component';
+import { AdminIndexComponent } from './components/admin/admin-index/admin-index.component';
+import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
 
 
 
@@ -49,6 +51,8 @@ import { PreviewProductoComponent } from './components/Productos/preview-product
     SubirProductoComponent,
     ListaProductoComponent,
     PreviewProductoComponent,
+    AdminIndexComponent,
+    AdminNavComponent,
   ],
   imports: [
     BrowserModule,
