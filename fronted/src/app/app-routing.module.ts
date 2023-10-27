@@ -40,6 +40,8 @@ const routes: Routes = [
     path: 'registrar',
     component: RegistroComponent
   },
+  // administrador
+  
   { path: 'admin-login', component: AdminLoginComponent },
   {
     path: 'producto',

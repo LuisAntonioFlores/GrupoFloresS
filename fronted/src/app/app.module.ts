@@ -30,7 +30,8 @@ import { ListaProductoComponent } from './components/Productos/lista-producto/li
 import { PreviewProductoComponent } from './components/Productos/preview-producto/preview-producto.component';
 import { AdminIndexComponent } from './components/admin/admin-index/admin-index.component';
 import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
@@ -63,6 +64,8 @@ import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.compon
     NgbModalModule,
     NgbModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSidenavModule
     
    
      ],
