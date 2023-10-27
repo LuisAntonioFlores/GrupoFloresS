@@ -1,1 +1,17 @@
-<div class="container"></div>
+<mat-sidenav-container class="example-container">
+  <!-- Sidenav (menú lateral) -->
+  <mat-sidenav mode="side" opened>
+    <!-- Contenido del sidenav -->
+   <app-admin-nav></app-admin-nav>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <!-- Barra de navegación superior -->
+        
+    <!-- Contenido principal -->
+    <div class="main-content">
+      <!-- Colocar aquí el contenido principal de tu página -->
+      <app-admin-index></app-admin-index> </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
