@@ -1,15 +1,20 @@
 /* Estilos para la barra de navegación */
 .sidebar {
-  width: 250px; /* Ancho de la barra de navegación (ajusta según tus necesidades) */
-  height: 100%; /* Altura completa del contenedor */
+  margin: 8px;
+  width: 200px; /* Ancho de la barra de navegación (ajusta según tus necesidades) */
+  height: 40%; /* Altura completa del contenedor */
   position: relative; /* Posición fija para mantenerla en su lugar */
   top: 0; /* En la parte superior */
   left: 0; /* En el lado izquierdo */
-  background-color: #333; /* Color de fondo */
+  background-color: #352727a1; /* Color de fondo */
   color: #fff; /* Color de texto */
   padding: 20px; /* Espaciado interno */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra lateral */
   z-index: 1;
+  border-right: none;
+  border-radius: 10px;
+  text-align: center;
+
 }
 
 /* Estilos para el contenido */

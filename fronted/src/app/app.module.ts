@@ -32,6 +32,7 @@ import { AdminIndexComponent } from './components/admin/admin-index/admin-index.
 import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -65,7 +66,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDividerModule
     
    
      ],

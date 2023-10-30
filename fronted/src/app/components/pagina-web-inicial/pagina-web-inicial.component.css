@@ -4,11 +4,12 @@
 
 .header {
   position: relative;
-  margin-top: -20px; /* Ajusta este valor según tus necesidades */
+  margin-top: 10px; /* Ajusta este valor según tus necesidades */
 }
 
 .image {
-  width: 100%;
+  border-radius: 50px;
+  width: 50%;
   display: block;
 }
 
