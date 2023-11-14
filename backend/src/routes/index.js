@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs'); // Agrega esta líne
 
 const router = Router();
 
-router.get('/', (req, res) => res.send('hello world'));
+router.get('/', (req, res) => res.send('hello this is your backed'));
 
 router.post('/ingresar', async (req, res) => {
   const { nombre, apellidoP, apellidoM, email, password, fechaNacimiento, sexo, tipoUsuario } = req.body;

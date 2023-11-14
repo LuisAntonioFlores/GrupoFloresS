@@ -1,6 +1,11 @@
+<button mat-icon-button *ngIf="isSmallScreen" (click)="toggleSidenav()">
+  <mat-icon *ngIf="!sidenav?.opened">menu</mat-icon>
+  <mat-icon *ngIf="sidenav?.opened">close</mat-icon>
+</button>
+
 <mat-sidenav-container class="example-container">
   <!-- Sidenav (menú lateral) -->
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav #sidena="matSidenav" [mode]="sidenavMode" [opened]="sidenavOpened">
     <!-- Contenido del sidenav -->
     <app-admin-nav></app-admin-nav>
   </mat-sidenav>
@@ -8,8 +13,6 @@
   <mat-sidenav-content>
     <div class="content mat-elevation-z14">
       <!-- Colocar aquí el contenido principal de tu página -->
-      <app-lista-producto></app-lista-producto>
     </div>
-
   </mat-sidenav-content>
 </mat-sidenav-container>

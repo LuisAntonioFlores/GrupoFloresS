@@ -1,11 +1,7 @@
-/* Estilos para la barra de navegación */
-.sidebar {
-  margin: 8px;
-  width: 200px; /* Ancho de la barra de navegación (ajusta según tus necesidades) */
-  height: 40%; /* Altura completa del contenedor */
-  position: relative; /* Posición fija para mantenerla en su lugar */
-  top: 0; /* En la parte superior */
-  left: 0; /* En el lado izquierdo */
+/* Estilos para el mat-sidenav */
+.sidenav {
+  width: 200px; /* Ancho del sidenav */
+  height: 80%; /* Altura completa del contenedor */
   background-color: #352727a1; /* Color de fondo */
   color: #fff; /* Color de texto */
   padding: 20px; /* Espaciado interno */
@@ -14,17 +10,16 @@
   border-right: none;
   border-radius: 10px;
   text-align: center;
-
 }
 
 /* Estilos para el contenido */
 .content {
-  margin-left: 150px; /* Margen izquierdo para dejar espacio a la barra de navegación */
+  margin-left: 200px; /* Margen izquierdo para dejar espacio al sidenav */
   padding: 20px; /* Espaciado interno del contenido */
 }
 
-/* Otros estilos para tu barra de navegación, como enlaces y listas */
-.sidebar h4 {
+/* Otros estilos para tu mat-sidenav, como enlaces y listas */
+.sidenav h4 {
   font-size: 1.2rem; /* Tamaño de fuente para el encabezado */
   margin-bottom: 20px;
 }
@@ -47,4 +42,10 @@
 
 .sidebar-menu a:hover {
   color: #66c2ff;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: white;
 }

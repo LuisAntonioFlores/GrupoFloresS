@@ -55,7 +55,6 @@ const routes: Routes = [
     path:'product/:id',
     component:PreviewProductoComponent
   }
-
 ];
 
 @NgModule({
