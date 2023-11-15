@@ -1,0 +1,50 @@
+/* Estilos para la barra de navegación */
+.sidebar {
+  margin: 8px;
+  width: 200px; /* Ancho de la barra de navegación (ajusta según tus necesidades) */
+  height: 40%; /* Altura completa del contenedor */
+  position: relative; /* Posición fija para mantenerla en su lugar */
+  top: 0; /* En la parte superior */
+  left: 0; /* En el lado izquierdo */
+  background-color: #352727a1; /* Color de fondo */
+  color: #fff; /* Color de texto */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra lateral */
+  z-index: 1;
+  border-right: none;
+  border-radius: 10px;
+  text-align: center;
+
+}
+
+/* Estilos para el contenido */
+.content {
+  margin-left: 150px; /* Margen izquierdo para dejar espacio a la barra de navegación */
+  padding: 20px; /* Espaciado interno del contenido */
+}
+
+/* Otros estilos para tu barra de navegación, como enlaces y listas */
+.sidebar h4 {
+  font-size: 1.2rem; /* Tamaño de fuente para el encabezado */
+  margin-bottom: 20px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem; /* Tamaño de fuente para los enlaces (ajusta según tus necesidades) */
+  transition: color 0.3s;
+}
+
+.sidebar-menu a:hover {
+  color: #66c2ff;
+}

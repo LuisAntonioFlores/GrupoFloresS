@@ -1,0 +1,9 @@
+/* Ajustar el ancho del menú lateral */
+mat-sidenav {
+  width: 250px; /* Ajusta el ancho según tus necesidades */
+}
+
+/* Ajustar el margen izquierdo del contenido principal */
+.content{
+  height: calc(100vh - 65px);
+}

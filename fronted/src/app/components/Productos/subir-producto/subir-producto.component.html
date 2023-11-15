@@ -1,0 +1,24 @@
+<div class="col-lg-4 mx-auto h-auto">
+  <div class="card-header">
+    Subir Producto
+  </div>
+  <div class="card-body">
+    <form (submit)="uploadProduct(title, description)">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Titulo Producto" required #title>
+      </div>
+      <div class="form-group">
+        <textarea rows="2" placeholder="Descripcion del Producto" class="form-control" required #description></textarea>
+      </div>
+      <div class="form-group">
+        <input type="file" class="d-none" (change)="onPhotoSelect($event)" #photoInput>
+        <img [src]="photoSelected || 'assets/imagenes/subirArchivo.png'" class="img-fluid" alt="no imagenes" (click)="photoInput.click()">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">
+          Subir Producto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
