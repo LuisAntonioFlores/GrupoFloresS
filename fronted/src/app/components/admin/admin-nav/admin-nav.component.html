@@ -3,10 +3,9 @@
   <mat-divider></mat-divider>
   <br>
   <ul class="sidebar-menu">
-    <li><a routerLink="/producto">Listado de producto</a></li>
-    <li><a routerLink="/ProductoAlta">Subir Productos</a></li>
-    <li><a routerLink="/pedidos">Pedidos</a></li>
-    <li><a routerLink="/configuracion">Configuración</a></li>
-    <li><a routerLink="/ayuda">Ayuda</a></li>
+    <li><a (click)="handleLinkClick('/dashboard/admin/Lista-P')">Listado de producto</a></li>
+    <li><a (click)="handleLinkClick('/dashboard/admin/ProductoAlta')">Subir Productos</a></li>
+    <li><a (click)="handleLinkClick('/dashboard/admin/product/:id')">Pedidos</a></li>
+   
   </ul>
 </mat-sidenav>

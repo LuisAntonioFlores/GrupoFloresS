@@ -6,13 +6,10 @@ import { PrivatetasksComponent } from './components/Seguridad/privatetasks/priva
 import { TareasComponent } from './components/tareas/tareas.component';
 import { RegistroComponent } from './components/Seguridad/registro/registro.component';
 import { PaginaWebInicialComponent } from './components/pagina-web-inicial/pagina-web-inicial.component';
-import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
-import { AuthGuard } from './auth.guard';
-// componentes adminitrador 
 
-import { ListaProductoComponent } from './components/Productos/lista-producto/lista-producto.component';
-import { SubirProductoComponent } from './components/Productos/subir-producto/subir-producto.component';
-import { PreviewProductoComponent } from './components/Productos/preview-producto/preview-producto.component';
+import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
+
+import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     // Esta ruta redirige a /home como la ruta inicial
@@ -36,25 +33,23 @@ const routes: Routes = [
     component: PrivatetasksComponent,
     canActivate: [AuthGuard]
   },
+  { path: 'admin-login', component: AdminLoginComponent },
+ 
   {
     path: 'registrar',
     component: RegistroComponent
   },
-  // administrador
-  
-  { path: 'admin-login', component: AdminLoginComponent },
+
   {
-    path: 'producto',
-    component: ListaProductoComponent
+    path: 'dashboard',
+    children: [
+      {
+        path: 'admin',
+        loadChildren: () => import('./components/Productos/productos.module').then(m => m.ProductosModule)
+      }
+    ]
   },
-  {
-    path: 'ProductoAlta',
-    component: SubirProductoComponent
-  },
-  {
-    path:'product/:id',
-    component:PreviewProductoComponent
-  }
+
 ];
 
 @NgModule({
