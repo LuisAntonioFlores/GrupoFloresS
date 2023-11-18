@@ -33,6 +33,7 @@ import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
+import { SliderComponent } from './components/Compartidos/slider/slider.component';
 
 
 
@@ -55,6 +56,7 @@ import {MatDividerModule} from '@angular/material/divider';
     PreviewProductoComponent,
     AdminIndexComponent,
     AdminNavComponent,
+    SliderComponent,
   ],
   imports: [
     BrowserModule,
