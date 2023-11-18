@@ -20,8 +20,8 @@ import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { CommonModule } from '@angular/common';
 import { PaginaWebInicialComponent } from './components/pagina-web-inicial/pagina-web-inicial.component';
-import { DropdownMenuComponent } from './components/Compartidos/dropdown-menu/dropdown-menu.component';
-import { BottomBarComponent } from './components/Compartidos/bottom-bar/bottom-bar.component';
+import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component';
+import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
 import { MapComponent } from './components/map/map.component';
 
