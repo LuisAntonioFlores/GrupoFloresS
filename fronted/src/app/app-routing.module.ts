@@ -10,14 +10,19 @@ import { PaginaWebInicialComponent } from './components/pagina-web-inicial/pagin
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
 
 import { AuthGuard } from './auth.guard';
+import { SliderComponent } from './components/slider/slider.component';
 const routes: Routes = [
   {
     // Esta ruta redirige a /home como la ruta inicial
-    path: '', redirectTo: '/home', pathMatch: 'full'
+    path: '', redirectTo: '/slider', pathMatch: 'full'
   },
   {
     // Esta es la ruta para el componente PaginaWebInicialComponent en /home
     path: 'home', component: PaginaWebInicialComponent
+  },
+  {
+    path: 'slider', component: SliderComponent
+
   },
   {
     path: 'tareas',
