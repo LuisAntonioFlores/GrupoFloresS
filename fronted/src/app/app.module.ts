@@ -35,6 +35,7 @@ import { ProductosModule } from './components/Productos/productos.module';
 import { MaterialModule } from './moduls/material/material.module';
 import { FooterComponent } from './components/Compartidos/footer/footer.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 
@@ -55,7 +56,8 @@ import { SliderComponent } from './components/slider/slider.component';
     AdminIndexComponent,
     AdminNavComponent,
     SliderComponent,
-    FooterComponent
+    FooterComponent,
+    SidebarComponent
     
   ],
   imports: [
