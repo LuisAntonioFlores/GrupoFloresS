@@ -31,11 +31,16 @@ import { AdminIndexComponent } from './components/admin/admin-index/admin-index.
 import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ProductosModule } from './components/Productos/productos.module';
 import { MaterialModule } from './moduls/material/material.module';
 import { FooterComponent } from './components/Compartidos/footer/footer.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+
+
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -56,6 +61,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     AdminIndexComponent,
     AdminNavComponent,
     SliderComponent,
+
     FooterComponent,
     SidebarComponent
     
