@@ -31,12 +31,9 @@ import { AdminIndexComponent } from './components/admin/admin-index/admin-index.
 import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ProductosModule } from './components/Productos/productos.module';
+import { MaterialModule } from './moduls/material/material.module';
+// import { FooterComponent } from './components/Compartidos/footer/footer.component';
 
 
 
@@ -55,7 +52,8 @@ import { ProductosModule } from './components/Productos/productos.module';
     AdminLoginComponent,
     MapComponent,
     AdminIndexComponent,
-    AdminNavComponent,
+    AdminNavComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -67,12 +65,10 @@ import { ProductosModule } from './components/Productos/productos.module';
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSidenavModule,
-    MatDividerModule,
-    MatToolbarModule,
-    MatIconModule,    MatListModule,
-    ProductosModule
-
+    // modulos de la aplicacion
+    ProductosModule,
+    MaterialModule,
+    // FooterComponent
 
   ],
   providers: [
