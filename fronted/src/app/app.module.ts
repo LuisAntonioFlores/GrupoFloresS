@@ -28,13 +28,13 @@ import { MapComponent } from './components/map/map.component';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ProductosModule } from './components/Productos/productos.module';
+<<<<<<< HEAD
 import { MatMenuModule } from '@angular/material/menu';
+=======
+import { MaterialModule } from './moduls/material/material.module';
+// import { FooterComponent } from './components/Compartidos/footer/footer.component';
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
 
 
 
@@ -52,7 +52,13 @@ import { MatMenuModule } from '@angular/material/menu';
     BottomBarComponent,
     AdminLoginComponent,
     MapComponent,
+<<<<<<< HEAD
    
+=======
+    AdminIndexComponent,
+    AdminNavComponent
+    
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
   ],
   imports: [
     BrowserModule,
@@ -64,6 +70,7 @@ import { MatMenuModule } from '@angular/material/menu';
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+<<<<<<< HEAD
     MatSidenavModule,
     MatDividerModule,
     MatToolbarModule,
@@ -71,6 +78,12 @@ import { MatMenuModule } from '@angular/material/menu';
     ProductosModule,MatMenuModule,
     
 
+=======
+    // modulos de la aplicacion
+    ProductosModule,
+    MaterialModule,
+    // FooterComponent
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
 
   ],
   providers: [
