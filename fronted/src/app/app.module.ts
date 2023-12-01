@@ -27,9 +27,6 @@ import { MapComponent } from './components/map/map.component';
 
 
 
-import { AdminIndexComponent } from './components/admin/admin-index/admin-index.component';
-import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
@@ -37,6 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ProductosModule } from './components/Productos/productos.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -54,8 +52,7 @@ import { ProductosModule } from './components/Productos/productos.module';
     BottomBarComponent,
     AdminLoginComponent,
     MapComponent,
-    AdminIndexComponent,
-    AdminNavComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -71,7 +68,8 @@ import { ProductosModule } from './components/Productos/productos.module';
     MatDividerModule,
     MatToolbarModule,
     MatIconModule,    MatListModule,
-    ProductosModule
+    ProductosModule,MatMenuModule,
+    
 
 
   ],

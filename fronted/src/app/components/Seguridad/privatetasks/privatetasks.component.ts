@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TareasService } from 'src/app/services/tareas.service';
 interface Tarea {
+  
   _id: string;
   name: string;
   description: string;

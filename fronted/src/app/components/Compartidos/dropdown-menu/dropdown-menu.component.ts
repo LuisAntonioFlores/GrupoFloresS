@@ -1,43 +1,78 @@
-import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import jwt_decode from 'jwt-decode';
+
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatMenu } from '@angular/material/menu';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-dropdown-menu',
   templateUrl: './dropdown-menu.component.html',
-  styleUrls: ['./dropdown-menu.component.css']
+  styleUrls: ['./dropdown-menu.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      state('out', style({
+        opacity: 0,
+        display: 'none'
+      })),
+      state('in', style({
+        opacity: 1,
+        display: 'block'
+      })),
+      transition('out => in', animate('150ms ease-in')),
+      transition('in => out', animate('150ms ease-out'))
+    ])
+  ]
 })
-export class DropdownMenuComponent {
 
-  
-  constructor(public authService:AuthService,private router: Router,private route: ActivatedRoute){}
- title: string = 'fronted'; // Agregar la propiedad 'title' con el valor 'fronted'
+export class DropdownMenuComponent implements OnInit {
+  // Añadir propiedades para almacenar datos del usuario
+  nombre: string = '';
+  apellidoPaterno: string = '';
+  apellidoMaterno: string = '';
+  tipoUsuario: string = '';
+
+  menuState: string = 'out';
+  @ViewChild('almacenMenu') almacenMenu!: MatMenu;
+
+  title: string = 'fronted';
+  loggedIn: boolean = false;
+  @ViewChild('sidena') sidenav!: MatSidenav;
+
  
- getUsername(): string {
-  const token = this.authService.getToken();
+  constructor(public authService: AuthService, private route: ActivatedRoute) {}
 
-  if (token !== null) {
-    const decodedToken: any = jwt_decode(token);
-    
-    if (decodedToken) {
-      return decodedToken.username; // Ajusta esto según la estructura de tu token
-    } else {
-      return 'Nombre de usuario no encontrado';
-    }
-  } else {
-    return 'No se ha iniciado sesión'; // Maneja el caso en el que no haya un token
+  ngOnInit(): void {
+    // Obtener datos del usuario al inicializar el componente
+    this.authService.userData$.subscribe((userData) => {
+      this.nombre = userData.nombre || '';
+      this.apellidoPaterno = userData.apellidoPaterno || '';
+      this.apellidoMaterno = userData.apellidoMaterno || '';
+      this.tipoUsuario = userData.tipoUsuario || '';
+    });
   }
-}
- isIniciarRoute(): boolean {
-  return this.route.snapshot.firstChild?.routeConfig?.path === 'iniciar';
-}
-isRegistrarseRoute(): boolean {
-  return this.route.snapshot.firstChild?.routeConfig?.path === 'registrar';
-}
-isPrivateRoute(): boolean {
-  return this.route.snapshot.firstChild?.routeConfig?.path === 'private';
-}
 
+  toggleSidenav() {
+    this.sidenav.toggle();
+  }
+
+  toggleMenu() {
+    this.menuState = this.menuState === 'out' ? 'in' : 'out';
+  }
+
+  isIniciarRoute(): boolean {
+    return this.route.snapshot.firstChild?.routeConfig?.path === 'iniciar';
+  }
+
+  isRegistrarseRoute(): boolean {
+    return this.route.snapshot.firstChild?.routeConfig?.path === 'registrar';
+  }
+
+  isPrivateRoute(): boolean {
+    return (
+      this.route.snapshot.firstChild?.routeConfig?.path === 'private' ||
+      this.route.snapshot.firstChild?.routeConfig?.path === 'almacen'
+    );
+  }
 }

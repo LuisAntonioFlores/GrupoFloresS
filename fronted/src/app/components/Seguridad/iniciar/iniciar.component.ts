@@ -36,8 +36,8 @@ export class IniciarComponent {
     const email = this.iniciarForm.get('email')?.value;
     const password = this.iniciarForm.get('password')?.value;
   
-    console.log('Email:', email);
-    console.log('Password:', password);
+    // console.log('Email:', email);
+    // console.log('Password:', password);
   
     this.authService.checkInicioPass(email, password).subscribe(
       (res) => {
