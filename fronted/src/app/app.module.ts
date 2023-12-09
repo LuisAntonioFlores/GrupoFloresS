@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { NgbModule  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { IniciarComponent } from './components/Seguridad/iniciar/iniciar.component';
 
 import { TareasComponent } from './components/tareas/tareas.component';
-import{PrivatetasksComponent} from './components/Seguridad/privatetasks/privatetasks.component';
+import { PrivatetasksComponent } from './components/Seguridad/privatetasks/privatetasks.component';
 
 import { RegistroComponent } from './components/Seguridad/registro/registro.component';
 
@@ -24,16 +24,29 @@ import { DropdownMenuComponent } from './components/Compartidos/dropdown-menu/dr
 import { BottomBarComponent } from './components/Compartidos/bottom-bar/bottom-bar.component';
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
 import { MapComponent } from './components/map/map.component';
-import { ProductFormComponent } from './components/Productos/product-form/product-form.component';
-import { SubirProductoComponent } from './components/Productos/subir-producto/subir-producto.component';
-import { ListaProductoComponent } from './components/Productos/lista-producto/lista-producto.component';
-import { PreviewProductoComponent } from './components/Productos/preview-producto/preview-producto.component';
-import { AdminIndexComponent } from './components/admin/admin-index/admin-index.component';
-import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
+
+
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ProductosModule } from './components/Productos/productos.module';
+<<<<<<< HEAD
+import { MatMenuModule } from '@angular/material/menu';
+=======
+import { MaterialModule } from './moduls/material/material.module';
+<<<<<<< HEAD
+import { FooterComponent } from './components/Compartidos/footer/footer.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+
+
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
-import { SliderComponent } from './components/Compartidos/slider/slider.component';
+=======
+// import { FooterComponent } from './components/Compartidos/footer/footer.component';
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
+>>>>>>> c5f8a13a702496d8c65a92fa942cf4bfb2fd7e46
+
 
 
 
@@ -50,13 +63,17 @@ import { SliderComponent } from './components/Compartidos/slider/slider.componen
     BottomBarComponent,
     AdminLoginComponent,
     MapComponent,
-    ProductFormComponent,
-    SubirProductoComponent,
-    ListaProductoComponent,
-    PreviewProductoComponent,
+<<<<<<< HEAD
+   
+=======
     AdminIndexComponent,
     AdminNavComponent,
     SliderComponent,
+
+    FooterComponent,
+    SidebarComponent
+    
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
   ],
   imports: [
     BrowserModule,
@@ -68,22 +85,36 @@ import { SliderComponent } from './components/Compartidos/slider/slider.componen
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+<<<<<<< HEAD
     MatSidenavModule,
-    MatDividerModule
+    MatDividerModule,
+    MatToolbarModule,
+    MatIconModule,    MatListModule,
+    ProductosModule,MatMenuModule,
     
-   
-     ],
-  providers: [  
-     AuthGuard,{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi:true }
+
+=======
+    // modulos de la aplicacion
+    ProductosModule,
+    MaterialModule,
+<<<<<<< HEAD
+=======
+    // FooterComponent
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
+
+>>>>>>> c5f8a13a702496d8c65a92fa942cf4bfb2fd7e46
   ],
-    bootstrap: [AppComponent],
-  
-    
-    
-  
+  providers: [
+    AuthGuard, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent],
+
+
+
+
 })
 export class AppModule { }
- 
