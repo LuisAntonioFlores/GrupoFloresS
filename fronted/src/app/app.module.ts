@@ -28,11 +28,10 @@ import { MapComponent } from './components/map/map.component';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ProductosModule } from './components/Productos/productos.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MaterialModule } from './moduls/material/material.module';
-// import { FooterComponent } from './components/Compartidos/footer/footer.component';
-
 
 
 
@@ -50,7 +49,7 @@ import { MaterialModule } from './moduls/material/material.module';
     AdminLoginComponent,
     MapComponent,
    
-    
+
   ],
   imports: [
     BrowserModule,
@@ -65,10 +64,8 @@ import { MaterialModule } from './moduls/material/material.module';
     ProductosModule,MatMenuModule,
     
 
-    // modulos de la aplicacion
-    ProductosModule,
-    MaterialModule,
-    // FooterComponent
+
+  
 
   ],
   providers: [
