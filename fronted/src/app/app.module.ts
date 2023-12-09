@@ -29,12 +29,9 @@ import { MapComponent } from './components/map/map.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductosModule } from './components/Productos/productos.module';
-<<<<<<< HEAD
 import { MatMenuModule } from '@angular/material/menu';
-=======
 import { MaterialModule } from './moduls/material/material.module';
 // import { FooterComponent } from './components/Compartidos/footer/footer.component';
->>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
 
 
 
@@ -52,13 +49,8 @@ import { MaterialModule } from './moduls/material/material.module';
     BottomBarComponent,
     AdminLoginComponent,
     MapComponent,
-<<<<<<< HEAD
    
-=======
-    AdminIndexComponent,
-    AdminNavComponent
     
->>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
   ],
   imports: [
     BrowserModule,
@@ -70,20 +62,13 @@ import { MaterialModule } from './moduls/material/material.module';
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-<<<<<<< HEAD
-    MatSidenavModule,
-    MatDividerModule,
-    MatToolbarModule,
-    MatIconModule,    MatListModule,
     ProductosModule,MatMenuModule,
     
 
-=======
     // modulos de la aplicacion
     ProductosModule,
     MaterialModule,
     // FooterComponent
->>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
 
   ],
   providers: [
