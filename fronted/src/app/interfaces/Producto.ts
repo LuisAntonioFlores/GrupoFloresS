@@ -5,4 +5,3 @@ export interface Producto{
     image: string;
     imagePath: string;
 } 
-
