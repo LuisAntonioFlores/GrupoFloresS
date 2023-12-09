@@ -24,12 +24,14 @@ import { DropdownMenuComponent } from './components/Compartidos/dropdown-menu/dr
 import { BottomBarComponent } from './components/Compartidos/bottom-bar/bottom-bar.component';
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
 import { MapComponent } from './components/map/map.component';
-
-
+import { SliderComponent } from './components/slider/slider.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FooterComponent } from './components/Compartidos/footer/footer.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ProductosModule } from './components/Productos/productos.module';
+
 import { FooterComponent } from './components/Compartidos/footer/footer.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -52,7 +54,6 @@ import { MaterialModule } from './moduls/material/material.module';
     SliderComponent,
     FooterComponent,
     SidebarComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -65,10 +66,7 @@ import { MaterialModule } from './moduls/material/material.module';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ProductosModule,
-    // modulos de la aplicacion
-    ProductosModule,
-    MaterialModule,
-
+    MaterialModule
   ],
   providers: [
     AuthGuard, {
