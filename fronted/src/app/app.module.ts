@@ -27,13 +27,14 @@ import { MapComponent } from './components/map/map.component';
 
 
 
-import { AdminIndexComponent } from './components/admin/admin-index/admin-index.component';
-import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ProductosModule } from './components/Productos/productos.module';
+<<<<<<< HEAD
+import { MatMenuModule } from '@angular/material/menu';
+=======
 import { MaterialModule } from './moduls/material/material.module';
+<<<<<<< HEAD
 import { FooterComponent } from './components/Compartidos/footer/footer.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -41,6 +42,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
+=======
+// import { FooterComponent } from './components/Compartidos/footer/footer.component';
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
+>>>>>>> c5f8a13a702496d8c65a92fa942cf4bfb2fd7e46
 
 
 
@@ -58,6 +63,9 @@ import {MatDividerModule} from '@angular/material/divider';
     BottomBarComponent,
     AdminLoginComponent,
     MapComponent,
+<<<<<<< HEAD
+   
+=======
     AdminIndexComponent,
     AdminNavComponent,
     SliderComponent,
@@ -65,6 +73,7 @@ import {MatDividerModule} from '@angular/material/divider';
     FooterComponent,
     SidebarComponent
     
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
   ],
   imports: [
     BrowserModule,
@@ -76,9 +85,24 @@ import {MatDividerModule} from '@angular/material/divider';
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+<<<<<<< HEAD
+    MatSidenavModule,
+    MatDividerModule,
+    MatToolbarModule,
+    MatIconModule,    MatListModule,
+    ProductosModule,MatMenuModule,
+    
+
+=======
     // modulos de la aplicacion
     ProductosModule,
     MaterialModule,
+<<<<<<< HEAD
+=======
+    // FooterComponent
+>>>>>>> 049bca1a599437336f464dc47288c844fe8fe4ff
+
+>>>>>>> c5f8a13a702496d8c65a92fa942cf4bfb2fd7e46
   ],
   providers: [
     AuthGuard, {

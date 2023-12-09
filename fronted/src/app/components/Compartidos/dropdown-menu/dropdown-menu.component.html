@@ -1,26 +1,67 @@
-<!-- barra de arriba -->
+<!-- app.component.html -->
+
+<!-- <div *ngIf="authService.loggedIn()" class="d-lg-none">
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon *ngIf="!sidenav?.opened">menu</mat-icon>
+    <mat-icon *ngIf="sidenav?.opened">close</mat-icon>
+  </button>
+</div> -->
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    
-    <a class="navbar-brand" routerLink="/home">Grupo Flores</a> 
+    <a class="navbar-brand" routerLink="/home">Grupo Flores</a>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="./tareas" routerLinkActive="active"
-            *ngIf="!isIniciarRoute() && !isRegistrarseRoute()">Preguntas</a>
+            *ngIf="!isIniciarRoute() && !isRegistrarseRoute() ">Preguntas</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" routerLink="./private" routerLinkActive="active"
-            *ngIf="!isIniciarRoute() && !isRegistrarseRoute()">Privacidad</a>
+            *ngIf="!isIniciarRoute() && !isRegistrarseRoute()&& authService.loggedIn()">Privacidad</a>
         </li>
 
+        <!-- Nueva pestaña "Almacén" -->
+        <li class="nav-item" *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn()">
+
+          <a class="nav-link mat-button" [matMenuTriggerFor]="almacenMenu" (mouseenter)="toggleMenu()"
+            (mouseleave)="toggleMenu()">
+            <mat-icon>store</mat-icon> Almacén
+          </a>
+          <mat-menu #almacenMenu="matMenu" class="mat-menu-panel" [@fadeInOut]="menuState">
+            <ul class="mat-menu-content">
+              <li class="mat-menu-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/admin/Lista-P">
+                  <mat-icon>list</mat-icon> Listado de Producto
+                </a>
+              </li>
+              <li class="mat-menu-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/admin/ProductoAlta">
+                  <mat-icon>file_upload</mat-icon> Subir Productos
+                </a>
+              </li>
+              <li class="mat-menu-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/admin/product/:id'">
+                  <mat-icon>shopping_cart</mat-icon> Pedidos
+                </a>
+              </li>
+            </ul>
+          </mat-menu>
+        </li>
+
+
       </ul>
+
       <ul class="navbar-nav ml-auto">
+
         <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
           <li class="nav-item" *ngIf="!isRegistrarseRoute()">
             <a class="nav-link" routerLink="./iniciar" routerLinkActive="active">Iniciar</a>
@@ -29,21 +70,19 @@
             <a class="nav-link" routerLink="./registrar" routerLinkActive="active">Registrate</a>
           </li>
         </ng-container>
+
         <ng-template #loggedIn>
+
           <li class="nav-item">
             <a class="nav-link" style="cursor:pointer;" (click)="authService.logout()">Cerrar Sesion</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link">Bienvenido, {{ getUsername() }}</a>
-          </li>
-        </ng-template>
-
+            <li *ngIf="loggedIn">
+              <span>Bienvenido, {{ nombre || 'Usuario' }} {{ apellidoPaterno || '' }} {{ apellidoMaterno || '' }} ({{ tipoUsuario || 'Tipo desconocido' }})</span>
+            </li>
+          </ng-template>
       </ul>
     </div>
   </div>
 </nav>
-
-
 <div class="container">
   <router-outlet></router-outlet>
 </div>

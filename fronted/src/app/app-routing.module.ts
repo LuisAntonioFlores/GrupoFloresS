@@ -50,7 +50,8 @@ const routes: Routes = [
     children: [
       {
         path: 'admin',
-        loadChildren: () => import('./components/Productos/productos.module').then(m => m.ProductosModule)
+        loadChildren: () => import('./components/Productos/productos.module').then(m => m.ProductosModule),
+        canActivate: [AuthGuard] 
       }
     ]
   },
