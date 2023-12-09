@@ -31,9 +31,11 @@ import { FooterComponent } from './components/Compartidos/footer/footer.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ProductosModule } from './components/Productos/productos.module';
-import { MatMenuModule } from '@angular/material/menu';
-import { MaterialModule } from './moduls/material/material.module';
 
+import { FooterComponent } from './components/Compartidos/footer/footer.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MaterialModule } from './moduls/material/material.module';
 
 
 @NgModule({
@@ -49,9 +51,9 @@ import { MaterialModule } from './moduls/material/material.module';
     BottomBarComponent,
     AdminLoginComponent,
     MapComponent,
-    SliderComponent,SidebarComponent,FooterComponent
-   
-
+    SliderComponent,
+    FooterComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -63,13 +65,8 @@ import { MaterialModule } from './moduls/material/material.module';
     NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ProductosModule,MatMenuModule,
+    ProductosModule,
     MaterialModule
-    
-
-
-  
-
   ],
   providers: [
     AuthGuard, {
@@ -79,9 +76,6 @@ import { MaterialModule } from './moduls/material/material.module';
     }
   ],
   bootstrap: [AppComponent],
-
-
-
 
 })
 export class AppModule { }
