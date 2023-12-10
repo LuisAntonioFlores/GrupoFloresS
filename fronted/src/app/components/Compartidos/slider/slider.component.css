@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .inner {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 1220px;
+    margin-top: 5px;
+    overflow: hidden;
+  }
+  
+  img {
+    padding-left: var(--paddLeft);
+    padding-right: var(--paddRight);
+  }
+  img:hover {
+    display: block;
+    cursor: pointer;
+    transition: filter 150ms;
+    filter: contrast(85%);  
+  }
+  
+  
+  .images-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .slider__navbutton {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: #1421b3;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  
+  .slider__navbutton:hover {
+    background-color: #000;
+  }
+  
+  #prev {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  
+  #next {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+  #prev::after,
+  #next::after {
+    content: "";
+    position: absolute;
+    border: solid white;
+    border-width: 0 4px 4px 0;
+    padding: 4px;
+    width: 30%;
+    height: 30%;
+  }
+  #next::after {
+    top: 50%;
+    right: 50%;
+    transform: translate(25%, -50%) rotate(-45deg);
+  }
+  #prev::after {
+    top: 50%;
+    right: 50%;
+    transform: translate(75%, -50%) rotate(135deg);
+  }
+  
+  .slider__nav {
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  
+  @media only screen and (max-width: 640px) {
+    .slider__navbutton {
+      height: 30px;
+      width: 30px;
+    }
+  
+    .slider__slide {
+      background-size: 100%;
+    }
+  
+    .slider {
+      height: 100%;
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+    }
+    img {
+      padding: 0%px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  .example-radio-group {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+  
+  .example-radio-button {
+    margin: 5px;
+    
+  }
+  

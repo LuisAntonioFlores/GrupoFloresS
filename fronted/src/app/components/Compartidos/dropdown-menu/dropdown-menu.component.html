@@ -76,7 +76,7 @@
           <li class="nav-item">
             <a class="nav-link" style="cursor:pointer;" (click)="authService.logout()">Cerrar Sesion</a>
             <li *ngIf="loggedIn">
-              <span>Bienvenido, {{ nombre || 'Usuario' }} {{ apellidoPaterno || '' }} {{ apellidoMaterno || '' }} ({{ tipoUsuario || 'Tipo desconocido' }})</span>
+              <span>{{ nombre || 'Usuario' }} ({{ tipoUsuario || 'Tipo desconocido' }})</span>
             </li>
           </ng-template>
       </ul>
