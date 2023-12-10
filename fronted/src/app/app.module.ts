@@ -32,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductosModule } from './components/Productos/productos.module';
 import { MaterialModule } from './moduls/material/material.module';
 import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienvenidos.component';
+import { OnepageComponent } from './components/Compartidos/onepage/onepage.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienv
     SliderComponent,
     FooterComponent,
     SidebarComponent,
-    BienvenidosComponent
+    BienvenidosComponent,
+    OnepageComponent
   ],
   imports: [
     BrowserModule,

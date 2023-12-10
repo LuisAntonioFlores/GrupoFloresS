@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-bienvenidos',
   templateUrl: './bienvenidos.component.html',
-  styleUrls: ['./bienvenidos.component.css']
+  styleUrls: ['./bienvenidos.component.scss']
 })
 export class BienvenidosComponent {
    // Añadir propiedades para almacenar datos del usuario

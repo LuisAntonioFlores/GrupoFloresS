@@ -9,7 +9,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 @Component({
   selector: 'app-dropdown-menu',
   templateUrl: './dropdown-menu.component.html',
-  styleUrls: ['./dropdown-menu.component.css'],
+  styleUrls: ['./dropdown-menu.component.scss'],
   animations: [
     trigger('fadeInOut', [
       state('out', style({

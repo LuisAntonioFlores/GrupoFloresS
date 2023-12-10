@@ -8,7 +8,7 @@ import { RegistroComponent } from '../registro/registro.component';
 @Component({
   selector: 'app-iniciar',
   templateUrl: './iniciar.component.html',
-  styleUrls: ['./iniciar.component.css']
+  styleUrls: ['./iniciar.component.scss']
 })
 export class IniciarComponent {
   showPassword = false;

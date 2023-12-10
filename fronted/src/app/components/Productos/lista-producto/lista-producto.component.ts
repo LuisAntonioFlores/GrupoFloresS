@@ -5,7 +5,7 @@ import { Producto } from 'src/app/interfaces/Producto';
 @Component({
   selector: 'app-lista-producto',
   templateUrl: './lista-producto.component.html',
-  styleUrls: ['./lista-producto.component.css']
+  styleUrls: ['./lista-producto.component.scss']
 })
 export class ListaProductoComponent implements OnInit {
   productos: Producto[] = [];

@@ -3,7 +3,7 @@ import { Component, ElementRef, HostBinding, HostListener, Input, Renderer2, Vie
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+  styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent {
   intervalo!: any;
