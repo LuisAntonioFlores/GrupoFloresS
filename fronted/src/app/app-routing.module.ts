@@ -38,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'private',
-    component: PrivatetasksComponent,
+    component: BienvenidosComponent,
     canActivate: [AuthGuard]
   },
   { path: 'login', 
