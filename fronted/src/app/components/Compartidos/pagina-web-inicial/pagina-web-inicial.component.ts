@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-pagina-web-inicial',
   templateUrl: './pagina-web-inicial.component.html',
-  styleUrls: ['./pagina-web-inicial.component.css']
+  styleUrls: ['./pagina-web-inicial.component.scss']
 })
 export class PaginaWebInicialComponent {
 

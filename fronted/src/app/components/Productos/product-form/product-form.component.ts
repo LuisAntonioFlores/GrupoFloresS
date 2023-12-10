@@ -4,7 +4,7 @@ import { ProductosService } from '../../../services/productos.service';
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.css']
+  styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent {
   constructor(private productosService: ProductosService) {}

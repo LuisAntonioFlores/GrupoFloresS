@@ -3,7 +3,7 @@ import { Component, ElementRef, HostBinding, HostListener, Input, Renderer2, Vie
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+  styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent {
   intervalo!: any;
@@ -67,7 +67,8 @@ export class SliderComponent {
   ngOnInit(): void {
     
     this.arrUrlIMG = ["prueba_slide1.jpg", "prueba_slide2.jpg", 
- "prueba_slide3.jpg", "prueba_slide4.jpg", "prueba_slide6.jpg"]
+                      "prueba_slide3.jpg", "prueba_slide4.jpg", 
+                      ]
     this.radioButtonId = this.arrUrlIMG[this.arrUrlIMG.length - 1]
     //Ultima imagen del array al inicio del array
     this.arrUrlIMG.splice(0, 0, this.arrUrlIMG[this.arrUrlIMG.length - 1])

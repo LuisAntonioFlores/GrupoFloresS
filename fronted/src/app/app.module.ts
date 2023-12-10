@@ -8,13 +8,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IniciarComponent } from './components/Seguridad/iniciar/iniciar.component';
-
 import { TareasComponent } from './components/tareas/tareas.component';
 import { PrivatetasksComponent } from './components/Seguridad/privatetasks/privatetasks.component';
-
-import { RegistroComponent } from './components/Seguridad/registro/registro.component';
-
 import { ErrorModalComponent } from './components/Seguridad/error-modal/error-modal.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -32,15 +27,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductosModule } from './components/Productos/productos.module';
 import { MaterialModule } from './moduls/material/material.module';
 import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienvenidos.component';
+import { OnepageComponent } from './components/Compartidos/onepage/onepage.component';
+import { NavonepageComponent } from './components/Compartidos/onepage/navonepage/navonepage.component';
+import { RegistrarComponent } from './components/Seguridad/registrar/registrar.component';
+import { ContactoComponent } from './components/Compartidos/contacto/contacto.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    IniciarComponent,
     TareasComponent,
     PrivatetasksComponent,
-    RegistroComponent,
     ErrorModalComponent,
     PaginaWebInicialComponent,
     DropdownMenuComponent,
@@ -50,7 +47,11 @@ import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienv
     SliderComponent,
     FooterComponent,
     SidebarComponent,
-    BienvenidosComponent
+    BienvenidosComponent,
+    OnepageComponent,
+    NavonepageComponent,
+    RegistrarComponent,
+    ContactoComponent
   ],
   imports: [
     BrowserModule,

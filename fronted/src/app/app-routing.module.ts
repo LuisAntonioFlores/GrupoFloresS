@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // componentes
-import { IniciarComponent } from './components/Seguridad/iniciar/iniciar.component';
 import { PrivatetasksComponent } from './components/Seguridad/privatetasks/privatetasks.component';
 import { TareasComponent } from './components/tareas/tareas.component';
-import { RegistroComponent } from './components/Seguridad/registro/registro.component';
 import { PaginaWebInicialComponent } from './components/Compartidos/pagina-web-inicial/pagina-web-inicial.component';
 
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
@@ -12,10 +10,11 @@ import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-lo
 import { AuthGuard } from './auth.guard';
 import { SliderComponent } from './components/Compartidos/slider/slider.component';
 import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienvenidos.component';
+import { RegistrarComponent } from './components/Seguridad/registrar/registrar.component';
 const routes: Routes = [
   {
     // Esta ruta redirige a /home como la ruta inicial
-    path: '', redirectTo: '/bienvenido', pathMatch: 'full'
+    path: '', redirectTo: '/home', pathMatch: 'full'
   },
   {
     // Esta es la ruta para el componente PaginaWebInicialComponent en /home
@@ -35,21 +34,20 @@ const routes: Routes = [
   },
   {
     path: 'iniciar',
-    component: IniciarComponent
+    component: AdminLoginComponent
   },
-
   {
     path: 'private',
-    component: PrivatetasksComponent,
+    component: BienvenidosComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'admin-login', component: AdminLoginComponent },
- 
+  { path: 'login', 
+  component: AdminLoginComponent 
+  },
   {
     path: 'registrar',
-    component: RegistroComponent
+    component: RegistrarComponent
   },
-
   {
     path: 'dashboard',
     children: [

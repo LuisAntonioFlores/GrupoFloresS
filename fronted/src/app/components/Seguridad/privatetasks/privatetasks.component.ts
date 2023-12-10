@@ -10,7 +10,7 @@ interface Tarea {
 @Component({
   selector: 'app-privatetasks',
   templateUrl: './privatetasks.component.html',
-  styleUrls: ['./privatetasks.component.css']
+  styleUrls: ['./privatetasks.component.scss']
 })
 export class PrivatetasksComponent implements OnInit{
   tareas: Tarea[] = [];

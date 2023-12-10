@@ -11,7 +11,7 @@ interface Tarea {
 @Component({
   selector: 'app-tareas',
   templateUrl: './tareas.component.html',
-  styleUrls: ['./tareas.component.css']
+  styleUrls: ['./tareas.component.scss']
 })
 export class TareasComponent implements OnInit {
   tareas: Tarea[] = [];

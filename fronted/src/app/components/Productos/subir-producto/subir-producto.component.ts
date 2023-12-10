@@ -3,7 +3,7 @@ import { ProductSubirService } from 'src/app/services/product-subir.service';
 @Component({
   selector: 'app-subir-producto',
   templateUrl: './subir-producto.component.html',
-  styleUrls: ['./subir-producto.component.css']
+  styleUrls: ['./subir-producto.component.scss']
 })
 export class SubirProductoComponent {
   file: File | null = null;
