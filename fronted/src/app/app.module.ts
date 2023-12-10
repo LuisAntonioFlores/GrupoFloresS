@@ -19,23 +19,19 @@ import { ErrorModalComponent } from './components/Seguridad/error-modal/error-mo
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { CommonModule } from '@angular/common';
-import { PaginaWebInicialComponent } from './components/pagina-web-inicial/pagina-web-inicial.component';
+import { PaginaWebInicialComponent } from './components/Compartidos/pagina-web-inicial/pagina-web-inicial.component';
 import { DropdownMenuComponent } from './components/Compartidos/dropdown-menu/dropdown-menu.component';
 import { BottomBarComponent } from './components/Compartidos/bottom-bar/bottom-bar.component';
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
-import { MapComponent } from './components/map/map.component';
-import { SliderComponent } from './components/slider/slider.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MapComponent } from './components/Compartidos/map/map.component';
+import { SliderComponent } from './components/Compartidos/slider/slider.component';
+import { SidebarComponent } from './components/Compartidos/sidebar/sidebar.component';
 import { FooterComponent } from './components/Compartidos/footer/footer.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ProductosModule } from './components/Productos/productos.module';
-
-import { FooterComponent } from './components/Compartidos/footer/footer.component';
-import { SliderComponent } from './components/slider/slider.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MaterialModule } from './moduls/material/material.module';
+import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienvenidos.component';
 
 
 @NgModule({
@@ -53,7 +49,8 @@ import { MaterialModule } from './moduls/material/material.module';
     MapComponent,
     SliderComponent,
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
+    BienvenidosComponent
   ],
   imports: [
     BrowserModule,

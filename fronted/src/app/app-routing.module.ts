@@ -5,16 +5,17 @@ import { IniciarComponent } from './components/Seguridad/iniciar/iniciar.compone
 import { PrivatetasksComponent } from './components/Seguridad/privatetasks/privatetasks.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { RegistroComponent } from './components/Seguridad/registro/registro.component';
-import { PaginaWebInicialComponent } from './components/pagina-web-inicial/pagina-web-inicial.component';
+import { PaginaWebInicialComponent } from './components/Compartidos/pagina-web-inicial/pagina-web-inicial.component';
 
 import { AdminLoginComponent } from './components/Seguridad/admin-login/admin-login.component';
 
 import { AuthGuard } from './auth.guard';
-import { SliderComponent } from './components/slider/slider.component';
+import { SliderComponent } from './components/Compartidos/slider/slider.component';
+import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienvenidos.component';
 const routes: Routes = [
   {
     // Esta ruta redirige a /home como la ruta inicial
-    path: '', redirectTo: '/slider', pathMatch: 'full'
+    path: '', redirectTo: '/bienvenido', pathMatch: 'full'
   },
   {
     // Esta es la ruta para el componente PaginaWebInicialComponent en /home
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'slider', component: SliderComponent
 
+  },
+  {
+    // Esta es la ruta para el componente PaginaWebInicialComponent en /bienvenidos
+    path: 'bienvenido', component: BienvenidosComponent
   },
   {
     path: 'tareas',
