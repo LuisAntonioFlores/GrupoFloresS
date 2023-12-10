@@ -1,0 +1,20 @@
+.mat-menu-content {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .mat-menu-panel {
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  .mat-menu-item {
+    padding: 8px 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .mat-menu-item:hover {
+    background-color: #f0f0f0;
+  }
+  

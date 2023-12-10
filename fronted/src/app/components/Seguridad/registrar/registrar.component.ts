@@ -1,25 +1,22 @@
-import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { ErrorModalComponent } from '../error-modal/error-modal.component';
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef } from '@angular/core';
-import {  EventEmitter, Output } from '@angular/core';
+import { ErrorModalComponent } from '../error-modal/error-modal.component';
 
 
 @Component({
-  selector: 'app-registro',
-  templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss']
+  selector: 'app-registrar',
+  templateUrl: './registrar.component.html',
+  styleUrls: ['./registrar.component.scss']
 })
-export class RegistroComponent {
+export class RegistrarComponent {
   showOtroInput: boolean = false;
   otroSexoDescripcion: string = '';
   @Output() registroCompletado = new EventEmitter<void>();
-
-  user = { nombre: '', apellidoP: '', apellidoM: '', email: '', password: '', fechaNacimiento: '', sexo: '', tipoUsuario: 'Cliente' };
+  user = { nombre: '', apellidoP: '', apellidoM: '', email: '', password: '', fechaNacimiento: '', sexo: '', 
+ tipoUsuario: 'Cliente' };
   passwordError: string = '';
   passwordVisible = false;
   ageError: string | null = null;
@@ -31,33 +28,30 @@ export class RegistroComponent {
     private cdr: ChangeDetectorRef
     
   ) {}
-
   getMaxDate(): Date {
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() - 1);
     return currentDate;
-}
-validateAge() {
+ }
+ validateAge() {
   const minAge = 18;
   const birthDate = new Date(this.user.fechaNacimiento);
   const currentDate = new Date();
   const ageDiff = currentDate.getFullYear() - birthDate.getFullYear();
-
   if (ageDiff < minAge) {
       this.ageError = 'Debes tener al menos 18 años.';
   } else {
       this.ageError = null;
   }
-}
+ }
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
-
   validarPassword(): string | null {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
   
     if (!passwordRegex.test(this.user.password)) {
-      return 'La contraseña debe contener al menos una letra mayúscula, un número, un símbolo y tener una longitud mínima de 8 caracteres.';
+      return 'La contraseña debe contener al menos una letra mayúscula, un número, un símbolo y tener una  longitud mínima de 8 caracteres.';
     } else {
       return null;
     }
@@ -67,17 +61,14 @@ validateAge() {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   }
-
-  async registrar() {
-    
-   
-    if (!this.user.nombre || !this.user.apellidoP || !this.user.apellidoM || !this.user.email || !this.user.password || !this.user.fechaNacimiento || !this.user.sexo || !this.user.tipoUsuario) {
-      this.openErrorModal('Por favor, ingresa todos los datos requeridos.');
+  async registrar() {   
+    // MENSAJE DE ERROR DEL REGISTRO
+    if (!this.user.nombre || !this.user.apellidoP || !this.user.apellidoM || !this.user.email || !this.user. password || !this.user.fechaNacimiento || !this.user.sexo || !this.user.tipoUsuario) {
+      this.openErrorModal('Por favor, diligenciar todos los datos requeridos en el formulario.');
       return;
     }
-
     if (!this.validarEmail(this.user.email)) {
-      this.openErrorModal('Por favor, ingresa una dirección de correo electrónico válida.');
+      this.openErrorModal('Por favor, diligenciar correo electrónico válido.');
       return;
     }
     // this.validarPassword(); // Validar la contraseña
@@ -93,13 +84,11 @@ validateAge() {
       // Emitir evento de registro completado
     this.registroCompletado.emit();
   }
-
     if (this.user.sexo === 'Otro' && this.otroSexoDescripcion) {
         this.user.sexo = this.otroSexoDescripcion;
     }
     
   }
-
   checEmail() {
     this.authService.checkEmailExists(this.user.email).subscribe(
       (res) => {
@@ -115,7 +104,6 @@ validateAge() {
       }
     );
   }
-
   registerUser() {
     this.authService.registrar(this.user)
       .subscribe(
@@ -135,7 +123,7 @@ validateAge() {
         this.otroSexoDescripcion = '';
     }
     this.cdr.detectChanges(); // Forzar detección de cambios
-}
+ }
   
    private openErrorModal(message: string) {
     const modalRef = this.modalService.open(ErrorModalComponent, { centered: true });

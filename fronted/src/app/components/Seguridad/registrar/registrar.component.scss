@@ -14,18 +14,19 @@ html {
   height: 100%;
 }
 
-body {
-  background-color: $base-bgcolor;
-  color: $base-color;
-  font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family, $base-font-family-fallback;
-  margin: 0;
-  min-height: 100%;
-}
+// body {
+  // // background-color: $base-bgcolor;
+  // color: $base-color;
+  // // // // // font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family, $base-font-family-fallback;
+  // margin: 0;
+  // min-height: 100%;
+// }
 
 .align {
   align-items: center;
   display: flex;
   flex-direction: row;
+  padding: 10px;
 
   &__item {
 
@@ -75,9 +76,14 @@ input {
     padding: .5rem 1rem;
 
     &[type="email"],
-    &[type="submit"],
+    &[type="text"],
     &[type="password"] {
       width: 100%;
+    }
+
+    &[type="radio"]{
+      border-radius: 50%;
+      padding: 5px;
     }
 
   }
@@ -115,7 +121,7 @@ a {
 .register {
   box-shadow: 0 0 250px #000;
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 2rem 1rem;
   border-radius: 45px;
   align-items: flex-end;
 
@@ -126,6 +132,8 @@ a {
     text-align: center;
 
     &[type="email"],
+    &[ type="text"],
+    &[type="radio"],
     &[type="password"] {
       background-repeat: no-repeat;
       background-size: 1.5rem;
@@ -173,6 +181,108 @@ a {
 
 .password-icon {
   position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.forgot-password {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.link-forgot-password {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-forgot-password:hover {
+  text-decoration: underline;
+}
+/*Crea una cuenta  */
+.forgot-password {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.link-forgot-password {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-forgot-password:hover {
+  text-decoration: underline;
+}
+
+.new-account {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.link-new-account {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-new-account:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para el contenedor con icono */
+.input-with-icon {
+  position: relative;
+}
+
+/* Estilos para el icono de alternancia */
+.input-with-icon .password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  outline: none; /* Sin contorno */
+  padding: 0; /* Sin padding */
+  color: #3498db; /* Cambia el color del icono según tu diseño */
+  font-size: 18px; /* Ajusta el tamaño del icono según tu diseño */
+  transition: color 0.3s; /* Agrega una transición suave para el color */
+}
+
+.input-with-icon .password-toggle:hover {
+  color: #e74c3c; /* Cambia el color al pasar el mouse por encima */
+}
+
+button{
+  background-image: linear-gradient(160deg, #746afa 0%, #adbdb9 100%);
+color: #fff;
+margin-bottom: 6rem;
+width: 100%;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.form-control[type="password"] {
+  padding-right: 40px; /* Ajusta este valor según sea necesario */
+}
+/* olde contraseña */
+.password-input-container {
+  position: relative;
+}
+
+.password-icon {
+  position: relative;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);

@@ -1,0 +1,82 @@
+<div class="align">
+
+  <div class="grid align_item">
+  
+    <div class="register">
+  
+    <svg xmlns="http://www.w3.org/2000/svg" class="site__logo" width="56" height="84" viewBox="77.7 214.9 274.7 412"><defs><linearGradient id="a" x1="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#7keabb"/><stop offset="100%" stop-color="#746afa"/></linearGradient></defs><path fill="url(#a)" d="M215 214.9c-83.6 123.5-137.3 200.8-137.3 275.9 0 75.2 61.4 136.1 137.3 136.1s137.3-60.9 137.3-136.1c0-75.1-53.7-152.4-137.3-275.9z"/></svg>
+  
+      <h2>Grupo Flores</h2>
+      <form action="" method="post" class="form">
+          <div class="form_field">
+            <input type="text" [(ngModel)]="user.nombre" name="nombre" class="form-control" placeholder="Nombre completo" required autofocus>
+          </div>
+          <br>
+          <div class="form_field">
+              <input type="text" [(ngModel)]="user.apellidoP" name="apellidoP" class="form-control 
+               mr-2" placeholder="Apellido Paterno" required>
+          </div>
+          <br>
+          <div class="form_field">
+            <input type="text" [(ngModel)]="user.apellidoM" name="apellidoM" class="form-control"  placeholder="Apellido Materno" required>
+          </div>
+          <br>
+          <div class="form_field">
+            <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder="Correo Electronico" required >
+          </div>
+          <br>
+          <div class="form_field">
+            <div class="password-input-container">
+              <input type="{{ passwordVisible ? 'text' : 'password' }}" 
+              [(ngModel)]="user.password"          
+              name="password" 
+              class="form-control" 
+              placeholder="Contraseña" required>
+              <span type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                  <i class="fa" [ngClass]="{'fa-eye': passwordVisible, 'fa-eye-slash': !passwordVisible}"></i>
+              </span>
+            </div>
+            <div *ngIf="passwordError" class="password-error">
+                {{ passwordError }}
+            </div>  
+          </div>
+          <div class="form_field">
+            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+            <input type="date" [(ngModel)]="user.fechaNacimiento" 
+                  name="fechaNacimiento" 
+                  class="form-control" required 
+                  max="{{ getMaxDate() | date:'yyyy-MM-dd' }}"
+                  (blur)="validateAge()">
+            <div *ngIf="ageError" class="age-error">
+                {{ ageError }}
+            </div>
+          </div>
+          <div class="form_field">
+            <div class="form-group">
+            <label> Sexo ?</label>
+              <div class="form-check">
+                  <input type="radio" [(ngModel)]="user.sexo" name="sexo" class="form-check-input"   value="Masculino" required>
+                  <label class="form-check-label">Masculino</label>
+              </div>
+              <div class="form-check">
+                  <input type="radio" [(ngModel)]="user.sexo" name="sexo" class="form-check-input"       value="Femenino" required>
+                  <label class="form-check-label">Femenino</label>
+              </div>
+              <div class="form-check">
+                  <input type="radio" [(ngModel)]="user.sexo" name="sexo" class="form-check-input"        value="Otro" required>
+                  <label class="form-check-label">Otro</label>
+                  <div *ngIf="user.sexo === 'Otro'" class="form-field">
+                    <label>Describa Sexo</label>
+                    <input type="text" [(ngModel)]="otroSexoDescripcion" name="otroSexoDescripcion"      
+                 class="form-control" placeholder="Describa Sexo">
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="form_field">
+            <input type="submit" value="REGISTRAR" (click)="registrar()" class="btn btn-primary btn-block" data-toggle="modal"   data-target="#errorModal">
+          </div>
+      </form>
+    </div>  
+  </div>
+</div>
