@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductSubirService } from 'src/app/services/product-subir.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-subir-producto',
   templateUrl: './subir-producto.component.html',
@@ -9,7 +10,7 @@ export class SubirProductoComponent {
   file: File | null = null;
   photoSelected: string | ArrayBuffer | null = null;
 
-  constructor(private productServe:ProductSubirService){  }
+  constructor(private productServe:ProductSubirService, private router:Router){  }
 
   onPhotoSelect(event: Event): void {
     if (event.target instanceof HTMLInputElement) {
@@ -33,7 +34,7 @@ export class SubirProductoComponent {
         .subscribe(
           res => {
             console.log(res);
-            // Puedes hacer algo más aquí después de una carga exitosa si es necesario
+            this.router.navigate(['/dashboard/admin/list']);
           },
           err => console.log(err)
         );
