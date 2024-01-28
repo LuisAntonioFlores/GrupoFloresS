@@ -9,7 +9,7 @@ import { Producto } from '../interfaces/Producto';
 })
 export class ProductSubirService {
   constructor(private http: HttpClient) { }
-  
+
   URI = 'http://localhost:4000/api/photos';
 
   createProduct(title: string, description: string, photo: File): Observable<Producto> {
@@ -24,8 +24,15 @@ export class ProductSubirService {
     return this.http.get<Producto[]>(this.URI);
   }
 
-  getProducto(id:String){
-    return this.http.get(`${this.URI}/${id}`);
+  getProducto(id: String) {
+    return this.http.get<Producto>(`${this.URI}/${id}`);
+
   }
-  
+  deleteProducto(id: String) {
+    return this.http.delete(`${this.URI}/${id}`);
+  }
+  uptdateProducto(id: String, title: String, description: string) {
+    return this.http.put(`${this.URI}/${id}`, { title, description });
+
+  }
 }

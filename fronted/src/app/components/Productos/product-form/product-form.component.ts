@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { ProductosService } from '../../../services/productos.service';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-product-form',
@@ -7,7 +11,9 @@ import { ProductosService } from '../../../services/productos.service';
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent {
-  constructor(private productosService: ProductosService) {}
+  constructor(private productosService: ProductosService,
+     private router: Router,
+     private route: ActivatedRoute) { }
 
   product = {
     name: '',
@@ -18,28 +24,40 @@ export class ProductFormComponent {
     imageURL: null as string | null // Asegúrate de agregar esta línea
   };
 
-  submitForm() {
-    const formData = new FormData();
-    formData.append('name', this.product.name);
-    formData.append('price', this.product.price.toString());
-    formData.append('description', this.product.description);
-    formData.append('cantidad', this.product.cantidad.toString());
+ 
+  
+    // ... (código anterior)
 
-    if (this.product.image) {
-      formData.append('image', this.product.image);
-    }
+submitForm() {
+  console.log('Formulario enviado');
+  console.log('Before FormData creation');
+  const formData = new FormData();
+  formData.append('name', this.product.name);
+  formData.append('price', this.product.price.toString());
+  formData.append('description', this.product.description);
+  formData.append('cantidad', this.product.cantidad.toString());
 
-    this.productosService.agregarProducto(formData).subscribe(
-      (response: any) => {
-        console.log('Server response:', response);
-        // Manejar la respuesta del servidor
-      },
-      (error: any) => {
-        console.log('Server error:', error);
-        // Manejar los errores
-      }
-    );
+  if (this.product.image) {
+    formData.append('image', this.product.image);
   }
+
+  console.log('Before agregarProducto');
+  this.productosService.agregarProducto(formData).subscribe(
+    (response: any) => {
+      console.log('Successful response:', response);
+
+      // Redirigir a la página deseada después de enviar el formulario con éxito
+      this.router.navigate(['/ruta-deseada']); // Reemplaza '/ruta-deseada' con tu ruta real
+
+    },
+    (error: any) => {
+      console.log('Server error:', error);
+    }
+  );
+}
+// ... (código posterior)
+
+  
 
   handleImageInput(event: any) {
     const file = event.target.files[0];

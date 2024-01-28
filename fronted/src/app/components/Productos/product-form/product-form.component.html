@@ -1,8 +1,6 @@
 <div class="product-form-container">
   <h3>Cargar Producto</h3>
-  <!-- es una prueba
-   -->
-  <form (ngSubmit)="submitForm()" class="product-form">
+  <form (ngSubmit)="submitForm()" class="product-form" enctype="multipart/form-data">
     <div class="form-group">
       <label for="name">Nombre:</label>
       <input type="text" id="name" [(ngModel)]="product.name" name="name" class="form-control" required>
@@ -11,26 +9,22 @@
       <label for="price">Precio:</label>
       <input type="number" id="price" [(ngModel)]="product.price" name="price" class="form-control" required>
     </div>
-    
     <div class="form-group">
       <label for="description">Descripción:</label>
       <textarea id="description" [(ngModel)]="product.description" name="description" class="form-control" required></textarea>
     </div>
-    
     <div class="form-group">
       <label for="quantity">Cantidad:</label>
       <input type="number" id="quantity" [(ngModel)]="product.cantidad" name="quantity" class="form-control" required>
     </div>
-
     <div class="form-group">
       <label for="image">Imagen:</label>
       <input type="file" id="image" (change)="handleImageInput($event)" accept="image/*" class="form-control" required>
       <img *ngIf="product.imageURL" [src]="product.imageURL" class="uploaded-image" alt="Producto">
+      <img *ngIf="!product.imageURL" class="uploaded-image-placeholder" alt="Selecciona una imagen">
     </div>
-   
     <div class="btn-cen">
-      <button type="submit" class="btn">Cargar Producto</button>
+      <button type="button"  class="btn">Cargar Producto</button>
     </div>
-    
   </form>
 </div>

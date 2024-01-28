@@ -1,1 +1,35 @@
-<p>preview-producto works!</p>
+<div class="row" *ngIf="!producto; else main_content">
+    <h1>Cargando..</h1>
+</div>
+
+<ng-template #main_content>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <img [src]="'http://localhost:4000/' + (producto?.imagePath || '')" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <form class="card-body"  (submit)="updateProducto(title, description)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="titulo del Producto"
+                            [value]="producto?.title" #title>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="2" class="form-control" placeholder="Descripcion del producto"
+                            [value]="producto?.description" #description></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-block">Actualizar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <button class="btn btn-danger" (click)="deleteProducto(producto?._id)">Eliminar</button>
+    <br>
+    <br>
+    <br>
+
+</ng-template>
