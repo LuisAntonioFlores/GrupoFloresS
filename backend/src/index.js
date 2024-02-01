@@ -3,12 +3,11 @@ const app = express();
 const cors = require('cors');
 const verifyEmailRouter = require('./routes/verifyEmail');
 const verifyInicioRouter = require('./routes/VerifyInicio');
-const productRoutes = require('./routes/product');
+
 require('./database');
 
 app.use(cors());
 app.use(express.json());
-app.use('/api/productos', productRoutes);
 
 app.use('/api/verify-inicio', verifyInicioRouter);
 app.use('/api/verify-email', verifyEmailRouter);

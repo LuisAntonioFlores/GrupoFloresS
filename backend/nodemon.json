@@ -1,6 +1,6 @@
 {
     "watch": ["src_2"],
-    "ext": "ts",
-    "ignore": ["src_2/**/*.spec.ts"],
-    "exec": "ts-node "
+    "ext": "js",
+    "ignore": ["src_2/**/*.spec.js"],
+    "exec": "node "
 }
