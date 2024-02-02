@@ -1,4 +1,4 @@
-const Photo = require('../models/Photo');
+const Photo = require('../../src/models/Photo');
 const fs = require('fs').promises;
 const path = require('path');
 

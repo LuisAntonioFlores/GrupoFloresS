@@ -1,18 +1,18 @@
-const express = require ('express');
-const app = express();
-const cors = require('cors');
-const verifyEmailRouter = require('./routes/verifyEmail');
-const verifyInicioRouter = require('./routes/VerifyInicio');
+// Importamos App y startConnection
+const app = require('./app');
+const { startConnection } = require('./database');
 
-require('./database');
+// Función principal
+async function main() {
+  // Llamamos a startConnection
+  startConnection();
 
-app.use(cors());
-app.use(express.json());
+  // Esperamos a que la aplicación escuche en el puerto definido
+  await app.listen(app.get('port'));
 
-app.use('/api/verify-inicio', verifyInicioRouter);
-app.use('/api/verify-email', verifyEmailRouter);
-app.use('/api', require('./routes/index.js'));
+  // Imprimimos un mensaje indicando que el servidor está corriendo
+  console.log('Servidor corriendo en el puerto', app.get('port'));
+}
 
-app.listen(3000);
-console.log('Server on port', 3000);
-
+// Llamamos a la función principal
+main();
