@@ -1,11 +1,15 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://127.0.0.1:27017/FabricaDeBloc', {
-  
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+async function startConnection() {
+  try {
+    await mongoose.connect('mongodb://127.0.0.1:27017/FabricaDeBloc', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('Database is connected');
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
+}
 
-
-    .then(db=> console.log('Database is connected'))
-    .catch (err => console.log(err));
+module.exports = { startConnection };
