@@ -57,8 +57,8 @@ export class SliderComponent {
     this.estado = true;
     this.arrowActual = "";
     this.arrUrlIMG = []
-    this.paddLeft = '150px';
-    this.paddRight = '150px';
+    this.paddLeft = '180px';
+    this.paddRight = '180px';
     //tiempos en milisegundos cambio de imagen en slider
     this.timeImageSlide = 5000
     //tiempo en milisegundos a esperar luego de dar click a flechas o  botones radio
