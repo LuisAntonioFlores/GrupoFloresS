@@ -1,21 +1,32 @@
 .fondo{
-    background: #EFEFBB;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #D4D3DD, #c5c5a8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-background-size: cover;
-height: 100vh;
+    // background: #396afc;  /* fallback for old browsers */
+    // background: -webkit-linear-gradient(to right, #2948ff, #396afc);  /* Chrome 10-25, Safari 5.1-6 */
+    // // background: linear-gradient(to right, #2948ff, #396afc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-}
+    background: #0575E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background-size: cover;
+    height: 100vh;
+
+    }
 h2{
+    color: aliceblue;
     padding: 9rem;
+    margin: 5px;
     text-align: center;
     text-decoration: transparent(40%);
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
     font-style: oblique;
     font-size: 5rem;
+    text-shadow: #152270 0 -10px;
+
+    
 }
 .up{
+    color: aliceblue;
     text-align: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
     font-style: oblique;

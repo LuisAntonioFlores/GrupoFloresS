@@ -1,4 +1,10 @@
 .marketing-component {
+  
+  background: #426192;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #6FB1FC, #4364F7, #4d77bb);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #6FB1FC, #4364F7, #367cec); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
   position: relative;
 }
 
