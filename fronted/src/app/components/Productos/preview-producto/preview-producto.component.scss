@@ -1,0 +1,41 @@
+// Estilos Adicionales
+
+.form-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+  
+  .product-image {
+    max-width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-button {
+    background-color: #007bff;
+    color: #fff;
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+  

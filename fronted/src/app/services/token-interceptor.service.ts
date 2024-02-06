@@ -1,7 +1,8 @@
 
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -17,6 +18,15 @@ export class TokenInterceptorService implements HttpInterceptor {
         Authorization: `Bearer ${this.authService.getToken()}`
       }
     });
-    return next.handle(tokenizeReq);
+
+    return next.handle(tokenizeReq).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          // Token expirado, realizar acciones necesarias
+          this.authService.logout();
+        }
+        return throwError(error);
+      })
+    );
   }
 }

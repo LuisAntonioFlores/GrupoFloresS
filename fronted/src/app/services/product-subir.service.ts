@@ -12,10 +12,12 @@ export class ProductSubirService {
 
   URI = 'http://localhost:3000/api/photos';
 
-  createProduct(title: string, description: string, photo: File): Observable<Producto> {
+  createProduct(title: string, description: string, price: number, quantity: number, photo: File): Observable<Producto> {
     const fd = new FormData();
     fd.append('title', title);
     fd.append('description', description);
+    fd.append('price', price.toString());  
+    fd.append('quantity', quantity.toString());
     fd.append('image', photo);
     return this.http.post<Producto>(this.URI, fd);
   }
@@ -24,15 +26,15 @@ export class ProductSubirService {
     return this.http.get<Producto[]>(this.URI);
   }
 
-  getProducto(id: String) {
+  getProducto(id: string): Observable<Producto> {
     return this.http.get<Producto>(`${this.URI}/${id}`);
-
   }
-  deleteProducto(id: String) {
+
+  deleteProducto(id: string): Observable<any> {
     return this.http.delete(`${this.URI}/${id}`);
   }
-  uptdateProducto(id: String, title: String, description: string) {
-    return this.http.put(`${this.URI}/${id}`, { title, description });
 
+  uptdateProducto(id: string, title: string, description: string, price: number, quantity: number): Observable<any> {
+    return this.http.put(`${this.URI}/${id}`, { title, description, price, quantity });
   }
 }

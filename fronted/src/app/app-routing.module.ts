@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // componentes
-import { PrivatetasksComponent } from './components/Seguridad/privatetasks/privatetasks.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { PaginaWebInicialComponent } from './components/Compartidos/pagina-web-inicial/pagina-web-inicial.component';
 
@@ -11,6 +10,7 @@ import { AuthGuard } from './auth.guard';
 import { SliderComponent } from './components/Compartidos/slider/slider.component';
 import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienvenidos.component';
 import { RegistrarComponent } from './components/Seguridad/registrar/registrar.component';
+
 const routes: Routes = [
   {
     // Esta ruta redirige a /home como la ruta inicial
@@ -55,10 +55,15 @@ const routes: Routes = [
         path: 'admin',
         loadChildren: () => import('./components/Productos/productos.module').then(m => m.ProductosModule),
         canActivate: [AuthGuard] 
+      }, {
+        path: 'Shop',
+        loadChildren: () => import('./components/Tienda/tienda.module').then(m => m.TiendaModule),
+        canActivate: [AuthGuard] 
       }
     ]
   },
 
+ 
 ];
 
 @NgModule({

@@ -13,43 +13,47 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="./tareas" routerLinkActive="active"
-            *ngIf="!isIniciarRoute() && !isRegistrarseRoute() ">Preguntas</a>
+            *ngIf="!isIniciarRoute() && !isRegistrarseRoute()  && isCliente()">Preguntas</a>
         </li>
-        <li class="nav-item">
+        
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLink="./private" routerLinkActive="active"
             *ngIf="!isIniciarRoute() && !isRegistrarseRoute()&& authService.loggedIn()">Privacidad</a>
-        </li>
+        </li> -->
 
         <!-- Nueva pestaña "Almacén" -->
-        <li class="nav-item" *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn()">
+        <li class="nav-item"
+          *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn()&& isAdministrador()">
 
           <a class="nav-link mat-button" [matMenuTriggerFor]="almacenMenu" (mouseenter)="toggleMenu()"
-            (mouseleave)="toggleMenu()">
-            <mat-icon>store</mat-icon> Almacén
+            (mouseleave)="toggleMenu()" routerLink="/dashboard/admin/list">
+            <mat-icon>storage</mat-icon> Almacén
           </a>
           <mat-menu #almacenMenu="matMenu" class="mat-menu-panel" [@fadeInOut]="menuState">
             <ul class="mat-menu-content">
-              <li class="mat-menu-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="/dashboard/admin/list">
-                  <mat-icon>list</mat-icon> Listado de Producto
-                </a>
-              </li>
               <li class="mat-menu-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="/dashboard/admin/ProductoAlta">
                   <mat-icon>file_upload</mat-icon> Subir Productos
                 </a>
               </li>
               <li class="mat-menu-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="/dashboard/admin/product/:id'">
-                  <mat-icon>shopping_cart</mat-icon> Pedidos
+                <a class="nav-link" routerLink="/dashboard/admin/list">
+                  <mat-icon>list</mat-icon> Listado de Producto
                 </a>
               </li>
             </ul>
           </mat-menu>
         </li>
-
-
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard/Shop/Tienda" routerLinkActive="active"
+            *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn() && isCliente()">
+            <i class="fas fa-store"></i> Tienda
+          </a>
+        </li>
+        
       </ul>
+
+
 
       <ul class="navbar-nav ml-auto">
 
@@ -64,12 +68,22 @@
 
         <ng-template #loggedIn>
 
-          <li class="nav-item">
-            <a class="nav-link" style="cursor:pointer;" (click)="authService.logout()">Cerrar Sesion</a>
-            <li *ngIf="loggedIn">
-              <span>{{ nombre || 'Usuario' }} ({{ tipoUsuario || 'Tipo desconocido' }})</span>
-            </li>
-          </ng-template>
+          <li *ngIf="isCliente()">
+            <button mat-icon-button routerLink="/dashboard/Shop/Carrito">
+              <mat-icon style="vertical-align: middle;">shopping_cart</mat-icon>
+            </button>
+          </li>
+
+          <li><a class="nav-link" style="cursor:pointer;" (click)="authService.logout()">Cerrar Sesion</a>
+          </li>
+
+          <li *ngIf="loggedIn">
+            <span>{{ nombre || 'Usuario' }} ({{ tipoUsuario || 'Tipo desconocido' }})</span>
+          </li>
+
+
+
+        </ng-template>
       </ul>
     </div>
   </div>

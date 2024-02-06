@@ -31,6 +31,8 @@ import { OnepageComponent } from './components/Compartidos/onepage/onepage.compo
 import { NavonepageComponent } from './components/Compartidos/onepage/navonepage/navonepage.component';
 import { RegistrarComponent } from './components/Seguridad/registrar/registrar.component';
 import { ContactoComponent } from './components/Compartidos/contacto/contacto.component';
+import { AuthService } from './services/auth.service';
+import { TiendaModule } from './components/Tienda/tienda.module';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { ContactoComponent } from './components/Compartidos/contacto/contacto.co
     OnepageComponent,
     NavonepageComponent,
     RegistrarComponent,
-    ContactoComponent
+    ContactoComponent,
+
+   
   ],
   imports: [
     BrowserModule,
@@ -64,14 +68,16 @@ import { ContactoComponent } from './components/Compartidos/contacto/contacto.co
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ProductosModule,
-    MaterialModule
+    MaterialModule,
+    TiendaModule
   ],
   providers: [
     AuthGuard, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    AuthService
   ],
   bootstrap: [AppComponent],
 

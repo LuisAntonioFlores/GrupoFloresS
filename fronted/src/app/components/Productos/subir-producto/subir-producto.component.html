@@ -3,12 +3,24 @@
     Subir Producto
   </div>
   <div class="card-body">
-    <form (submit)="uploadProduct(title, description)">
+    <form (submit)="uploadProduct(title, description, price, quantity)">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Titulo Producto" required #title>
+        <select class="form-control" required #title>
+          <option value="Ligero Mazizo">Bloc Ligero Mazizo</option>
+          <option value="Block Pesado">Block Pesado </option>
+          <option value="Block de cocol ">Block de cocol</option>
+          <option value="Block de color ">Block de color</option>
+        </select>
       </div>
+      
       <div class="form-group">
         <textarea rows="2" placeholder="Descripcion del Producto" class="form-control" required #description></textarea>
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control" placeholder="Precio por pieza" required #price>
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control" placeholder="Cantidad de piezas" required #quantity>
       </div>
       <div class="form-group">
         <input type="file" class="d-none" (change)="onPhotoSelect($event)" #photoInput>

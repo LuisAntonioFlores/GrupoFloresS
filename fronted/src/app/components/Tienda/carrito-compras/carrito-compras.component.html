@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Carrito de compras</h2>
+    <div *ngFor="let producto of productosEnCarrito" class="row mb-3">
+      <div class="col-3">
+        <img [src]="producto.imagePath" alt="Producto" class="img-fluid">
+      </div>
+      <div class="col-6">
+        <h4>{{ producto.title }}</h4>
+        <p>Precio(unit): {{ producto.price | currency }}</p>
+        <p>Disponibilidad: {{ producto.quantity }}</p>
+        <div class="d-flex align-items-center">
+          <input type="number" [(ngModel)]="producto.cantidadSeleccionada" min="1" placeholder="0" />
+        </div>
+      </div>
+      <div class="col-3">
+        <p>Subtotal: {{ calcularSubtotal(producto) | currency }}</p>
+      </div>
+    </div>
+    <div class="text-end">
+      <h4>Total: {{ calcularTotal() | currency }}</h4>
+    </div>
+  </div>
+</div>

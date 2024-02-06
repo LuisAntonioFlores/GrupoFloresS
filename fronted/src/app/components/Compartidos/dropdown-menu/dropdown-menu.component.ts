@@ -1,9 +1,8 @@
-import { AuthService } from 'src/app/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatMenu } from '@angular/material/menu';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -25,32 +24,32 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ])
   ]
 })
-
 export class DropdownMenuComponent implements OnInit {
-  // Añadir propiedades para almacenar datos del usuario
   nombre: string = '';
   apellidoPaterno: string = '';
   apellidoMaterno: string = '';
   tipoUsuario: string = '';
-
   menuState: string = 'out';
   @ViewChild('almacenMenu') almacenMenu!: MatMenu;
-
   title: string = 'fronted';
   loggedIn: boolean = false;
   @ViewChild('sidena') sidenav!: MatSidenav;
 
- 
   constructor(public authService: AuthService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Obtener datos del usuario al inicializar el componente
-    this.authService.userData$.subscribe((userData) => {
-      this.nombre = userData.nombre || '';
-      this.apellidoPaterno = userData.apellidoPaterno || '';
-      this.apellidoMaterno = userData.apellidoMaterno || '';
-      this.tipoUsuario = userData.tipoUsuario || '';
-    });
+    const storedToken = this.authService.getToken();
+
+    if (storedToken) {
+      // Ya hay un token almacenado, suscribirse a userData$
+      this.authService.userData$.subscribe((userData) => {
+        // Actualizar propiedades del componente con los datos del usuario
+        this.nombre = userData.nombre || '';
+        this.apellidoPaterno = userData.apellidoPaterno || '';
+        this.apellidoMaterno = userData.apellidoMaterno || '';
+        this.tipoUsuario = userData.tipoUsuario || '';
+      });
+    }
   }
 
   toggleSidenav() {
@@ -74,5 +73,11 @@ export class DropdownMenuComponent implements OnInit {
       this.route.snapshot.firstChild?.routeConfig?.path === 'private' ||
       this.route.snapshot.firstChild?.routeConfig?.path === 'almacen'
     );
+  }
+  isAdministrador(): boolean {
+    return this.tipoUsuario === 'Administrador'; // Ajusta según la representación real de un administrador en tu aplicación
+  }
+  isCliente(): boolean {
+    return this.tipoUsuario === 'Cliente'; // Ajusta según la representación real de un cliente en tu aplicación
   }
 }
