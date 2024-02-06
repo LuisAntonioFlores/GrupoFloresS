@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductSubirService } from 'src/app/services/product-subir.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-subir-producto',
   templateUrl: './subir-producto.component.html',
@@ -10,7 +11,7 @@ export class SubirProductoComponent {
   file: File | null = null;
   photoSelected: string | ArrayBuffer | null = null;
 
-  constructor(private productServe:ProductSubirService, private router:Router){  }
+  constructor(private productServe: ProductSubirService, private router: Router) { }
 
   onPhotoSelect(event: Event): void {
     if (event.target instanceof HTMLInputElement) {
@@ -28,9 +29,17 @@ export class SubirProductoComponent {
     }
   }
 
-  uploadProduct(title: HTMLInputElement, description: HTMLTextAreaElement): boolean {
+  uploadProduct(titleSelect: HTMLSelectElement, description: HTMLTextAreaElement, priceInput: HTMLInputElement, quantityInput: HTMLInputElement): boolean {
     if (this.file !== null) {
-      this.productServe.createProduct(title.value, description.value, this.file)
+      const price = parseFloat(priceInput.value);
+      const quantity = parseInt(quantityInput.value, 10);
+
+      if (isNaN(price) || isNaN(quantity)) {
+        console.error("El precio o la cantidad no son números válidos.");
+        return false;
+      }
+
+      this.productServe.createProduct(titleSelect.value, description.value, price, quantity, this.file)
         .subscribe(
           res => {
             console.log(res);
@@ -39,12 +48,10 @@ export class SubirProductoComponent {
           err => console.log(err)
         );
     } else {
-      // Manejar el caso en el que this.file es null
       console.error("No se ha seleccionado ningún archivo.");
-      // Puedes mostrar un mensaje de error al usuario o tomar otras acciones apropiadas.
     }
     return false;
   }
-  
+
   
 }

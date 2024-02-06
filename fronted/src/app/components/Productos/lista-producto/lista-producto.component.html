@@ -1,12 +1,22 @@
 <div class="row">
-  <div class="col-md-4 p-4" *ngFor="let producto of productos">
-    <div class="card card-Produc" (click)="selectedCard(producto._id)">
+  <div class="col-md-4 col-sm-6 col-12 mb-4" *ngFor="let producto of productos">
+    <div class="card card-Produc custom-card" (click)="selectedCard(producto._id)">
       <div class="card-header">
-        <ng-container *ngIf="producto.title">{{producto.title}}</ng-container>
+        <ng-container *ngIf="producto.title">{{ producto.title }}</ng-container>
       </div>
       <img [src]="'http://localhost:3000/' + producto.imagePath" class="card-img-top w-100">
       <div class="card-body">
-        <ng-container *ngIf="producto.description">{{producto.description}}</ng-container>
+        <div class="slogan">
+          <ng-container *ngIf="producto.description">{{ producto.description }}</ng-container>
+        </div>
+        <br>
+        <ng-container *ngIf="producto.price">
+          <i class="fas fa-dollar-sign"></i> Precio por pieza: $ {{ producto.price }}
+        </ng-container>
+        <br>
+        <ng-container *ngIf="producto.quantity">
+          <i class="fas fa-box"></i> Cantidad de piezas en existencia: {{ producto.quantity }}
+        </ng-container>
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@ const getPhoto = async (req, res) => {
 
 const createPhoto = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, price, quantity } = req.body;
 
     let imagePath = '';
     if (req.file) {
@@ -33,9 +33,12 @@ const createPhoto = async (req, res) => {
     }
 
     const newPhoto = {
-      title: title,
-      description: description,
-      imagePath: imagePath
+      title,
+      description,
+      imagePath,
+      price,
+      quantity,
+      date: Date.now()
     };
 
     const photo = new Photo(newPhoto);
@@ -73,10 +76,12 @@ const deletePhoto = async (req, res) => {
 const updatePhoto = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description } = req.body;
+    const { title, description, price, quantity } = req.body;
     const updatedPhoto = await Photo.findByIdAndUpdate(id, {
       title,
-      description
+      description,
+      price,
+      quantity
     }, { new: true });
 
     return res.json({

@@ -1,35 +1,45 @@
 <div class="row" *ngIf="!producto; else main_content">
     <h1>Cargando..</h1>
+    <h3>Solo personal autorizado</h3>
 </div>
 
 <ng-template #main_content>
     <div class="row">
         <div class="col-md-5">
             <div class="card">
-                <img [src]="'http://localhost:3000/' + (producto?.imagePath || '')" class="img-fluid">
+                <img [src]="'http://localhost:3000/' + (producto?.imagePath || '')" class="img-fluid product-image">
             </div>
         </div>
         <div class="col-md-7">
             <div class="card">
-                <form class="card-body"  (submit)="updateProducto(title, description)">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="titulo del Producto"
-                            [value]="producto?.title" #title>
+                <h1>Actualiza los datos</h1>
+                <form class="card-body form-container" (submit)="updateProducto(title, description, price, quantity, addPieces)">
+                <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Título del Producto" [value]="producto?.title" #title readonly>
                     </div>
                     <div class="form-group">
-                        <textarea rows="2" class="form-control" placeholder="Descripcion del producto"
-                            [value]="producto?.description" #description></textarea>
+                        <textarea rows="2" class="form-control" placeholder="Descripción del producto" [value]="producto?.description" #description></textarea>
                     </div>
-                    <button class="btn btn-primary btn-block">Actualizar</button>
+                    <div class="form-group">
+                        <label for="price">Precio:</label>
+                        <input type="number" class="form-control" placeholder="Precio" [value]="producto?.price" #price>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Cantidad actual:</label>
+                        <input type="number" class="form-control" placeholder="Cantidad" [value]="producto?.quantity" #quantity readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="addPieces">Agregar Piezas:</label>
+                        <input type="number" class="form-control" placeholder="Agregar Piezas" #addPieces>
+                    </div>
+                    <button class="btn btn-primary btn-block update-button">Actualizar</button>
                 </form>
             </div>
         </div>
-
     </div>
     <br>
-    <button class="btn btn-danger" (click)="deleteProducto(producto?._id)">Eliminar</button>
+    <button class="btn btn-danger delete-button" (click)="deleteProducto(producto?._id)">Eliminar</button>
     <br>
     <br>
     <br>
-
 </ng-template>

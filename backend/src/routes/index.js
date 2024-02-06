@@ -25,7 +25,7 @@ router.post('/ingresar', async (req, res) => {
       tipoUsuario: newUser.tipoUsuario,
     };
 
-    const token = jwt.sign(tokenPayload, 'llaveSecreta');
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET || 'llaveSecreta', { expiresIn: '20m' });
 
     // Enviar el token y los detalles del usuario como respuesta
     return res.status(200).json({
@@ -63,7 +63,7 @@ router.post('/iniciar', async (req, res) => {
       tipoUsuario: user.tipoUsuario,
     };
 
-    const token = jwt.sign(tokenPayload, 'llaveSecreta');
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET || 'llaveSecreta', { expiresIn: '20m' });
 
     // Enviar el token y los detalles del usuario como respuesta
     return res.status(200).json({
@@ -101,25 +101,26 @@ router.get('/privatetasks', verifyToken, (req, res) => {
 
 // Middleware para verificar el token
 function verifyToken(req, res, next) {
-  if (!req.headers.authorization) {
-    return res.status(401).send('Requiere autorización');
-  }
-
-  const token = req.headers.authorization.split(' ')[1];
-
-  if (token === 'null') {
+  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
     return res.status(401).send('Requiere autorización');
   }
 
   try {
     // Verificar el token y decodificar el payload
-    const payload = jwt.verify(token, 'llaveSecreta');
+    const payload = jwt.verify(req.headers.authorization.split(' ')[1], process.env.JWT_SECRET || 'llaveSecreta');
 
     // Añadir el payload a req.user para acceder a los datos en las rutas protegidas
     req.user = payload;
 
     // Imprimir en la consola los datos recabados
     console.log('Datos recabados del token:', req.user);
+
+    // Verificar si el token ha expirado
+    const nowInSeconds = Math.floor(Date.now() / 1000);
+    if (payload.exp <= nowInSeconds) {
+      // Token expirado, cerrar sesión
+      return res.status(401).send('Token expirado. Cierre de sesión requerido.');
+    }
 
     // Continuar con la ejecución de la siguiente función
     next();
@@ -129,5 +130,10 @@ function verifyToken(req, res, next) {
     return res.status(401).send('Token inválido');
   }
 }
+
+// Manejo de rutas no encontradas
+router.use((req, res) => {
+  res.status(404).send('Ruta no encontrada');
+});
 
 module.exports = router;

@@ -1,12 +1,55 @@
-.card-Produc {
-    cursor: pointer;
-    border: 1px solid #ddd; /* Un borde inicial sutil */
-    transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+.custom-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+
+  .card-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .card-img-top {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .card-body {
+    padding: 15px;
+
+    .slogan {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+    }
   }
   
-  .card-Produc:hover {
-    border: 1px solid #333; /* Borde más oscuro al hacer hover */
-    transform: scale(1.05); /* Escala ligeramente la tarjeta al hacer hover para un efecto de crecimiento */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada en hover */
+  &:hover {
+    border: 1px solid #333;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   }
-  
+  .card-body {
+    padding: 15px;
+
+    .slogan {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+      font-family: 'Roboto', sans-serif; // Apply your preferred Google Font
+    }
+
+    i {
+      margin-right: 5px;
+      font-size: 16px;
+      color: #ff2200; // Adjust color as needed
+    }
+  }
+
+}
