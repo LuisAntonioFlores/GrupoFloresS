@@ -1,0 +1,39 @@
+
+
+.container-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta la altura según tus necesidades */
+  }
+  
+  .producto-titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4CAF50; /* Color verde */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Sombra de texto */
+  }
+  
+  .btn-colorido {
+    background-color: #FF5722; /* Color naranja */
+    border-color: #FF5722; /* Color borde naranja */
+  }
+  
+  .btn-colorido:hover,
+.btn-colorido:active,
+.btn-colorido:focus {
+  background-color: #FF7043; /* Color naranja claro al pasar el ratón */
+  border-color: #FF7043; /* Color borde naranja claro al pasar el ratón */
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.5); /* Agrega una sombra al pasar el ratón */
+}
+
+  
+  .form-control {
+    font-family: 'Arial', sans-serif; /* Tipo de letra Arial */
+    font-size: 1rem;
+  }
+  
+  .btn-colorido i {
+    margin-right: 5px; /* Añade un pequeño margen a la derecha del icono */
+  }
+ 
