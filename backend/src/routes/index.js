@@ -34,6 +34,8 @@ router.post('/ingresar', async (req, res) => {
       apellidoPaterno: newUser.apellidoP,
       apellidoMaterno: newUser.apellidoM,
       tipoUsuario: newUser.tipoUsuario,
+      _id: user._id
+
     });
   } catch (error) {
     console.error('Error al registrar un nuevo usuario:', error);
@@ -72,6 +74,7 @@ router.post('/iniciar', async (req, res) => {
       apellidoPaterno: user.apellidoP,
       apellidoMaterno: user.apellidoM,
       tipoUsuario: user.tipoUsuario,
+      _id: user._id
     });
   } catch (error) {
     console.error('Error al iniciar sesión:', error);
