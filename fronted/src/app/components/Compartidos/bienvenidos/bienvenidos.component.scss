@@ -1,7 +1,7 @@
 .fondo{
 
-    background: #232a3f;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #20243a, #1a2030);  /* Chrome 10-25, Safari 5.1-6 */
+    // background: #232a3f;  /* fallback for old browsers */
+    // background: -webkit-linear-gradient(to right, #20243a, #1a2030);  /* Chrome 10-25, Safari 5.1-6 */
     // background: linear-gradient(to right, #2948ff, #396afc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     // background: #0575E6;  /* fallback for old browsers */
@@ -13,7 +13,7 @@
 
     }
 h2{
-    color: aliceblue;
+    color: rgb(40, 46, 53);
     padding: 9rem;
     margin: 5px;
     text-align: center;
@@ -21,12 +21,12 @@ h2{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
     font-style: oblique;
     font-size: 5rem;
-    text-shadow: #152270 0 -10px;
+    text-shadow: #6a7ce2 0 -10px;
 
     
 }
 .up{
-    color: aliceblue;
+    color: rgb(119, 98, 143);
     text-align: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
     font-style: oblique;
