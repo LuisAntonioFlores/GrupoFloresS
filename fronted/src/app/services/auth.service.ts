@@ -10,12 +10,14 @@ import { AuthResponse } from '../interfaces/Inicio';
 })
 export class AuthService {
   private URL = 'http://localhost:3000/api';
+  
   private userDataSubject = new BehaviorSubject<AuthResponse>({
     token: '',
     nombre: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
-    tipoUsuario: ''
+    tipoUsuario: '',
+    _id: ''
   });
 
   userData$ = this.userDataSubject.asObservable();
@@ -34,6 +36,7 @@ export class AuthService {
       localStorage.setItem('apellidoPaterno', response.apellidoPaterno || '');
       localStorage.setItem('apellidoMaterno', response.apellidoMaterno || '');
       localStorage.setItem('tipoUsuario', response.tipoUsuario || '');
+      localStorage.setItem('id',response._id||'');
 
       // Emite los datos del usuario a los suscriptores
       this.userDataSubject.next({
@@ -41,7 +44,8 @@ export class AuthService {
         nombre: response.nombre || '',
         apellidoPaterno: response.apellidoPaterno || '',
         apellidoMaterno: response.apellidoMaterno || '',
-        tipoUsuario: response.tipoUsuario || ''
+        tipoUsuario: response.tipoUsuario || '',
+        _id: response._id || ''
       });
     }
   }
@@ -147,4 +151,8 @@ export class AuthService {
   getTipoUsuario(): string | null {
     return localStorage.getItem('tipoUsuario');
   }
+  getId(): string | null {
+    return localStorage.getItem('id');
+  }
+  
 }

@@ -10,7 +10,7 @@ import { Producto } from '../interfaces/Producto';
 export class ProductSubirService {
   constructor(private http: HttpClient) { }
 
-  URI = 'http://localhost:3000/api/photos';
+  URI = 'http://localhost:3000/api/producto';
 
   createProduct(title: string, description: string, price: number, quantity: number, photo: File): Observable<Producto> {
     const fd = new FormData();
