@@ -34,7 +34,7 @@ router.post('/ingresar', async (req, res) => {
       apellidoPaterno: newUser.apellidoP,
       apellidoMaterno: newUser.apellidoM,
       tipoUsuario: newUser.tipoUsuario,
-      _id: user._id
+      _id: newUser._id
 
     });
   } catch (error) {
