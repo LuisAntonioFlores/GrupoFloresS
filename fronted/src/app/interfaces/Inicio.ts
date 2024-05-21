@@ -4,4 +4,5 @@ export interface AuthResponse {
     apellidoPaterno?: string;
     apellidoMaterno?: string;
     tipoUsuario?: string;
+    _id?: string;
   }

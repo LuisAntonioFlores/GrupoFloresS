@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatMenu } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -24,32 +27,44 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ])
   ]
 })
-export class DropdownMenuComponent implements OnInit {
+export class DropdownMenuComponent implements OnInit, OnDestroy {
   nombre: string = '';
   apellidoPaterno: string = '';
   apellidoMaterno: string = '';
   tipoUsuario: string = '';
   menuState: string = 'out';
   @ViewChild('almacenMenu') almacenMenu!: MatMenu;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
   title: string = 'fronted';
   loggedIn: boolean = false;
-  @ViewChild('sidena') sidenav!: MatSidenav;
+  private destroy$ = new Subject<void>();
 
-  constructor(public authService: AuthService, private route: ActivatedRoute) {}
+  constructor(public authService: AuthService, private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     const storedToken = this.authService.getToken();
 
     if (storedToken) {
-      // Ya hay un token almacenado, suscribirse a userData$
-      this.authService.userData$.subscribe((userData) => {
-        // Actualizar propiedades del componente con los datos del usuario
+      this.loggedIn = true;  // Asegúrate de que loggedIn se establece a true
+      this.authService.userData$.pipe(takeUntil(this.destroy$)).subscribe((userData) => {
+        console.log('userData:', userData);  // Verificar qué datos se reciben
         this.nombre = userData.nombre || '';
         this.apellidoPaterno = userData.apellidoPaterno || '';
         this.apellidoMaterno = userData.apellidoMaterno || '';
         this.tipoUsuario = userData.tipoUsuario || '';
+        this.cdr.detectChanges();  // Forzar la detección de cambios
       });
+    } else {
+      this.loggedIn = false;
+      this.cdr.detectChanges();  // Forzar la detección de cambios
     }
+  
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   toggleSidenav() {
@@ -74,10 +89,12 @@ export class DropdownMenuComponent implements OnInit {
       this.route.snapshot.firstChild?.routeConfig?.path === 'almacen'
     );
   }
+
   isAdministrador(): boolean {
-    return this.tipoUsuario === 'Administrador'; // Ajusta según la representación real de un administrador en tu aplicación
+    return this.tipoUsuario === 'Administrador';
   }
+
   isCliente(): boolean {
-    return this.tipoUsuario === 'Cliente'; // Ajusta según la representación real de un cliente en tu aplicación
+    return this.tipoUsuario === 'Cliente';
   }
 }

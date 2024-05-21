@@ -11,14 +11,13 @@
     margin-top: 5px;
     overflow: hidden;
    }
-  
-  img {
+   img {
     padding: 0.5%;
-    width: 100%;
-    height: 100%;
-    // margin-left: var(--paddLeft);
-    // padding-right: var(--paddRight);
+    width: 500px; /* Ancho un poco más grande para todas las imágenes */
+    height: 400px; /* Alto un poco más grande para todas las imágenes */
+    object-fit: cover; /* Ajusta la imagen para que cubra el contenedor */
   }
+  
   img:hover {
     display: block;
     cursor: pointer;
