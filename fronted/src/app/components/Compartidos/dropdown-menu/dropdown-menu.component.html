@@ -46,7 +46,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/dashboard/Shop/Tienda" routerLinkActive="active"
-            *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn() && isCliente()">
+            *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn() && (isCliente() || isAdministrador())">
             <i class="fas fa-store"></i> Tienda
           </a>
         </li>
@@ -68,7 +68,7 @@
 
         <ng-template #loggedIn>
 
-          <li *ngIf="isCliente()">
+          <li *ngIf="isCliente() || isAdministrador">
             <button mat-icon-button routerLink="/dashboard/Shop/Carrito">
               <mat-icon style="vertical-align: middle;">shopping_cart</mat-icon>
             </button>
