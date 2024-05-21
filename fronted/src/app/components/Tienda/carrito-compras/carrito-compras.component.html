@@ -13,12 +13,17 @@
           <button class="btn btn-colorido btn-sm me-1" (click)="decrementarCantidad(producto)">
             <i class="fas fa-minus"></i>
           </button>
-          <input type="number" [(ngModel)]="producto.cantidadSeleccionada" min="1" max="{{producto.quantity}}" placeholder="0" class="form-control-4" (ngModelChange)="verificarCantidad(producto, $event)">
+          <input type="number" 
+                [(ngModel)]="producto.cantidadSeleccionada" 
+                min="1" max="{{producto.quantity}}" 
+                placeholder="0" class="form-control-4" 
+                (ngModelChange)="verificarCantidad(producto, $event)">
 
-          <button class="btn btn-colorido btn-sm ms-1" (click)="incrementarCantidad(producto)">
+          <button class="btn btn-colorido btn-sm ms-1 p-1" (click)="incrementarCantidad(producto)">
             <i class="fas fa-plus"></i>
           </button>
-          <button class="btn btn-danger btn-sm ms-1" (click)="eliminarDelCarrito(producto)">
+
+          <button class="btn btn-danger btn-sm ms-1 p-1" (click)="eliminarDelCarrito(producto)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
@@ -32,7 +37,7 @@
       <button class="btn btn-danger" (click)="vaciarCarrito()">
         <i class="bi bi-trash"></i> Vaciar Carrito
       </button>
-      <button class="btn btn-primary" (click)="redirigirACompras()">
+      <button class="btn btn-info" (click)="redirigirACompras()">
         <i class="bi bi-cart"></i> Seguir Comprando
       </button>
       <button class="btn btn-success" (click)="continuarCompra()">
@@ -46,10 +51,10 @@
     <!-- Vista cuando el carrito está vacío -->
     <div class="text-center mt-5">
       <img src="ruta/a/imagen_carrito_vacio.jpg" alt="Carrito Vacío" class="img-fluid">
-      <h3 class="producto-titulo">Carrido Vacío</h3>
+      <h3 class="producto-titulo">Carrito Vacío</h3>
       <p>No tienes ningún producto en tu carrito</p>
-      <button class="btn btn-primary btn-colorido" (click)="redirigirACompras()">
-        <i class="bi bi-cart"></i> Ir a Compras
+      <button class="btn btn-info btn-colorido" (click)="redirigirACompras()">
+        <i class="bi bi-cart  color:red"></i> Ir a Compras
       </button>
     </div>
   </div>
