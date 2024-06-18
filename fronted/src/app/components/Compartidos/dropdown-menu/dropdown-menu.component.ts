@@ -33,6 +33,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
   apellidoMaterno: string = '';
   tipoUsuario: string = '';
   menuState: string = 'out';
+  userImage: string = '';
   @ViewChild('almacenMenu') almacenMenu!: MatMenu;
   @ViewChild('sidenav') sidenav!: MatSidenav;
   title: string = 'fronted';
