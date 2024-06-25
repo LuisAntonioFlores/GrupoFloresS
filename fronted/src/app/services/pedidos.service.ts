@@ -10,6 +10,7 @@ export class PedidoService {
   constructor(private http: HttpClient) { }
 
   URI = 'http://localhost:3000/api/Pedido';
+  // URI = 'http://3.142.124.217:3000/api/Pedido';
 
   createPedido(pedidoData: any): Observable<Pedido> {
     return this.http.post<Pedido>(`${this.URI}`, pedidoData);
