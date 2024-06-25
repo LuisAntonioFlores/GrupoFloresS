@@ -11,6 +11,7 @@ export class ProductSubirService {
   constructor(private http: HttpClient) { }
 
   URI = 'http://localhost:3000/api/producto';
+  // URI = 'http://3.142.124.217:3000/api/producto';
 
   createProduct(title: string, description: string, price: number, quantity: number, photo: File): Observable<Producto> {
     const fd = new FormData();

@@ -17,4 +17,24 @@
   .mat-menu-item:hover {
     background-color: #f0f0f0;
   }
+  .user-image {
+    width: 30px; /* Ajusta el tamaño según sea necesario */
+    height: 30px; /* Ajusta el tamaño según sea necesario */
+    border-radius: 50%;
+    margin-right: 8px; /* Espacio entre la imagen y el texto */
+    vertical-align: middle;
+  }
+  
+  .user-image-menu {
+    width: 50px; /* Ajusta el tamaño según sea necesario */
+    height: 50px; /* Ajusta el tamaño según sea necesario */
+    border-radius: 50%;
+    margin-right: 8px; /* Espacio entre la imagen y el texto */
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+  }
   

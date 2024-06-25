@@ -8,6 +8,7 @@ const app = express(); // instanciamos express
 const indexRoutes = require('./routes/index1'); // importamos indexRoutes
 const path = require('path'); // importamos path
 const cors = require('cors');
+require('dotenv').config();
 // configuracion
 app.set('port', process.env.PORT || 3000); // puerto
 // middlewares

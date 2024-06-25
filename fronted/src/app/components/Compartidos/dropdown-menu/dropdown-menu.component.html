@@ -15,11 +15,7 @@
           <a class="nav-link" routerLink="./tareas" routerLinkActive="active"
             *ngIf="!isIniciarRoute() && !isRegistrarseRoute()  && isCliente()">Preguntas</a>
         </li>
-        
-        <!-- <li class="nav-item">
-          <a class="nav-link" routerLink="./private" routerLinkActive="active"
-            *ngIf="!isIniciarRoute() && !isRegistrarseRoute()&& authService.loggedIn()">Privacidad</a>
-        </li> -->
+
 
         <!-- Nueva pestaña "Almacén" -->
         <li class="nav-item"
@@ -44,13 +40,21 @@
             </ul>
           </mat-menu>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="/dashboard/Shop/Tienda" routerLinkActive="active"
             *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn() && (isCliente() || isAdministrador())">
             <i class="fas fa-store"></i> Tienda
           </a>
         </li>
-        
+
+        <!-- Nueva pestaña "Compras" -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard/Shop/Compras" routerLinkActive="active"
+            *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn() && (isCliente() || isAdministrador())">
+            <i class="fas fa-shopping-bag"></i> Compras
+          </a>
+        </li>
       </ul>
 
 
@@ -74,13 +78,46 @@
             </button>
           </li>
 
-          <li><a class="nav-link" style="cursor:pointer;" (click)="authService.logout()">Cerrar Sesion</a>
+          <!-- Nueva pestaña "Notificaciones" -->
+          <li *ngIf="isCliente() || isAdministrador()">
+            <button mat-icon-button routerLink="/dashboard/Shop/Notificaciones">
+              <mat-icon style="vertical-align: middle;">notifications</mat-icon>
+            </button>
           </li>
 
-          <li *ngIf="loggedIn">
-            <span>{{ nombre || 'Usuario' }} ({{ tipoUsuario || 'Tipo desconocido' }})</span>
-          </li>
+          <li class="nav-item">
+            <button mat-button [matMenuTriggerFor]="userMenu">
+              <img [src]="userImage" class="user-image">
+              <br>
+              {{ nombre || 'Usuario' }}
 
+            </button>
+
+
+            <mat-menu #userMenu="matMenu">
+              <div class="user-info">
+
+                <div class="nav-item">
+
+                  <span>{{ tipoUsuario || 'Tipo desconocido' }}</span>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <!-- Submenú "Información Personal" -->
+              <button mat-menu-item routerLink="/informacion-personal">Información Personal</button>
+              <!-- Submenú "Datos de la Cuenta" -->
+              <button mat-menu-item routerLink="/datos-cuenta">Datos de la Cuenta</button>
+              <!-- Submenú "Seguridad" -->
+              <button mat-menu-item routerLink="/seguridad">Seguridad</button>
+              <!-- Submenú "Direcciones" -->
+              <button mat-menu-item routerLink="/direcciones">Direcciones</button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item (click)="authService.logout()">Cerrar Sesión</button>
+
+
+            </mat-menu>
+
+          </li>
 
 
         </ng-template>

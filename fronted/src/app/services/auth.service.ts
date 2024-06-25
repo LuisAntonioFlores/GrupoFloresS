@@ -10,7 +10,7 @@ import { AuthResponse } from '../interfaces/Inicio';
 })
 export class AuthService {
   private URL = 'http://localhost:3000/api';
-  
+  // private URL = 'http://3.142.124.217:3000/api';
   private userDataSubject = new BehaviorSubject<AuthResponse>({
     token: '',
     nombre: '',
