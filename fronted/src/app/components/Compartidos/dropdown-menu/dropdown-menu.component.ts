@@ -40,27 +40,31 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
   loggedIn: boolean = false;
   private destroy$ = new Subject<void>();
 
-  constructor(public authService: AuthService, private route: ActivatedRoute,
+  constructor(public authService: AuthService, 
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     const storedToken = this.authService.getToken();
 
     if (storedToken) {
-      this.loggedIn = true;  // Asegúrate de que loggedIn se establece a true
+        this.loggedIn = true;
       this.authService.userData$.pipe(takeUntil(this.destroy$)).subscribe((userData) => {
-        console.log('userData:', userData);  // Verificar qué datos se reciben
+          if (userData) {
+            console.log('userData:', userData);
         this.nombre = userData.nombre || '';
         this.apellidoPaterno = userData.apellidoPaterno || '';
         this.apellidoMaterno = userData.apellidoMaterno || '';
         this.tipoUsuario = userData.tipoUsuario || '';
-        this.cdr.detectChanges();  // Forzar la detección de cambios
+            this.cdr.detectChanges(); // Forzar la detección de cambios
+          } else {
+            console.error('No user data found');
+          }
       });
     } else {
       this.loggedIn = false;
-      this.cdr.detectChanges();  // Forzar la detección de cambios
+        this.cdr.detectChanges(); // Forzar la detección de cambios
     }
-  
   }
 
   ngOnDestroy(): void {

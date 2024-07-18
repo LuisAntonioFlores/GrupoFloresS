@@ -27,11 +27,9 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     // Suscripción al userData$ para obtener el _id del usuario
     this.authService.userData$.subscribe((userData) => {
       this.clienteId = userData._id || '';
-      console.log(`p_Id: ${userData._id}`);
-      console.log('p2_Id: ' + userData._id);
-
-
-      console.log('cliente',this.clienteId);
+      // console.log(`p_Id: ${userData._id}`);
+      // console.log('p2_Id: ' + userData._id);
+      // console.log('cliente', this.clienteId);
     });
   }
   
@@ -95,15 +93,15 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     }
 
     continuarCompra() {
-      console.log('Datos del carrito:');
+    // console.log('Datos del carrito:');
       this.productosEnCarrito.forEach(producto => {
-        console.log('ID:', producto._id);
-        console.log('Imagen:', producto.imagePath);
-        console.log('Precio:', producto.price);
-        console.log('Cantidad Seleccionada:', producto.cantidadSeleccionada);
-        console.log('Subtotal:', this.calcularSubtotal(producto));
+      // console.log('ID:', producto._id);
+      // console.log('Imagen:', producto.imagePath);
+      // console.log('Precio:', producto.price);
+      // console.log('Cantidad Seleccionada:', producto.cantidadSeleccionada);
+      // console.log('Subtotal:', this.calcularSubtotal(producto));
       });
-      console.log('Total:', this.calcularTotal());
+    // console.log('Total:', this.calcularTotal());
     }
     
     crearPedido() {
