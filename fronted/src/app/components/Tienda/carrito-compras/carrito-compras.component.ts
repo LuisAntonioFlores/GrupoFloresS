@@ -14,9 +14,9 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
   productosEnCarrito: any[] = [];
   carritoSubscription: Subscription | undefined;
 
- clienteId: string = '';
+  clienteId: string = '';
 
-  
+
   constructor(private carritoService: CarritoServiceService, private router: Router,private pedidoService: PedidoService,private authService: AuthService  ) { }
 
   ngOnInit() {
@@ -27,15 +27,13 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     // Suscripción al userData$ para obtener el _id del usuario
     this.authService.userData$.subscribe((userData) => {
       this.clienteId = userData._id || '';
-      console.log(`p_Id: ${userData._id}`);
-      console.log('p2_Id: ' + userData._id);
-
-
-      console.log('cliente',this.clienteId);
+      // console.log(`p_Id: ${userData._id}`);
+      // console.log('p2_Id: ' + userData._id);
+      // console.log('cliente', this.clienteId);
     });
   }
-  
-  
+
+
 
   ngOnDestroy() {
     if (this.carritoSubscription) {
@@ -75,8 +73,8 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
       producto.cantidadSeleccionada = 200;
     }
   }
-  
-  
+
+
 
   eliminarDelCarrito(producto: any) {
     const index = this.productosEnCarrito.indexOf(producto);
@@ -85,52 +83,52 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
       this.carritoService.eliminarDelCarrito(producto);
     }
   }
-  
+
 
   redirigirACompras() {
-    this.router.navigate(['/dashboard/Shop/Tienda']); 
-     }
-     vaciarCarrito() {
-      this.carritoService.limpiarCarrito();
-    }
+    this.router.navigate(['/dashboard/Shop/Tienda']);
+  }
+  vaciarCarrito() {
+    this.carritoService.limpiarCarrito();
+  }
 
-    continuarCompra() {
-      console.log('Datos del carrito:');
-      this.productosEnCarrito.forEach(producto => {
-        console.log('ID:', producto._id);
-        console.log('Imagen:', producto.imagePath);
-        console.log('Precio:', producto.price);
-        console.log('Cantidad Seleccionada:', producto.cantidadSeleccionada);
-        console.log('Subtotal:', this.calcularSubtotal(producto));
-      });
-      console.log('Total:', this.calcularTotal());
-    }
-    
-    crearPedido() {
-      // Aquí puedes construir el objeto pedido con los datos necesarios, por ejemplo:
-      const pedidoData = {
-         numero_Pedido: '12345',
-        cliente_id: this.clienteId, // Reemplaza 'id_del_cliente' con el ID del cliente real
-        items: this.productosEnCarrito.map(producto => ({
-          product_id: producto._id,
-          quantity: producto.cantidadSeleccionada,
-          price: producto.price
-        })),
-        total_price: this.calcularTotal()
-      };
-      
-    
-      // Llama al método createPedido del servicio PedidoService
-      this.pedidoService.createPedido(pedidoData).subscribe(
-        response => {
-          console.log('Pedido creado exitosamente:', response);
-          // Puedes redirigir al usuario a una página de confirmación o realizar otras acciones aquí
-        },
-        error => {
-          console.error('Error al crear el pedido:', error);
-          // Maneja el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
-        }
-      );
-    }
-    
+  continuarCompra() {
+    // console.log('Datos del carrito:');
+    this.productosEnCarrito.forEach(producto => {
+      // console.log('ID:', producto._id);
+      // console.log('Imagen:', producto.imagePath);
+      // console.log('Precio:', producto.price);
+      // console.log('Cantidad Seleccionada:', producto.cantidadSeleccionada);
+      // console.log('Subtotal:', this.calcularSubtotal(producto));
+    });
+    // console.log('Total:', this.calcularTotal());
+  }
+
+  crearPedido() {
+    // Aquí puedes construir el objeto pedido con los datos necesarios, por ejemplo:
+    const pedidoData = {
+      numero_Pedido: '12345',
+      cliente_id: this.clienteId, // Reemplaza 'id_del_cliente' con el ID del cliente real
+      items: this.productosEnCarrito.map(producto => ({
+        product_id: producto._id,
+        quantity: producto.cantidadSeleccionada,
+        price: producto.price
+      })),
+      total_price: this.calcularTotal()
+    };
+
+
+    // Llama al método createPedido del servicio PedidoService
+    this.pedidoService.createPedido(pedidoData).subscribe(
+      response => {
+        console.log('Pedido creado exitosamente:', response);
+        // Puedes redirigir al usuario a una página de confirmación o realizar otras acciones aquí
+      },
+      error => {
+        console.error('Error al crear el pedido:', error);
+        // Maneja el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
+      }
+    );
+  }
+
 }
