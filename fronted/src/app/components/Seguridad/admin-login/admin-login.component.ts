@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegistrarComponent } from '../registrar/registrar.component';
+import { CarritoServiceService } from '../../Tienda/carrito-service.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -20,7 +21,8 @@ constructor(
   private authService: AuthService,
   private router: Router,
   private http: HttpClient,
-  private modalService: NgbModal
+  private modalService: NgbModal,
+  private carritoService: CarritoServiceService
 ) {
   this.iniciarForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]], // Agregamos Validators.maxLength,
@@ -59,7 +61,7 @@ iniciarSesion() {
   const email = this.iniciarForm.get('email')?.value;
   const password = this.iniciarForm.get('password')?.value;
   const user = { email, password };
-  this.authService.Iniciar(user).subscribe(
+  this.authService.Iniciar(user,this.carritoService).subscribe(
     (res) => {
       localStorage.setItem('token', res.token);
       this.router.navigate(['/private']);
