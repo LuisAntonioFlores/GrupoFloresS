@@ -23,6 +23,6 @@ app.use('/uploads', express.static(path.resolve('uploads'))); // para que se pue
 app.use('/api/verify-inicio', verifyInicioRouter);
 app.use('/api/verify-email', verifyEmailRouter);
 app.use('/api', require('./routes/index.js'));
-
+app.use('/api', require('./routes/mercadoruta.js'));  // Asegúrate de ajustar la ruta
 // exportamos app
 module.exports = app;
