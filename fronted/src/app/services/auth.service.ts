@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthResponse } from '../interfaces/Inicio';
+import { CarritoServiceService } from '../components/Tienda/carrito-service.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class AuthService {
 
   userData$ = this.userDataSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   // Función para actualizar datos del usuario
   private actualizarDatosUsuario(response: AuthResponse): void {
@@ -36,7 +38,10 @@ export class AuthService {
       localStorage.setItem('apellidoPaterno', response.apellidoPaterno || '');
       localStorage.setItem('apellidoMaterno', response.apellidoMaterno || '');
       localStorage.setItem('tipoUsuario', response.tipoUsuario || '');
-      localStorage.setItem('id',response._id||'');
+      localStorage.setItem('id', response._id || '');
+
+      // Imprime el ID del usuario
+      console.log('ID del usuario almacenado:', response._id);
 
       // Emite los datos del usuario a los suscriptores
       this.userDataSubject.next({
@@ -66,11 +71,14 @@ export class AuthService {
   }
 
   // Función para iniciar sesión
-  Iniciar(user: any): Observable<AuthResponse> {
+  Iniciar(user: any, carritoService: CarritoServiceService): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.URL + '/iniciar', user).pipe(
       map(response => {
         console.log('Respuesta completa del servidor (iniciar):', response);
         this.actualizarDatosUsuario(response);
+        
+     
+        carritoService.cargarCarrito();
         return response;
       }),
       catchError(error => {
@@ -153,6 +161,7 @@ export class AuthService {
   }
   getId(): string | null {
     return localStorage.getItem('id');
+
   }
-  
+
 }

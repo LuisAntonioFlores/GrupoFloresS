@@ -1,14 +1,18 @@
-
+const express = require('express');
+const { MercadoPagoConfig, Preference } = require('mercadopago');
 const client = new MercadoPagoConfig({ accessToken: 'TEST-8471721774041627-020813-1c3532061597970afbd2677b5ee2decf-1675220706' });
- import { MercadoPagoConfig, Preference } from 'mercadopago';
 
+// const client = new MercadoPagoConfig({ accessToken: 'TEST-8471721774041627-020813-1c3532061597970afbd2677b5ee2decf-1675220706' });
+// import { MercadoPagoConfig, Preference } from 'mercadopago';
+
+ 
 const router = express.Router();
 
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
     res.send("Soy el servidor:)");
 });
 
-app.post("/create_preference", async (req, res) => {
+router.post("/create_preference", async (req, res) => {
     try {
         console.log("Cuerpo de la solicitud recibida:", req.body);
 
