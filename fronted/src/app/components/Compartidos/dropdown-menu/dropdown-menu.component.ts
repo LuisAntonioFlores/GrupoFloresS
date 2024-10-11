@@ -56,7 +56,9 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
             this.apellidoPaterno = userData.apellidoPaterno || '';
             this.apellidoMaterno = userData.apellidoMaterno || '';
             this.tipoUsuario = userData.tipoUsuario || '';
+            this.loggedIn = true;
             this.cdr.detectChanges(); // Forzar la detección de cambios
+            
           } else {
             console.error('No user data found');
           }

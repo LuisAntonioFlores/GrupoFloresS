@@ -13,18 +13,38 @@ import { CarritoServiceService } from '../components/Tienda/carrito-service.serv
 export class AuthService {
   private URL = 'http://localhost:3000/api';
   // private URL = 'http://3.142.124.217:3000/api';
+
+  private cargarDatosUsuario(): void {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      const userData: AuthResponse = {
+        token: localStorage.getItem('token') || '',
+        nombre: localStorage.getItem('nombre') || '',
+        apellidoPaterno: localStorage.getItem('apellidoPaterno') || '',
+        apellidoMaterno: localStorage.getItem('apellidoMaterno') || '',
+        tipoUsuario: localStorage.getItem('tipoUsuario') || '',
+        _id: localStorage.getItem('id') || ''
+      };
+
+      // Actualizar el BehaviorSubject con los datos recuperados del localStorage
+      this.userDataSubject.next(userData);
+    }
+  }
+
   private userDataSubject = new BehaviorSubject<AuthResponse>({
     token: '',
     nombre: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
     tipoUsuario: '',
-    _id: ''
+    _id: '' 
   });
 
   userData$ = this.userDataSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { 
+    this.cargarDatosUsuario();
+  }
 
   // Función para actualizar datos del usuario
   private actualizarDatosUsuario(response: AuthResponse): void {
@@ -91,6 +111,7 @@ export class AuthService {
   // Función para verificar si el usuario está autenticado
   loggedIn(): boolean {
     return !!localStorage.getItem('token');
+    
   }
 
   // Función para obtener el token del localStorage
@@ -101,7 +122,7 @@ export class AuthService {
   // Función para cerrar sesión
   logout(): void {
     localStorage.removeItem('token');
-    this.router.navigate(['/iniciar']);
+    this.router.navigate(['/home']);
   }
 
   // Función para verificar si un correo electrónico ya existe
