@@ -136,58 +136,5 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
 }
 
   
-
-  // continuarCompra() {
-  //   const pedido: Pedido = this.crearPedido(); // Llamada al método crearPedido y asignación a la variable 'pedido'
-
-  //   this.mercadoPagoService.crearPreferencia(pedido).subscribe(
-  //     response => {
-  //       // Redirigir al usuario a la URL de pago de Mercado Pago
-  //       window.location.href = response.init_point; // Asumiendo que `init_point` es la URL de pago
-  //     },
-  //     error => {
-  //       console.error('Error al crear la preferencia:', error);
-  //       // Maneja el error adecuadamente aquí (por ejemplo, mostrando un mensaje al usuario)
-  //     }
-  //   );
-  
-  
-    // console.log('Datos del carrito:');
-    //this.productosEnCarrito.forEach(producto => {
-      // console.log('ID:', producto._id);
-      // console.log('Imagen:', producto.imagePath);
-      // console.log('Precio:', producto.price);
-      // console.log('Cantidad Seleccionada:', producto.cantidadSeleccionada);
-      // console.log('Subtotal:', this.calcularSubtotal(producto));
-   // });
-    // console.log('Total:', this.calcularTotal());
-  // }
-
-  // crearPedido() {
-  //   // Aquí puedes construir el objeto pedido con los datos necesarios, por ejemplo:
-  //   const pedidoData = {
-  //     numero_Pedido: '12345',
-  //     cliente_id: this.clienteId, // Reemplaza 'id_del_cliente' con el ID del cliente real
-  //     items: this.productosEnCarrito.map(producto => ({
-  //       product_id: producto._id,
-  //       quantity: producto.cantidadSeleccionada,
-  //       price: producto.price
-  //     })),
-  //     total_price: this.calcularTotal()
-  //   };
-
-
-  //   // Llama al método createPedido del servicio PedidoService
-  //   this.pedidoService.createPedido(pedidoData).subscribe(
-  //     response => {
-  //       console.log('Pedido creado exitosamente:', response);
-  //       // Puedes redirigir al usuario a una página de confirmación o realizar otras acciones aquí
-  //     },
-  //     error => {
-  //       console.error('Error al crear el pedido:', error);
-  //       // Maneja el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
-  //     }
-  //   );
-  // }
   
 }

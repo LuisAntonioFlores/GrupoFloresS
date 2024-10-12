@@ -7,5 +7,6 @@ export interface Producto {
     imagePath: string;
     price: number;
     quantity: number;
+    cantidadSeleccionada: number;
   }
   

@@ -14,7 +14,7 @@
           <button class="btn btn-colorido btn-sm me-1" (click)="decrementarCantidad(producto)">
             <i class="fas fa-minus"></i>
           </button>
-          <input type="number" [(ngModel)]="producto.cantidadSeleccionada" min="1" max="{{producto.quantity}}" placeholder="0" class="form-control-4" (ngModelChange)="verificarCantidad(producto, $event)">
+          <input type="number" [(ngModel)]="producto.cantidadSeleccionada" min="200" max="{{producto.quantity}}" placeholder="" class="form-control-4" (ngModelChange)="verificarCantidad(producto, $event)">
 
           <button class="btn btn-colorido btn-sm ms-1" (click)="incrementarCantidad(producto)">
             <i class="fas fa-plus"></i>

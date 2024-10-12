@@ -66,20 +66,25 @@ export class CarritoServiceService {
   agregarAlCarrito(producto: Producto): void {
     const carritoActual = this.carritoSubject.getValue();
     console.log('Carrito actual antes de agregar:', carritoActual);
-
+  
+    // Asegurarse de que el producto tenga la propiedad 'cantidadSeleccionada'
+    if (!producto.cantidadSeleccionada || producto.cantidadSeleccionada < 200) {
+      producto.cantidadSeleccionada = 200; // Establecemos un mínimo de 200 piezas
+    }
+  
     const productoExistente = carritoActual.find(item => item._id === producto._id);
-
+  
     if (!productoExistente) {
-      console.log('Agregando producto al carrito:', producto);
+      console.log('Agregando producto al carrito con cantidad seleccionada de:', producto.cantidadSeleccionada);
       this.carritoSubject.next([...carritoActual, producto]);
       this.productosAgregados.add(producto._id);  // Añade el ID al conjunto de productos agregados
       this.guardarCarrito();
       console.log('Productos agregados después de añadir:', Array.from(this.productosAgregados)); // Log después de añadir
-  
     } else {
       console.log('El producto ya está en el carrito:', producto);
     }
   }
+  
 
   obtenerCarrito(): Producto[] {
     return this.carritoSubject.value;
