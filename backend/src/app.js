@@ -1,6 +1,8 @@
 const verifyEmailRouter = require('./routes/verifyEmail');
 const verifyInicioRouter = require('./routes/VerifyInicio');
 const orderRoutes = require('./routes/orderRoutes');
+
+const routes = require('./routes'); // Ajusta la ruta a tu archivo de rutas
 // servidor
 const express = require('express');  // importamos express
 const morgan = require('morgan');    // importamos morgan
@@ -20,6 +22,7 @@ app.use(express.json()); // para que express entienda json
 app.use('/api', indexRoutes); // rutas
 app.use('/api', orderRoutes);
 app.use('/uploads', express.static(path.resolve('uploads'))); // para que se pueda acceder a la carpeta uploads desde el navegador
+
 
 // Ruta para Mercado Pago
 app.use('/api/pago', meruta);
