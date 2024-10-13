@@ -1,6 +1,9 @@
+const mongoose = require('mongoose'); // Importar mongoose
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 require('dotenv').config();
+
 const client = new MercadoPagoConfig({ accessToken: process.env.MERCADO_API_KEY });
+const Pedido = require('../models/Pedidos');
 
 // Set para rastrear pagos procesados
 const processedPayments = new Set();
@@ -9,7 +12,7 @@ const processedPayments = new Set();
 const createPreference = async (req, res) => {
     try {
         const { products } = req.body;
-        
+
         if (!products || products.length === 0) {
             return res.status(400).json({ error: "No se proporcionaron productos en la solicitud." });
         }
@@ -31,7 +34,7 @@ const createPreference = async (req, res) => {
                     pending: "https://youtu.be/5SiW4UWAf8g?list=RD5SiW4UWAf8g"
                 },
                 auto_return: "approved",
-                notification_url: "https://370b-201-141-19-135.ngrok-free.app/api/pago/webhook"
+                notification_url: "https://d70e-201-141-106-179.ngrok-free.app/api/pago/webhook"
             }
         });
 
@@ -42,60 +45,145 @@ const createPreference = async (req, res) => {
     }
 };
 
-// Controlador para manejar webhooks
-const handleWebhook = (req, res) => {
+const fetchPaymentInfo = async (paymentId) => {
+    // Obtener información del pago desde Mercado Pago
+    const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${process.env.MERCADO_API_KEY}`,
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text(); // Obtener el cuerpo de la respuesta
+        console.error('Error al obtener la información de la orden:', errorBody);
+        throw new Error(`Error al obtener la información de la orden: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+};
+
+const handleWebhook = async (req, res) => {
+    const { id, topic } = req.query;
+
+    if (!id || !topic) {
+        console.error('ID o Topic no están definidos.');
+        return res.status(400).send('ID o Topic no definidos');
+    }
+
+    console.log(`Recibido webhook - ID: ${id}, Topic: ${topic}`);
+
     try {
-        const data = req.body;
-        console.log("Evento recibido desde Mercado Pago:", data);
+        if (topic === 'payment') {
+            const paymentInfo = await fetchPaymentInfo(id);
+            console.log('Información del pago:', paymentInfo);
 
-        if (data.type === "payment") {
-            const paymentInfo = data.data;
+            if (paymentInfo.status === 'approved') {
+                let items = [];
 
-            // Verificar si el pago ya fue procesado
-            if (processedPayments.has(paymentInfo.id)) {
-                console.log(`El pago con ID ${paymentInfo.id} ya fue procesado.`);
-                return res.status(200).send("Pago ya procesado");
+                // Verificar si hay items en la información del pago
+                if (Array.isArray(paymentInfo.items) && paymentInfo.items.length > 0) {
+                    items = paymentInfo.items.map(item => ({
+                        product_id: item.id,
+                        quantity: item.quantity,
+                        price: item.unit_price
+                    }));
+                } else {
+                    // Si no hay items, buscar detalles de la orden
+                    if (paymentInfo.order && paymentInfo.order.id) {
+                        const orderId = paymentInfo.order.id;
+                        const orderInfo = await fetchOrderInfo(orderId); // Función para obtener detalles de la orden
+                        items = orderInfo.items.map(item => ({
+                            product_id: item.product_id,
+                            quantity: item.quantity,
+                            price: item.price
+                        }));
+                    } else {
+                        console.error('No se encontraron items en el pago y tampoco se pudo obtener información de la orden.');
+                        return res.status(400).send('No se encontraron items en el pago.');
+                    }
+                }
+
+                const newPedido = new Pedido({
+                    numero_Pedido: paymentInfo.id,
+                    cliente_id: 'CLIENTE_ID_AQUI',
+                    status: 'Paid',
+                    paymentStatus: 'Approved',
+                    paymentMethod: paymentInfo.payment_type,
+                    mercadoPagoPaymentId: paymentInfo.id,
+                    mercadoPagoOrderId: paymentInfo.order.id,
+                    items,
+                    total_price: paymentInfo.transaction_amount,
+                    shippingAddress: {
+                        street: 'DIRECCION_AQUI',
+                        city: 'CIUDAD_AQUI',
+                        postalCode: 'CODIGO_POSTAL_AQUI',
+                        country: 'PAIS_AQUI'
+                    },
+                    paymentDetails: {
+                        transaction_amount: paymentInfo.transaction_amount,
+                        net_received_amount: paymentInfo.net_received_amount,
+                        total_paid_amount: paymentInfo.total_paid_amount,
+                        mercadoPagoFee: paymentInfo.fee_details[0]?.amount // Asegúrate de manejar esto adecuadamente
+                    },
+                    date_approved: new Date()
+                });
+
+                await newPedido.save();
+                console.log('Pedido guardado exitosamente:', newPedido);
+            } else {
+                console.log('Pago no aprobado. Estado:', paymentInfo.status);
             }
-
-            console.log("Información del pago:", paymentInfo);
-
-            switch (paymentInfo.status) {
-                case 'approved':
-                    console.log(`Pago aprobado: ${paymentInfo.id}`);
-                    // Aquí puedes realizar la lógica para completar el pedido
-                    break;
-                case 'pending':
-                    console.log(`Pago pendiente: ${paymentInfo.id}`);
-                    // Aquí podrías notificar al usuario que el pago está en proceso
-                    break;
-                case 'rejected':
-                    console.log(`Pago rechazado: ${paymentInfo.id}`);
-                    // Aquí puedes manejar el rechazo
-                    break;
-                case 'cancelled':
-                    console.log(`Pago cancelado: ${paymentInfo.id}`);
-                    // Aquí podrías notificar al usuario que el pago fue cancelado
-                    break;
-                default:
-                    console.log(`Estado del pago desconocido: ${paymentInfo.id}`);
-            }
-
-            // Marcar este pago como procesado
-            processedPayments.add(paymentInfo.id);
+        } else if (topic === 'merchant_order') {
+            console.log('Notificación de orden recibida:', id);
+            // Procesar la notificación de la orden
+            const orderInfo = await fetchOrderInfo(id);
+            console.log('Información de la orden:', orderInfo);
         }
 
-        if (data.topic === "merchant_order") {
-            const merchantOrderId = data.resource.split("/").pop();
-            console.log("Evento de orden de comerciante recibido:", merchantOrderId);
-            // Lógica para manejar las órdenes del comerciante
-        }
-
-        res.status(200).send("Evento recibido"); 
+        res.sendStatus(200);
     } catch (error) {
-        console.error("Error en el webhook:", error);
-        res.status(500).send("Error en el manejo del webhook");
+        console.error('Error al procesar el webhook:', error.message);
+        return res.status(500).send('Error interno del servidor');
     }
 };
+
+
+const actualizarEstado = async (objectId) => {
+    try {
+        // Lógica para actualizar el estado del pedido en la base de datos
+        await Pedido.updateOne({ _id: objectId }, { status: 'actualizado' }); // Cambia esto según tu lógica
+        console.log('Estado de la orden actualizado exitosamente.');
+    } catch (error) {
+        console.error('Error al actualizar el estado del pedido:', error);
+        throw error; // Lanza el error para manejarlo más tarde
+    }
+};
+
+const fetchOrderInfo = async (orderId) => {
+    try {
+        const response = await fetch(`https://api.mercadopago.com/v1/orders/${orderId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${process.env.MERCADO_API_KEY}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const errorBody = await response.json(); // Obtener el cuerpo de la respuesta
+            console.error('Error al obtener la información de la orden:', errorBody);
+            throw new Error(`Error al obtener la información de la orden: ${response.status} ${response.statusText}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error en fetchOrderInfo:', error.message);
+        throw error; // Lanzar de nuevo el error para manejarlo en el controlador
+    }
+};
+
 
 module.exports = {
     createPreference,
