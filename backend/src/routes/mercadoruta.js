@@ -10,15 +10,8 @@ router.get("/", (req, res) => {
 // Ruta para crear la preferencia
 router.post("/create_preference", createPreference);
 
-// router.post("/webhook", handleWebhook);
-router.post("/webhook", (req, res) => {
-    try {
-        handleWebhook(req, res);
-    } catch (error) {
-        console.error("Error en el webhook:", error);
-        res.status(500).send("Error en el manejo del webhook");
-    }
-});
+router.post("/webhook", handleWebhook);
+
 router.get('/success', (req, res) => {
     // Aquí podrías manejar la lógica de éxito
     const { collection_id, payment_id, status } = req.query;
