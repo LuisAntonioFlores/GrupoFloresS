@@ -11,13 +11,22 @@ const indexRoutes = require('./routes/index1'); // importamos indexRoutes
 const path = require('path'); // importamos path
 const cors = require('cors');
 const meruta = require('./routes/mercadoruta.js');
+const direccionRoutes = require('./routes/Direccion');
+
+
 require('dotenv').config();
+app.use(morgan('dev')); // morgan
+app.use(cors());
+app.use(express.json()); // debe estar al inicio antes de las rutas 
+
+app.use('/api/direccion', direccionRoutes);
+
 // configuracion
 app.set('port', process.env.PORT || 3000); // puerto
 // middlewares
-app.use(morgan('dev')); // morgan
-app.use(cors());
-app.use(express.json()); // para que express entienda json
+
+
+ // para que express entienda json
 // routes
 app.use('/api', indexRoutes); // rutas
 app.use('/api', orderRoutes);
@@ -29,6 +38,12 @@ app.use('/api/pago', meruta);
 app.use('/api/verify-inicio', verifyInicioRouter);
 app.use('/api/verify-email', verifyEmailRouter);
 app.use('/api', require('./routes/index.js'));
+
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Algo salió mal!' });
+});
 
 app.get('/', (req, res) => {
     res.send('Bienvenido al servidor de la API'); // Respuesta simple

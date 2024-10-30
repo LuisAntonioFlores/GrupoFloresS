@@ -51,7 +51,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
         this.loggedIn = true;
         this.authService.userData$.pipe(takeUntil(this.destroy$)).subscribe((userData) => {
           if (userData) {
-            console.log('userData:', userData);
+            // console.log('userData:', userData);
             this.nombre = userData.nombre || '';
             this.apellidoPaterno = userData.apellidoPaterno || '';
             this.apellidoMaterno = userData.apellidoMaterno || '';

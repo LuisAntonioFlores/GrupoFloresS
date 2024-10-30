@@ -6,6 +6,10 @@ import { PedidoService } from 'src/app/services/pedidos.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MercadoPagoService, Product } from 'src/app/services/mercado-pago.service';
 import { Pedido } from 'src/app/interfaces/Pedidos';
+import { AdressService } from '../../adress/adress.service';
+
+import { Direccion } from 'src/app/interfaces/direccion';
+
 @Component({
   selector: 'app-carrito-compras',
   templateUrl: './carrito-compras.component.html',
@@ -16,27 +20,57 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
   carritoSubscription: Subscription | undefined;
 
   clienteId: string = '';
-
+  direccion: string | null = null; //
+  codigoPostal: string | null = null;
+  direccionCompleta: Direccion | null = null;
 
   constructor(
     private carritoService: CarritoServiceService,
      private router: Router,
      private pedidoService: PedidoService,
      private authService: AuthService,
-     private mercadoPagoService: MercadoPagoService  ) { }
+     private mercadoPagoService: MercadoPagoService,
+     private adressService: AdressService, ) { }
 
   ngOnInit() {
     this.carritoSubscription = this.carritoService.carrito$.subscribe((productos) => {
       this.productosEnCarrito = productos;
     });
 
-    // Suscripción al userData$ para obtener el _id del usuario
-    this.authService.userData$.subscribe((userData) => {
-      this.clienteId = userData._id || '';
-      // console.log(`p_Id: ${userData._id}`);
-      // console.log('p2_Id: ' + userData._id);
-      // console.log('cliente', this.clienteId);
-    });
+    this.clienteId = this.authService.getId() || '';
+   //
+  const direccionIdGuardada = this.adressService.obtenerDireccionSeleccionada();
+// console.log('ID de dirección guardada:', direccionIdGuardada);
+
+if (direccionIdGuardada) {
+  this.adressService.obtenerDireccionPorId(direccionIdGuardada).subscribe(
+    (direccion) => {
+      if (direccion) {
+        // Imprimir el ID de dirección y todos los demás datos
+       // console.log('ID de dirección:', direccionIdGuardada);
+        //console.log('Datos de dirección:', direccion); // Muestra todos los datos recibidos de la API
+        
+        // Asignar el código postal y otros campos según sea necesario
+        this.codigoPostal = direccion.codigoPostal || 'Código postal no disponible';
+        // console.log('Código postal:', this.codigoPostal);
+        // Puedes asignar otros campos aquí también, por ejemplo:
+        // this.calle = direccion.calle;
+        // this.numero = direccion.numero;
+      } else {
+        this.codigoPostal = 'Código postal no disponible'; // Valor predeterminado
+        // console.warn('No se encontró la dirección con el ID proporcionado.');
+      }
+    },
+    (error) => {
+      console.error('Error al obtener la dirección:', error);
+    }
+  );
+}
+
+//
+ 
+
+
   }
 
 
@@ -98,43 +132,50 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     this.carritoService.limpiarCarrito();
   }
   crearPedido(): Pedido {
+    const direccionIdGuardada = this.adressService.obtenerDireccionSeleccionada();
     return {
-      numero_Pedido: '12345', // Puedes hacer este número dinámico
-      cliente_id: this.clienteId,
-      date_Pedido: new Date(),
-      status: 'Pending',
-      items: this.productosEnCarrito.map(producto => ({
-        product_id: producto._id,
-        title: producto.title,
-        quantity: producto.cantidadSeleccionada,  // Asegúrate de usar cantidadSeleccionada
-        price: producto.price
-      })),
-      total_price: this.calcularTotal()
+        numero_Pedido: '12345', // Puedes hacer este número dinámico
+        cliente_id: this.clienteId , // Incluye el cliente_id aquí
+        date_Pedido: new Date(),
+        status: 'Pending',
+        items: this.productosEnCarrito.map(producto => ({
+            product_id: producto._id,
+            title: producto.title,
+            quantity: producto.cantidadSeleccionada,  // Asegúrate de usar cantidadSeleccionada
+            price: producto.price
+        })),
+        total_price: this.calcularTotal(),
+        direccion_id: direccionIdGuardada || undefined 
     };
-  }
-  
-
-  continuarCompra() {
-    const pedido: Pedido = this.crearPedido(); // Llamada al método crearPedido y asignación a la variable 'pedido'
-
-    this.mercadoPagoService.crearPreferencia(pedido).subscribe(
-        response => {
-            // Verifica que la respuesta tenga el init_point
-            const redirectUrl = response.init_point; // Obtiene la URL de redirección
-            if (redirectUrl) {
-                window.location.href = redirectUrl; // Redirige al usuario a la página de pago de Mercado Pago
-            } else {
-                console.error('No se recibió una URL de redirección válida');
-                // Maneja el error adecuadamente aquí (por ejemplo, mostrando un mensaje al usuario)
-            }
-        },
-        error => {
-            console.error('Error al crear la preferencia:', error);
-            // Maneja el error adecuadamente aquí (por ejemplo, mostrando un mensaje al usuario)
-        }
-    );
 }
 
+continuarCompra() {
+  const pedido: Pedido = this.crearPedido();
+
+  this.mercadoPagoService.crearPreferencia(pedido).subscribe(
+    response => {
+      const redirectUrl = response.init_point;
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      } else {
+        console.error('No se recibió una URL de redirección válida');
+      }
+    },
+    error => {
+      if (error.status === 400) {
+        console.error('Error al crear la preferencia: Solicitud incorrecta. Verifica los datos enviados:', error.error);
+      } else {
+        console.error('Error inesperado:', error);
+      }
+    }
+  );
+}
+
+redirigirADirecciones(): void {
+  this.router.navigate(['/dashboard/Address/direccion_lista']);
+}
   
-  
+obtenerCodigoPostal(): string {
+  return localStorage.getItem('codigoPostal') || 'No disponible';
+}
 }

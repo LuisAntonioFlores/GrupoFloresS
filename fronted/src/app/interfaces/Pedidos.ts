@@ -5,6 +5,7 @@ export interface Pedido {
     status?: 'Pending' | 'Shipped' | 'Delivered';
     items: Item[];
     total_price: number;
+    direccion_id?: string;
   }
   
   export interface Item {

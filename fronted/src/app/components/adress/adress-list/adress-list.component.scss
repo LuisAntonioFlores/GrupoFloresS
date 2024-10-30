@@ -1,0 +1,56 @@
+.adress-list {
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+    max-width: 600px; /* Ancho máximo del div */
+  margin: 20px auto; /* Centrar el div y agregar un margen superior e inferior */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde opcional para visualizar el div */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un efecto de elevación */
+  text-align: center; /* Centrar el texto dentro del div */
+  }
+
+  form {
+    /* styles.scss */
+button {
+  background-color: #FF5733; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  padding: 10px 15px; /* Espaciado interno */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  transition: background-color 0.3s; /* Transición suave */
+
+  &:hover {
+    background-color: #0056b3; /* Color al pasar el mouse */
+  }
+}
+
+    div {
+      background: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+
+      label {
+        display: block;
+        cursor: pointer;
+        margin-bottom: 10px;
+
+        input[type='radio'] {
+          margin-right: 10px;
+        }
+      }
+
+      hr {
+        margin: 10px 0;
+      }
+    }
+  }
+
+  p {
+    margin: 5px 0;
+  }
+}
