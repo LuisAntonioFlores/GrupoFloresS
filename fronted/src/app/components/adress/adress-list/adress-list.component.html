@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="adress-list">
+    <h2>Tus direcciones</h2>
+    
+    <div  *ngIf="direcciones.length > 0; else noDirecciones">
+      <form (ngSubmit)="seleccionarDireccion(direccionSeleccionada)">
+        <div  *ngFor="let direccion of direcciones">
+          <label>
+            <input 
+              type="radio" 
+              name="direccion" 
+              [value]="direccion._id" 
+              [(ngModel)]="direccionSeleccionada"  />
+            <span>{{ direccion.codigoPostal }}</span>
+          </label>
+          <p><strong>Calle:</strong> {{ direccion.calle }}</p>
+          <p><strong>Número:</strong> {{ direccion.numero }}</p>
+          <p><strong>Colonia:</strong> {{ direccion.colonia }}</p>
+          <p><strong>Municipio:</strong> {{ direccion.municipio }}</p>
+          <p><strong>Estado:</strong> {{ direccion.estado }}</p>
+          <p><strong>Tipo:</strong> {{ direccion.tipo }}</p>
+          <p><strong>Descripción:</strong> {{ direccion.descripcion }}</p>
+          <hr />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Dirección</button>
+      </form>
+    </div>
+  
+    <ng-template #noDirecciones>
+      <p>No tienes direcciones guardadas.</p>
+    </ng-template>
+  </div>
+  
+</div>

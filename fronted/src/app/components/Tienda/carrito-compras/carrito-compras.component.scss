@@ -35,3 +35,16 @@
     margin-right: 5px; /* Añade un pequeño margen a la derecha del icono */
   }
  
+  .btn-transparent {
+    background-color: transparent; /* Hacer el fondo transparente */
+    color: #007bff; /* Color del texto */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+    font-size: 16px; /* Tamaño del texto */
+    padding: 10px 15px; /* Espaciado interno */
+  }
+  
+  .btn-transparent:hover {
+    color: #0056b3; /* Color al pasar el mouse */
+  }
+  

@@ -33,6 +33,7 @@ import { RegistrarComponent } from './components/Seguridad/registrar/registrar.c
 import { ContactoComponent } from './components/Compartidos/contacto/contacto.component';
 import { AuthService } from './services/auth.service';
 import { TiendaModule } from './components/Tienda/tienda.module';
+import { AdressModule } from './components/adress/adress.module';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { TiendaModule } from './components/Tienda/tienda.module';
     NavonepageComponent,
     RegistrarComponent,
     ContactoComponent,
+   
 
    
   ],
@@ -69,7 +71,8 @@ import { TiendaModule } from './components/Tienda/tienda.module';
     BrowserAnimationsModule,
     ProductosModule,
     MaterialModule,
-    TiendaModule
+    TiendaModule,
+    AdressModule
   ],
   providers: [
     AuthGuard, {

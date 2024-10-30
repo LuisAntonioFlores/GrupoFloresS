@@ -5,6 +5,7 @@ const path = require('path');
 const getProductos = async (req, res) => {
   try {
     const productos = await Producto.find();
+    
     return res.json(productos);
   } catch (error) {
     console.error('Error al obtener productos:', error);
@@ -15,6 +16,7 @@ const getProductos = async (req, res) => {
 const getProducto = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log('ID del producto recibido:', id);
     const producto = await Producto.findById(id);
     return res.json(producto);
   } catch (error) {

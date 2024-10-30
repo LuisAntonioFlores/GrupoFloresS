@@ -59,7 +59,13 @@ const routes: Routes = [
         path: 'Shop',
         loadChildren: () => import('./components/Tienda/tienda.module').then(m => m.TiendaModule),
         canActivate: [AuthGuard] 
+      },
+      {
+        path: 'Address',
+        loadChildren: () => import('./components/adress/adress.module').then(m => m.AdressModule),
+        canActivate: [AuthGuard] 
       }
+
     ]
   },
 

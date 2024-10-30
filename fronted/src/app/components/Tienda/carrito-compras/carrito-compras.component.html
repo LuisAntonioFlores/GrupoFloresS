@@ -42,6 +42,11 @@
     </div>
 
   </div>
+  <div>
+  <button class="btn btn-transparent" (click)="redirigirADirecciones()" style="position: absolute; bottom: 20px; left: 20px;">
+    <i class="fas fa-map-marker-alt"></i> CP {{ codigoPostal }}
+  </button>
+</div>
 
   <div *ngIf="productosEnCarrito.length === 0">
     <!-- Vista cuando el carrito está vacío -->
