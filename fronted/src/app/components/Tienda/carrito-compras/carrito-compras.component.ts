@@ -9,6 +9,10 @@ import { Pedido } from 'src/app/interfaces/Pedidos';
 import { AdressService } from '../../adress/adress.service';
 
 import { Direccion } from 'src/app/interfaces/direccion';
+import { Socket } from 'ngx-socket-io';
+import { io } from 'socket.io-client';
+
+
 
 @Component({
   selector: 'app-carrito-compras',
@@ -19,6 +23,7 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
   productosEnCarrito: any[] = [];
   carritoSubscription: Subscription | undefined;
 
+  socket: any; 
   clienteId: string = '';
   direccion: string | null = null; //
   codigoPostal: string | null = null;
@@ -30,9 +35,25 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
      private pedidoService: PedidoService,
      private authService: AuthService,
      private mercadoPagoService: MercadoPagoService,
-     private adressService: AdressService, ) { }
+     private adressService: AdressService,
+     private socketService: Socket
+     
+    ) {this.socket = socketService; }
 
   ngOnInit() {
+  // Conectar al servidor de Socket.IO
+  try {
+    this.socket = io('http://localhost:3000');
+  } catch (error) {
+    console.error('Error al conectar al socket:', error);
+  }
+  // Escuchar eventos de eliminación de productos
+  this.socket.on('eliminarProducto', (productId: string) => {
+    this.eliminarProductoDelCarrito(productId);
+  });
+
+
+
     this.carritoSubscription = this.carritoService.carrito$.subscribe((productos) => {
       this.productosEnCarrito = productos;
     });
@@ -77,10 +98,13 @@ if (direccionIdGuardada) {
 
   ngOnDestroy() {
     if (this.carritoSubscription) {
-      this.carritoSubscription.unsubscribe();
+        this.carritoSubscription.unsubscribe();
     }
-  }
-
+    if (this.socket) {
+        this.socket.off('pedidoPagado'); // Desuscribirse del evento
+        this.socket.disconnect(); // Desconectar el socket
+    }
+}
   calcularTotal(): number {
     return this.productosEnCarrito.reduce((total, producto) => total + this.calcularSubtotal(producto), 0);
   }
@@ -114,7 +138,13 @@ if (direccionIdGuardada) {
     }
   }
 
-
+  eliminarProductoDelCarrito(productId: string) {
+    const producto = this.productosEnCarrito.find(prod => prod._id === productId);
+    if (producto) {
+      this.eliminarDelCarrito(producto);
+    }
+  }
+  
 
   eliminarDelCarrito(producto: any) {
     const index = this.productosEnCarrito.indexOf(producto);
@@ -177,5 +207,8 @@ redirigirADirecciones(): void {
   
 obtenerCodigoPostal(): string {
   return localStorage.getItem('codigoPostal') || 'No disponible';
+}
+mostrarAlerta(mensaje: string) {
+  alert(mensaje);
 }
 }
