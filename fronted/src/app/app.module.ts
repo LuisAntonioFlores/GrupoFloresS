@@ -34,7 +34,10 @@ import { ContactoComponent } from './components/Compartidos/contacto/contacto.co
 import { AuthService } from './services/auth.service';
 import { TiendaModule } from './components/Tienda/tienda.module';
 import { AdressModule } from './components/adress/adress.module';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -72,7 +75,7 @@ import { AdressModule } from './components/adress/adress.module';
     ProductosModule,
     MaterialModule,
     TiendaModule,
-    AdressModule
+    AdressModule, SocketIoModule.forRoot(config),
   ],
   providers: [
     AuthGuard, {

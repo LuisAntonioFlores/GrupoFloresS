@@ -1,7 +1,8 @@
     import { Injectable } from '@angular/core';
     import { HttpClient } from '@angular/common/http';
-    import { Observable } from 'rxjs';
+    import { Observable, tap } from 'rxjs';
     import { Pedido } from '../interfaces/Pedidos';
+   
     // Interface de producto
     export interface Product {
       product_id: string; 
@@ -28,4 +29,14 @@
         });
         
       }
+
+      obtenerEstadoPago(clienteId: string): Observable<any> {
+        console.log('Solicitando estado de pago para clienteId:', clienteId); // Verificar que se está llamando
+        return this.http.get<any>(`${this.apiUrl}/estado-pago/${clienteId}`).pipe(
+          tap((response) => {
+            console.log('Respuesta del estado de pago:', response); // Ver la respuesta del servidor
+          })
+        );
+      }
+      
     }

@@ -10,12 +10,12 @@ export class CarritoServiceService {
   private carritoSubject = new BehaviorSubject<Producto[]>([]);
   carrito$ = this.carritoSubject.asObservable();
   private productosAgregados: Set<string> = new Set<string>(); // Aquí está la propiedad
-
+ 
   constructor(private authService: AuthService) {
     console.log('Cargando carrito...');
     this.cargarCarrito();
   }
-
+  
   
   private getUserId(): string | null {
     return this.authService.getId();
