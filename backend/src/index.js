@@ -1,5 +1,5 @@
 // Importamos App y startConnection
-const app = require('./app');
+const { app, server, } = require('./app');
 const { startConnection } = require('./database');
 
 // Función principal
@@ -8,10 +8,14 @@ async function main() {
   startConnection();
 
   // Esperamos a que la aplicación escuche en el puerto definido
-  await app.listen(app.get('port'));
-
-  // Imprimimos un mensaje indicando que el servidor está corriendo
-  console.log('Servidor corriendo en el puerto', app.get('port'));
+  try {
+    // Espera a que la aplicación escuche en el puerto definido
+    await server.listen(app.get('port'));
+    console.log('Servidor corriendo en el puerto', app.get('port'));
+} catch (error) {
+    console.error('Error al iniciar la aplicación:', error);
+    process.exit(1);
+}
 }
 
 // Llamamos a la función principal

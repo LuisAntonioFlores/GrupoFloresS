@@ -30,7 +30,7 @@
     </div>
     <div class="text-end">
       <h4>Total: {{ calcularTotal() | currency }}</h4>
-      <button class="btn btn-danger" (click)="vaciarCarrito()">
+      <button class="btn btn-danger" (click)="vaciarCarrito(clienteId)">
         <i class="bi bi-trash"></i> Vaciar Carrito
       </button>
       <button class="btn btn-primary" (click)="redirigirACompras()">
