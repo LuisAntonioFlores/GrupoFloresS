@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductSubirService } from 'src/app/services/product-subir.service';
 import { Producto } from 'src/app/interfaces/Producto';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-preview-producto',
@@ -9,6 +10,8 @@ import { Producto } from 'src/app/interfaces/Producto';
   styleUrls: ['./preview-producto.component.scss']
 })
 export class PreviewProductoComponent implements OnInit {
+  private apiUrl = `${environment.baseUrl}:${environment.port}/`; // URL dinámica para la API
+
 
   id: string = '';
   producto: Producto | undefined;
@@ -70,4 +73,11 @@ export class PreviewProductoComponent implements OnInit {
     }
   }
   
+  getImageUrl(imagePath: string | undefined): string {
+    const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
+
+    // Asegura que hay una barra entre baseUrl e imagePath
+    return `${baseUrl}${imagePath?.startsWith('/') ? imagePath.slice(1) : imagePath || ''}`;
+}
+
 }

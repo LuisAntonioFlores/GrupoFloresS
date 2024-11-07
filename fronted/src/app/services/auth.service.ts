@@ -5,15 +5,16 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthResponse } from '../interfaces/Inicio';
 import { CarritoServiceService } from '../components/Tienda/carrito-service.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private URL = 'http://localhost:3000/api';
-  // private URL = 'http://3.142.124.217:3000/api';
 
+    private URL = `${environment.baseUrl}:${environment.port}/api`;
+  
   private cargarDatosUsuario(): void {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {

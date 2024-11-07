@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../interfaces/Producto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Producto } from '../interfaces/Producto';
 export class ProductSubirService {
   constructor(private http: HttpClient) { }
 
-  URI = 'http://localhost:3000/api/producto';
+  URI = `${environment.baseUrl}:${environment.port}/api/producto`;
   // URI = 'http://3.142.124.217:3000/api/producto';
 
   createProduct(title: string, description: string, price: number, quantity: number, photo: File): Observable<Producto> {

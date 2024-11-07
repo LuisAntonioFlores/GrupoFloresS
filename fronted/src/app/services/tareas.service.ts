@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class TareasService {
-  private URL ='http://localhost:3000/api';
+  private URL = `${environment.baseUrl}:${environment.port}/api`;
 //  private URL ='http://3.142.124.217:3000/api';
   constructor(private http:HttpClient) { }
   getTarea(){
