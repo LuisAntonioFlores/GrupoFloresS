@@ -8,6 +8,7 @@ import { MercadoPagoService, Product } from 'src/app/services/mercado-pago.servi
 import { Pedido } from 'src/app/interfaces/Pedidos';
 import { AdressService } from '../../adress/adress.service';
 import { Direccion } from 'src/app/interfaces/direccion';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -239,4 +240,9 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     this.mostrarAlerta('El carrito ha sido eliminado después de una compra exitosa');
     this.router.navigate(['/dashboard']);
   }
+  getImageUrl(imagePath: string | undefined): string {
+    const baseUrl = `${environment.baseUrl}:${environment.port}/`;
+    return `${baseUrl}${imagePath || ''}`;
+  }
+  
 }

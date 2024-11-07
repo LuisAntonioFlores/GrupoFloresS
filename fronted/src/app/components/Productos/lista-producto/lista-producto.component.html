@@ -4,7 +4,8 @@
       <div class="card-header">
         <ng-container *ngIf="producto.title">{{ producto.title }}</ng-container>
       </div>
-      <img [src]="'http://localhost:3000/' + producto.imagePath" class="card-img-top w-100">
+      <img [src]="getImageUrl(producto?.imagePath)" class="card-img-top w-100">
+
       <div class="card-body">
         <div class="slogan">
           <ng-container *ngIf="producto.description">{{ producto.description }}</ng-container>

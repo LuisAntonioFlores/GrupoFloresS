@@ -2,6 +2,7 @@
     import { HttpClient } from '@angular/common/http';
     import { Observable, tap } from 'rxjs';
     import { Pedido } from '../interfaces/Pedidos';
+import { environment } from 'src/environments/environment';
    
     // Interface de producto
     export interface Product {
@@ -15,7 +16,9 @@
       providedIn: 'root',
     })
     export class MercadoPagoService {
-      private apiUrl = 'http://localhost:3000/api/pago'; 
+
+  private apiUrl = `${environment.baseUrl}:${environment.port}/api/pago`;
+      // private apiUrl = 'http://localhost:3000/api/pago'; 
       constructor(private http: HttpClient) { }
 
       

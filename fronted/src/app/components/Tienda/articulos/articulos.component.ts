@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Producto } from 'src/app/interfaces/Producto';
 import { ProductSubirService } from 'src/app/services/product-subir.service';
 import { CarritoServiceService } from '../carrito-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-articulos',
@@ -35,4 +36,9 @@ export class ArticulosComponent implements OnInit {
     const carrito = this.carritoService.obtenerCarrito();
     return carrito.some((item) => item._id === producto._id);
   }
+  getImageUrl(imagePath: string | undefined): string {
+    const baseUrl = `${environment.baseUrl}:${environment.port}/`;
+    return `${baseUrl}${imagePath || ''}`;
+  }
+  
 }
