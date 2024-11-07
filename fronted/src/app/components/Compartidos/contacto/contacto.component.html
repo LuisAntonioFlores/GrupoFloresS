@@ -1,25 +1,54 @@
 <div class="container">
-    <div class="row text-center">
-        <p class="col-md-12  text-center">Comparte con nosotros tus datos de contacto y te enviaremos toda la informacón de los medios de pagos. 
-        </p>
+  <div class="row text-center">
+    <p class="col-md-12 text-center">
+      Comparte con nosotros tus datos de contacto o tus dudas y nosotros nos comunicamos contigo.
+    </p>
+  </div>
+
+  <form #contactoForm="ngForm" (ngSubmit)="onSubmit(contactoForm)">
+    <div class="form-row">
+      <div class="col-md-5 col-sm-12">
+        <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="nombre" name="nombre" required>
+      </div>
+      <div class="col-md-5 col-sm-12">
+        <input type="text" class="form-control" placeholder="Apellidos" [(ngModel)]="apellidos" name="apellidos" required>
+      </div>
     </div>
-    <form  >
-            <div class="form-row ">
-              <div class="col-md-5 cold-sm-12">
-                <input type="text" class="form-control" placeholder="Nombre">
-              </div>
-              <div class="col-md-5 cold-sm-12 ">
-                <input type="text" class="form-control" placeholder="Apellidos">
-              </div>
-            </div>
-            <div class="form-row ">
-                <div class="col-md-5 cold-sm-12 ">
-                  <input type="email" class="form-control" placeholder="Email">
-                </div>
-                <div class="col-md-5 cold-sm-12 ">
-                    <input type="phone" class="form-control" placeholder="Telefono">
-                </div>
-                <button class="btn col-md-2 offset-md-5  boton">ENVIAR</button>
-            </div>
-    </form>    
+    
+    <div class="form-row">
+      <div class="col-md-5 col-sm-12" >
+       
+        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email" name="email" required email>
+        <small *ngIf="contactoForm.controls['email']?.invalid && contactoForm.controls['email']?.touched" class="text-danger">
+          El correo debe ser válido.
+        </small>
+      
+
+      </div>
+      <div class="col-md-5 col-sm-12">
+        <input type="text" class="form-control" placeholder="Teléfono" [(ngModel)]="telefono" name="telefono" required pattern="^\d{10}$">
+        <small *ngIf="contactoForm.controls['telefono']?.invalid && contactoForm.controls['telefono']?.touched" class="text-danger">
+          El teléfono debe tener 10 dígitos.
+        </small>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="col-md-10 col-sm-12">
+        <textarea class="form-control" placeholder="Quejas (opcional)" [(ngModel)]="quejas" name="quejas"></textarea>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn col-md-2 offset-md-5 boton" [disabled]="contactoForm.invalid">ENVIAR</button>
+  </form>
+
+  <!-- Modal de éxito -->
+  <div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>¡Gracias por contactarnos!</h2>
+      <p>Nos contactaremos contigo pronto.</p>
+      <button (click)="recargarPagina()">Aceptar</button>
+    </div>
+  </div>
 </div>

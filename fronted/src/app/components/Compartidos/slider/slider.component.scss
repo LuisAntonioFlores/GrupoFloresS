@@ -1,122 +1,72 @@
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .inner {
-    display: block;
-    position: relative;
-    width: 100%;
-    // max-width: 1300px;
-    margin-top: 5px;
-    overflow: hidden;
-   }
-   img {
-    padding: 0.5%;
-    width: 500px; /* Ancho un poco más grande para todas las imágenes */
-    height: 400px; /* Alto un poco más grande para todas las imágenes */
-    object-fit: cover; /* Ajusta la imagen para que cubra el contenedor */
-  }
-  
-  img:hover {
-    display: block;
-    cursor: pointer;
-    transition: filter 150ms;
-    filter: contrast(85%);  
-  }
-  
-  
-  .images-wrapper {
-    display: flex;
-    align-items: center;
-  }
-  
-  .slider__navbutton {
-    position: absolute;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    background-color: #757786;
-    opacity: 0.5;
-    cursor: pointer;
-  }
-  
-  .slider__navbutton:hover {
-    background-color: #000;
-  }
-  
-  #prev {
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-  }
-  
-  #next {
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-  }
-  #prev::after,
-  #next::after {
-    content: "";
-    position: absolute;
-    border: solid white;
-    border-width: 0 4px 4px 0;
-    padding: 4px;
-    width: 10%;
-    height: 10%;
-  }
-  #next::after {
-    top: 50%;
-    right: 50%;
-    transform: translate(25%, -50%) rotate(-45deg);
-  }
-  #prev::after {
-    top: 50%;
-    right: 50%;
-    transform: translate(75%, -50%) rotate(135deg);
-  }
-  
-  .slider__nav {
-    position: absolute;
-    bottom: 3%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-  }
-  
-  @media only screen and (max-width: 640px) {
-    .slider__navbutton {
-      height: 30px;
-      width: 30px;
-    }
-  
-    .slider__slide {
-      background-size: 100%;
-    }
-  
-    .slider {
-      height: 100%;
-      width: 100%;
-      margin: 10px;
-      padding: 10px;
-    }
-    img {
-      padding: 5%;
-      width: 100%;
-      height: 100%;
-    }
-  }
-  
-  .example-radio-group {
-    display: flex;
-    flex-direction: row;
-    margin: 15px 0;
-    align-items: flex-start;
-  }
-  
-  .example-radio-button {
-    margin: 5px;
-    
-  }
-  
+/* Estilos generales del carrusel */
+.carousel-inner {
+  border-radius: 15px;  /* Bordes redondeados para un diseño más moderno */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);  /* Agregar sombra para profundidad */
+}
+
+/* Imágenes del carrusel */
+.carousel-item img {
+  object-fit: cover;  /* Las imágenes cubren todo el espacio del contenedor */
+  height: 300px;  /* Ajusta la altura según lo necesites */
+  border-radius: 15px;  /* Bordes redondeados en las imágenes */
+  transition: transform 0.6s ease-in-out;  /* Transición suave para los cambios */
+}
+
+/* Efecto al hacer hover sobre las imágenes */
+.carousel-item:hover img {
+  transform: scale(1.05);  /* Zoom suave sobre la imagen al pasar el ratón */
+}
+
+/* Indicadores del carrusel */
+.carousel-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel-indicator {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Indicador activo */
+.carousel-indicator.active {
+  background-color: #007bff;  /* Color azul cuando el indicador está activo */
+}
+
+/* Estilos para los controles */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+/* Hover sobre los controles */
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: rgba(0, 0, 0, 0.7);  /* Efecto hover para mayor interactividad */
+}
+
+/* Fondo con desenfoque detrás del carrusel */
+.carousel {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);  /* Filtro de desenfoque para un efecto elegante */
+}
+
+/* Mejorar la visibilidad de los controles */
+.carousel-control-prev,
+.carousel-control-next {
+  z-index: 10;
+}
