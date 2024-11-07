@@ -1,11 +1,150 @@
+<div *ngIf="loading" class="table-container loading-table">Cargando informes...</div>
 
-<div class="container">
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let tarea of tareas">
-      {{ tarea._id }} : {{ tarea.name }} : {{ tarea.description }}
-    </li>
-  </ul>
+<!-- Contenedor para la tabla principal -->
+<div *ngIf="!loading" class="table-container">
+  <div class="table-title">
+    <h3>Informes Generales</h3>
+  </div>
 
-</div> 
-  
-  
+  <!-- Tabla de informes generales -->
+  <div class="table-responsive">
+    <table class="table main-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Quejas</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let informe of informes">
+          <td>{{ informe.nombre }}</td>
+          <td>{{ informe.apellidos }}</td>
+          <td>{{ informe.email }}</td>
+          <td>{{ informe.telefono }}</td>
+          <td>{{ informe.quejas }}</td>
+          <td>{{ informe.fecha | date: 'short' }}</td>
+          <td class="estado-checkbox">
+            <div class="checkbox-group">
+              <input 
+                type="checkbox" 
+                [checked]="informe.estado === 'atendido'" 
+                (change)="cambiarEstado(informe, 'atendido')" 
+              />
+              <label>Atendido</label>
+              <input 
+                type="checkbox" 
+                [checked]="informe.estado === 'en_proceso'" 
+                (change)="cambiarEstado(informe, 'en_proceso')" 
+              />
+              <label>En Proceso</label>
+              <input 
+                type="checkbox" 
+                [checked]="informe.estado === 'no_atendido'" 
+                (change)="cambiarEstado(informe, 'no_atendido')" 
+              />
+              <label>No Atendido</label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Contenedor para los informes atendidos -->
+<div *ngIf="!loading && atendidos.length" class="table-container">
+  <div class="table-title">
+    <h3>Informes Atendidos</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-success">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Quejas</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let informe of atendidos">
+          <td>{{ informe.nombre }}</td>
+          <td>{{ informe.apellidos }}</td>
+          <td>{{ informe.email }}</td>
+          <td>{{ informe.telefono }}</td>
+          <td>{{ informe.quejas }}</td>
+          <td>{{ informe.fecha | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Contenedor para los informes en proceso -->
+<div *ngIf="!loading && enProceso.length" class="table-container">
+  <div class="table-title">
+    <h3>Informes En Proceso</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-warning">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Quejas</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let informe of enProceso">
+          <td>{{ informe.nombre }}</td>
+          <td>{{ informe.apellidos }}</td>
+          <td>{{ informe.email }}</td>
+          <td>{{ informe.telefono }}</td>
+          <td>{{ informe.quejas }}</td>
+          <td>{{ informe.fecha | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Contenedor para los informes no atendidos -->
+<div *ngIf="!loading && noAtendidos.length" class="table-container">
+  <div class="table-title">
+    <h3>Informes No Atendidos</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-danger">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Quejas</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let informe of noAtendidos">
+          <td>{{ informe.nombre }}</td>
+          <td>{{ informe.apellidos }}</td>
+          <td>{{ informe.email }}</td>
+          <td>{{ informe.telefono }}</td>
+          <td>{{ informe.quejas }}</td>
+          <td>{{ informe.fecha | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

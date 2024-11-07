@@ -1,17 +1,89 @@
-input, select{
+input, select {
     border-radius: 20px;
     padding: 5px;
     margin: 5px;
     align-items: center;
     text-align: center;
-}
-button{
+  }
+  
+  button {
     background-image: linear-gradient(160deg, #746afa 0%, #adbdb9 100%);
     border-radius: 20px;
     color: #fff;
     margin-bottom: 6rem;
     width: 100%;
-}
-form{
+  }
+  
+  form {
     margin-left: 40px;
-}
+  }
+  
+  .modal {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 60%;
+    margin: 0 auto;
+  }
+  
+  .close {
+    font-size: 30px;
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  textarea {
+
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    height: 20px;  // Al principio, la caja será pequeña
+    max-height: 300px;  // Limita la altura máxima
+    resize: none;  // Evita el redimensionamiento manual (puedes cambiarlo si prefieres permitirlo)
+    box-sizing: border-box;  // Para que el padding no afecte el tamaño total
+    font-size: 14px;  // Tamaño de fuente reducido
+    line-height: 1.5;  // Espacio entre líneas para mayor legibilidad
+    overflow-y: auto;  // Aparece la barra de desplazamiento cuando el contenido exceda el área visible
+  }
+  
+  /* Se aplican cambios cuando el campo está en uso o el texto crece */
+  textarea:focus {
+    border: 2px solid #746afa;  // Borde azul cuando está enfocado
+    outline: none;  // Elimina el borde de enfoque predeterminado
+  }
+  
+  /* Ajustes al escribir */
+  textarea:valid {
+    height: auto;  // Permite que la caja crezca a medida que se escribe
+  }
+  
+  /* Mensajes de error en pequeños */
+  small {
+    font-size: 12px;
+    color: red;
+  }
+    

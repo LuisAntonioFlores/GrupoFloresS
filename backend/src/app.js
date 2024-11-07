@@ -4,6 +4,7 @@ const path = require('path'); // importamos path
 const cors = require('cors');
 
 const http = require('http');
+const contactoRoutes = require('./routes/quejasrutas');
 
 
 
@@ -13,7 +14,6 @@ const orderRoutes = require('./routes/orderRoutes');
 const indexRoutes = require('./routes/index1'); // importamos indexRoutes
 const meruta = require('./routes/mercadoruta.js');
 const direccionRoutes = require('./routes/Direccion');
-
 
 const routes = require('./routes'); // Ajusta la ruta a tu archivo de rutas
 
@@ -30,7 +30,7 @@ app.use(express.json()); // debe estar al inicio antes de las rutas
 app.set('port', process.env.PORT || 3000); // puerto
 
 //configiracion de rutas
-
+app.use('/api/informes', contactoRoutes); 
 app.use('/api', indexRoutes); // rutas
 app.use('/api', orderRoutes);
 app.use('/api/direccion', direccionRoutes);
@@ -39,6 +39,7 @@ app.use('/api/pago', meruta);
 app.use('/api/verify-inicio', verifyInicioRouter);
 app.use('/api/verify-email', verifyEmailRouter);
 app.use('/api', require('./routes/index.js'));
+
 
 app.get('/', (req, res) => {
     res.send('Bienvenido al servidor de la API'); // Respuesta simple

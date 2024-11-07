@@ -1,0 +1,85 @@
+/* Estilos para los contenedores de las tablas */
+.table-container {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f8f9fa; /* Fondo gris suave */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.table-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #007bff;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.table-container .loading-table {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #007bff;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.main-table th, .main-table td {
+  text-align: center;
+}
+
+.checkbox-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.checkbox-group label {
+  margin-right: 15px;
+}
+
+.estado-checkbox {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.table-success {
+  background-color: #c3e6cb;
+}
+
+.table-warning {
+  background-color: #ffeeba;
+}
+
+.table-danger {
+  background-color: #f8d7da;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 30px;
+  text-transform: uppercase;
+}
+
+h3 + table {
+  margin-top: 20px;
+}
+.checkbox-group i {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.checkbox-group i:hover {
+  opacity: 0.7;
+}

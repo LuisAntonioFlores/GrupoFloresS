@@ -13,7 +13,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="./tareas" routerLinkActive="active"
-            *ngIf="!isIniciarRoute() && !isRegistrarseRoute()  && isCliente()">Preguntas</a>
+            *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn()  && isAdministrador()">Atencion al Cliente</a>
         </li>
 
 

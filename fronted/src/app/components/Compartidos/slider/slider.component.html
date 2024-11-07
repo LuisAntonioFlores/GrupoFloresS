@@ -1,18 +1,29 @@
-<div class="container">
-    <div id="inner" class="inner">        
-        <div class="images-wrapper" #imgDiv (click)="selectedCard ($event)"> </div>
-        <div id="prev" class="slider__navbutton" (click)="onClickRow ('prev')"></div>
-        <div id="next" class="slider__navbutton" (click)="onClickRow ('next')"></div>
-
-
-        <div class="slider__nav">
-            <mat-radio-group aria-labelledby="example-radio-group-label" 
-                            class="example-radio-group" 
-                            [value]="radioButtonId">
-            <mat-radio-button color='primary' class="example-radio-button" *ngFor="let boton of arrUrlIMG; let  i=index" [value]="boton" [checked]="true" (click)="onClickRadioBoton(i)">
-            </mat-radio-button>
-            </mat-radio-group>
-        </div>
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <!-- Contenedor de las imágenes -->
+    <div class="carousel-inner">
+      <div *ngFor="let img of arrUrlIMG; let i = index"
+           [class.active]="imgActual === i"
+           class="carousel-item">
+        <img [src]="'assets/images/' + img" class="d-block w-100" alt="Imagen del carrusel">
+      </div>
     </div>
-</div>
-
+  
+    <!-- Botones de navegación -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  
+  <!-- Viñetas de navegación -->
+  <div class="carousel-indicators d-flex justify-content-center mt-3">
+    <div *ngFor="let img of arrUrlIMG; let i = index"
+         (click)="onClickRadioBoton(i)"
+         [class.active]="imgActual === i"
+         class="carousel-indicator"></div>
+  </div>
+  
