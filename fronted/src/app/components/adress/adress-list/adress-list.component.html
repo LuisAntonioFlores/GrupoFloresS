@@ -2,15 +2,15 @@
   <div class="adress-list">
     <h2>Tus direcciones</h2>
     
-    <div  *ngIf="direcciones.length > 0; else noDirecciones">
+    <div *ngIf="direcciones.length > 0; else noDirecciones">
       <form (ngSubmit)="seleccionarDireccion(direccionSeleccionada)">
-        <div  *ngFor="let direccion of direcciones">
+        <div *ngFor="let direccion of direcciones">
           <label>
             <input 
               type="radio" 
               name="direccion" 
               [value]="direccion._id" 
-              [(ngModel)]="direccionSeleccionada"  />
+              [(ngModel)]="direccionSeleccionada" />
             <span>{{ direccion.codigoPostal }}</span>
           </label>
           <p><strong>Calle:</strong> {{ direccion.calle }}</p>
@@ -29,6 +29,7 @@
     <ng-template #noDirecciones>
       <p>No tienes direcciones guardadas.</p>
     </ng-template>
+    
+    <button class="btn btn-secondary" (click)="agregarDireccion()">Agregar otra dirección</button>
   </div>
-  
 </div>

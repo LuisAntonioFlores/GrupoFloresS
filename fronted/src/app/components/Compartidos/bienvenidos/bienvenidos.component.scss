@@ -1,36 +1,97 @@
-.fondo{
-
-    // background: #232a3f;  /* fallback for old browsers */
-    // background: -webkit-linear-gradient(to right, #20243a, #1a2030);  /* Chrome 10-25, Safari 5.1-6 */
-    // background: linear-gradient(to right, #2948ff, #396afc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    // background: #0575E6;  /* fallback for old browsers */
-    // background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
-    // // background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+.fondo {
+    background: linear-gradient(to bottom right, #20243a, #2d3248);
     background-size: cover;
     height: 100vh;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: white;
+    overflow: hidden;
+  }
+  
+  h2 {
+    color: #f0f0f0;
+    padding: 10rem 2rem 3rem;
+    margin: 0;
+    text-align: center;
+    font-family: 'Impact', Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: oblique;
+    font-size: 6rem;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(106, 124, 226, 0.5);
+    letter-spacing: 3px;
+    animation: fadeInUp 1.5s ease-out;
+  }
+  
+  /* Animación de entrada para el título */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
     }
-h2{
-    color: rgb(40, 46, 53);
-    padding: 9rem;
-    margin: 5px;
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .up {
+    color: #b0a1d8;
     text-align: center;
-    text-decoration: transparent(40%);
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
-    font-style: oblique;
-    font-size: 5rem;
-    text-shadow: #6a7ce2 0 -10px;
-
-    
-}
-.up{
-    color: rgb(119, 98, 143);
-    text-align: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
-    font-style: oblique;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    font-size: 2.5rem;
+    line-height: 2.2rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 2s ease-out;
+  }
+  
+  /* Estilos para el nombre con clase .nombre */
+  .nombre {
     font-size: 3rem;
-    line-height: 15px;
-
-}
+    font-weight: bold;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #1a88a4, #622ee5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    animation: nameGlow 2s ease-in-out infinite alternate;
+  }
+  
+  /* Animación de brillo en el nombre */
+  @keyframes nameGlow {
+    0% {
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 20px #00fff7, 0 0 30px #00ffff;
+    }
+    100% {
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 30px #502ee5, 0 0 40px #962ee5;
+    }
+  }
+  
+  .fondo:hover h2 {
+    text-shadow: 0 6px 20px rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+    transition: all 0.4s ease;
+  }
+  
+  .fondo:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    filter: blur(10px);
+    z-index: -1;
+  }
+  

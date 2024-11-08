@@ -42,7 +42,7 @@ export class SubirProductoComponent {
       this.productServe.createProduct(titleSelect.value, description.value, price, quantity, this.file)
         .subscribe(
           res => {
-            console.log(res);
+           // console.log(res);
             this.router.navigate(['/dashboard/admin/list']);
           },
           err => console.log(err)

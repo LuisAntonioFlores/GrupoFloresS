@@ -101,6 +101,28 @@ exports.eliminarDireccion = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// Controlador para obtener las direcciones de un usuario
+exports.obtenerDireccionesPorCliente = async (req, res) => {
+  try {
+    // Obtener el cliente_id desde los parámetros de la solicitud
+    const cliente_id = req.params.cliente_id;
+
+    // Buscar las direcciones en la base de datos que coincidan con el cliente_id
+    const direcciones = await Direccion.find({ cliente_id });
+
+    // Verificar si se encontraron direcciones
+    if (!direcciones || direcciones.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron direcciones para este usuario.' });
+    }
+
+    // Si se encuentran direcciones, devolverlas como respuesta en formato JSON
+    res.json(direcciones);
+  } catch (error) {
+    // Manejo de errores
+    console.error('Error al obtener las direcciones:', error);
+    res.status(500).json({ message: 'Error en el servidor, no se pudieron obtener las direcciones.' });
+  }
+};
 
 // Controlador de prueba
 exports.prueba = (req, res) => {

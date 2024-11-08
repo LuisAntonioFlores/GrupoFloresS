@@ -48,18 +48,24 @@ export class PreviewProductoComponent implements OnInit {
     }
   }
 
-  updateProducto(title: HTMLInputElement, description: HTMLTextAreaElement, price: HTMLInputElement, quantity: HTMLInputElement, addPiecesInput: HTMLInputElement): void {
+  updateProducto(
+    title: HTMLInputElement,
+    description: HTMLTextAreaElement,
+    price: HTMLInputElement,
+    quantity: HTMLInputElement,
+    addPiecesInput: HTMLInputElement,
+    enOfertaCheckbox: HTMLInputElement // Nuevo parámetro para el checkbox
+  ): void {
     if (this.id && this.producto) {
-      // Obtén los valores actualizados de título, descripción, precio y cantidad
       const updatedTitle = title.value;
       const updatedDescription = description.value;
       const updatedPrice = parseFloat(price.value);
       const updatedQuantity = parseInt(quantity.value, 10);
       const addPieces = parseInt(addPiecesInput.value, 10);
+      const enOferta = enOfertaCheckbox.checked; // Obtener el valor de enOferta
   
-      // Verifica si los campos requeridos tienen valores y si el campo de piezas a agregar es un número válido
       if (updatedTitle && updatedDescription && !isNaN(updatedPrice) && !isNaN(updatedQuantity) && !isNaN(addPieces)) {
-        this.productSevices.uptdateProducto(this.id, updatedTitle, updatedDescription, updatedPrice, updatedQuantity + addPieces)
+        this.productSevices.uptdateProducto(this.id, updatedTitle, updatedDescription, updatedPrice, updatedQuantity + addPieces, enOferta)
           .subscribe(
             res => {
               console.log(res);

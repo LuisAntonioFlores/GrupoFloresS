@@ -1,24 +1,60 @@
 <div class="container-fluid">
+  <!-- Campo de búsqueda -->
+  <div class="row mb-4">
+    <div class="col">
+      <input
+        type="text"
+        class="form-control custom-search-input"
+        placeholder="Buscar por nombre, precio o cantidad"
+        [(ngModel)]="filtro"
+        (input)="filtrarProductos()"
+      />
+    </div>
+    <div class="col-auto d-flex align-items-center">
+      <input
+        type="checkbox"
+        [(ngModel)]="soloOferta"
+        (change)="filtrarProductos()"
+        id="ofertaCheckbox"
+        class="me-2"
+      />
+      <label for="ofertaCheckbox" class="form-check-label custom-label">Solo en oferta</label>
+    </div>
+  </div>
+
+  <!-- Mostrar los productos filtrados -->
   <div class="row">
-    <div class="col-md-4 col-sm-6 col-12 mb-4" *ngFor="let producto of productos">
-      <div class="card card-Produc custom-card h-80">
-        <img [src]="getImageUrl(producto?.imagePath)" class="card-img-top w-80" style="height: 200px;">
-        <div class="card-header">
-          <ng-container *ngIf="producto.title">{{ producto.title }}</ng-container>
+    <div class="col-md-4 col-sm-6 col-12 mb-4" *ngFor="let producto of productosFiltrados">
+      <div class="card card-product custom-card">
+        <div
+          *ngIf="producto.enOferta"
+          class="badge bg-danger text-white position-absolute top-0 end-0 m-3 custom-badge"
+        >
+          ¡Oferta!
         </div>
-        <div class="card-body">
-          <div class="slogan">
-            <ng-container *ngIf="producto.description">{{ producto.description }}</ng-container>
-          </div>
-          <br>
-          <ng-container *ngIf="producto.price">
-            <i class="fas fa-dollar-sign"></i> Precio por pieza: $ {{ producto.price }}
-          </ng-container>
-          <br>
-          <div>
-            <button class="btn btn-primary" (click)="agregarAlCarrito(producto)">
+
+        <img
+          [src]="getImageUrl(producto?.imagePath)"
+          class="card-img-top custom-card-img"
+          alt="Imagen del producto"
+        />
+
+        <div class="card-body custom-card-body">
+          <h5 class="card-title custom-card-title">{{ producto.title }}</h5>
+          <p class="card-text custom-card-text">{{ producto.description }}</p>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="price">
+              <i class="fas fa-dollar-sign"></i> Precio: $ {{ producto.price }}
+            </span>
+
+            <button
+              class="btn custom-btn"
+              (click)="agregarAlCarrito(producto)"
+              [ngClass]="{ 'btn-success': estaEnCarrito(producto) }"
+            >
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
-              <i *ngIf="estaEnCarrito(producto)" class="fas fa-check-circle"></i>
+              <i *ngIf="estaEnCarrito(producto)" class="fas fa-check-circle ms-2"></i>
             </button>
           </div>
         </div>

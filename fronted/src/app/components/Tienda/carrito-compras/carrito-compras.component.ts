@@ -79,8 +79,17 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
         }
       );
     }
+    else {
+      // Si no hay dirección guardada, mostrar alerta y redirigir
+      this.mostrarAlertaYRedirigir();
+    }
   }
 
+  mostrarAlertaYRedirigir() {
+    const mensaje = 'Selecciona tu dirección';
+    alert(mensaje);
+    this.router.navigate(['/dashboard/Address/direccion_lista']);
+  }
   calcularTotal(): number {
     return this.productosEnCarrito.reduce((total, producto) => total + this.calcularSubtotal(producto), 0);
   }
@@ -142,7 +151,7 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
   crearPedido(): Pedido {
     const direccionIdGuardada = this.adressService.obtenerDireccionSeleccionada();
 
-    
+
     return {
       numero_Pedido: '12345',
       cliente_id: this.clienteId,
@@ -244,5 +253,5 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     const baseUrl = `${environment.baseUrl}:${environment.port}/`;
     return `${baseUrl}${imagePath || ''}`;
   }
-  
+
 }

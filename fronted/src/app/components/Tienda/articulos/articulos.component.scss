@@ -1,0 +1,138 @@
+/* Fondo de la página */
+body {
+    background-color: #f8f9fa;
+  }
+  
+  /* Estilo del campo de búsqueda */
+  .custom-search-input {
+    border-radius: 30px;
+    padding-left: 20px;
+    font-size: 1.1rem;
+    border: 2px solid #6c757d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .custom-search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Estilos para el texto de filtro */
+  .custom-label {
+    font-size: 1rem;
+    color: #007bff;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  .custom-label:hover {
+    color: #0056b3;
+  }
+  
+  /* Estilos de las tarjetas de productos */
+  .custom-card {
+    position: relative;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+  }
+  
+  .custom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-card-img {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+  }
+  
+  .custom-card-img:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Badge de "Oferta" */
+  .custom-badge {
+    background-color: #ff4136;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+  
+  /* Estilo del contenido de la tarjeta */
+  .custom-card-body {
+    padding: 20px;
+  }
+  
+  .custom-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 10px;
+  }
+  
+  .custom-card-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el precio */
+  .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  /* Botón de agregar al carrito */
+  .custom-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .custom-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+  }
+  
+  .custom-btn:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+  }
+  
+  .custom-btn i {
+    font-size: 1.2rem;
+  }
+  
+  /* Efecto de hover en los botones */
+  .custom-btn i.ms-2 {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .custom-btn:hover i.ms-2 {
+    transform: rotate(360deg);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .custom-card {
+      margin-bottom: 20px;
+    }
+  }
+      

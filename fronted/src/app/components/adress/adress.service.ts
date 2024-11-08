@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { ApiResponse } from 'src/app/interfaces/copomex';
 import { Direccion } from 'src/app/interfaces/direccion';
@@ -24,8 +24,8 @@ export class AdressService {
     const userId = this.authService.getId();
     const key = `direccionSeleccionada_${userId}`;
     localStorage.setItem(key, direccionId);
-    // localStorage.setItem('direccionSeleccionada', direccionId);
-    // console.log(`Dirección seleccionada guardada en el servicio: ${direccionId}`);
+    localStorage.setItem('direccionSeleccionada', direccionId);
+   
   }
 
   // Obtener el ID de la dirección seleccionada de Local Storage
@@ -47,6 +47,29 @@ export class AdressService {
       catchError(this.handleError)
     );
   }
+  obtenerDireccionesPorUsuario(cliente_id: string): Observable<{ existe: boolean, direcciones: Direccion[] }> {
+    const url = `${this.Url}/usuario/${cliente_id}`;
+    return this.http.get<Direccion[]>(url).pipe(
+      map(direcciones => ({
+        existe: direcciones.length > 0,
+        direcciones: direcciones.length > 0 ? direcciones : []
+      })),
+      tap(({ existe, direcciones }) => {
+        if (existe) {
+          console.log('Direcciones obtenidas:', direcciones);
+        } else {
+          console.log('No se encontraron direcciones para el usuario.');
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return of({ existe: false, direcciones: [] }); // Retorna false si no se encuentran direcciones
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+  
   
   
   
@@ -67,7 +90,8 @@ export class AdressService {
   
  // Método para guardar la dirección
  guardarDireccion(data: any): Observable<any> {
-  // console.log('Datos que se enviarán al backend:', data);
+   console.log('Datos que se enviarán al backend:', data);
+  
   return this.http.post(`${this.Url}/guardar`, data).pipe(
     catchError(this.handleError) // Maneja errores al guardar
   );
@@ -111,4 +135,6 @@ export class AdressService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
+
+
 }

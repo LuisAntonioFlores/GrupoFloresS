@@ -52,7 +52,7 @@ const direccionSchema = new mongoose.Schema({
   },
   tipo: {
     type: String,
-    enum: ['Casa', 'Trabajo', 'home'], // Puedes agregar 'home' si es necesario
+    enum: ['work', 'home'], // Puedes agregar 'home' si es necesario
     required: true,
   },
   numeroContacto: {

@@ -103,29 +103,46 @@
       <label>Tipo de Dirección</label>
       <div>
         <label>
-          <input type="radio" formControlName="addressType" value="home" />
+          <input type="radio" formControlName="addressType" value="home" name="addressType" />
           Casa
         </label>
         <label>
-          <input type="radio" formControlName="addressType" value="work" />
+          <input type="radio" formControlName="addressType" value="work" name="addressType" />
           Trabajo
         </label>
       </div>
     </div>
+    
 
     <!-- Campo Número de Contacto Celular -->
     <div class="form-group">
-      <label for="contactNumber" class="form-label">Número de Contacto Celular</label>
-      <input 
-        id="contactNumber" 
-        formControlName="contactNumber" 
-        class="form-control" 
-        placeholder="+52XXXXXXXXXX" 
-      />
+      <label class="form-label">Número de Contacto Celular</label>
+      
+      <!-- Campo para el prefijo +52 (solo lectura) -->
+      <div class="input-group">
+        <input 
+          class="form-control" 
+          value="+52" 
+          readonly 
+          style="width: 60px; text-align: center;" 
+        />
+        
+        <!-- Campo para el número de 10 dígitos -->
+        <input 
+          id="contactNumber" 
+          formControlName="contactNumber" 
+          class="form-control" 
+          placeholder="XXXXXXXXXX" 
+          maxlength="10" 
+        />
+      </div>
+    
+      <!-- Mensaje de error de validación -->
       <div *ngIf="addressForm.get('contactNumber')?.invalid && addressForm.get('contactNumber')?.touched" class="error-message">
-        Número de contacto es obligatorio y debe comenzar con +52 seguido de 10 dígitos.
+        Número de contacto es obligatorio y debe tener 10 dígitos.
       </div>
     </div>
+    
     
 
     <!-- Campo Descripción/Fachada -->

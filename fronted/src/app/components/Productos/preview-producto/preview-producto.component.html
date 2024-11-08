@@ -15,7 +15,7 @@
         <div class="col-md-7">
             <div class="card">
                 <h1>Actualiza los datos</h1>
-                <form class="card-body form-container" (submit)="updateProducto(title, description, price, quantity, addPieces)">
+                <form class="card-body form-container" (submit)="updateProducto(title, description, price, quantity, addPieces,enOferta)">
                 <div class="form-group">
                         <input type="text" class="form-control" placeholder="Título del Producto" [value]="producto?.title" #title readonly>
                     </div>
@@ -26,6 +26,11 @@
                         <label for="price">Precio:</label>
                         <input type="number" class="form-control" placeholder="Precio" [value]="producto?.price" #price>
                     </div>
+                    <div class="form-group">
+                        <label for="enOferta">¿En oferta?</label>
+                        <input type="checkbox" id="enOferta" [checked]="producto?.enOferta" #enOferta>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="quantity">Cantidad actual:</label>
                         <input type="number" class="form-control" placeholder="Cantidad" [value]="producto?.quantity" #quantity readonly>

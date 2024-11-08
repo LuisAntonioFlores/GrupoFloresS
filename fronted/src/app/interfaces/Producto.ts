@@ -8,5 +8,6 @@ export interface Producto {
     price: number;
     quantity: number;
     cantidadSeleccionada: number;
+    enOferta?: boolean;
   }
   

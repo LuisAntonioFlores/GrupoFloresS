@@ -1,11 +1,14 @@
 <div class="fondo container-fluid">
     <h2 class="center">
-        <i class="fa-solid fa-house-user"></i>
-          BIENVENIDO 
+      <i class="fa-solid fa-house-user"></i>
+      {{ getSaludo() }} <!-- Muestra el saludo dinámico -->
     </h2>
-
+  
     <div class="up">
-        Usuario: <br> <br> <br> {{ nombre || 'Usuario' }} {{ apellidoPaterno || '' }} {{ apellidoMaterno || '' }}
+      <!-- Mostrar nombre y apellidos del usuario -->
+      <span class="nombre">{{ nombre || 'Usuario' }} {{ apellidoPaterno || '' }} {{ apellidoMaterno || '' }}</span>
     </div>
-
-   </div>
+  
+    
+  </div>
+  
