@@ -23,6 +23,7 @@ export class AuthService {
         nombre: localStorage.getItem('nombre') || '',
         apellidoPaterno: localStorage.getItem('apellidoPaterno') || '',
         apellidoMaterno: localStorage.getItem('apellidoMaterno') || '',
+        sexo:localStorage.getItem('sexo')||'',
         tipoUsuario: localStorage.getItem('tipoUsuario') || '',
         _id: localStorage.getItem('id') || ''
       };
@@ -37,6 +38,7 @@ export class AuthService {
     nombre: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
+    sexo:'',
     tipoUsuario: '',
     _id: '' 
   });
@@ -49,7 +51,7 @@ export class AuthService {
 
   // Función para actualizar datos del usuario
   private actualizarDatosUsuario(response: AuthResponse): void {
-    console.log('Actualizando datos del usuario:', response);
+   // console.log('Actualizando datos del usuario:', response);
     if (response && response.token) {
       // Almacena el token en el localStorage
       localStorage.setItem('token', response.token);
@@ -58,11 +60,12 @@ export class AuthService {
       localStorage.setItem('nombre', response.nombre || '');
       localStorage.setItem('apellidoPaterno', response.apellidoPaterno || '');
       localStorage.setItem('apellidoMaterno', response.apellidoMaterno || '');
+      localStorage.setItem('sexo', response.sexo || '');
       localStorage.setItem('tipoUsuario', response.tipoUsuario || '');
       localStorage.setItem('id', response._id || '');
 
       // Imprime el ID del usuario
-      console.log('ID del usuario almacenado:', response._id);
+   //   console.log('ID del usuario almacenado:', response._id);
 
       // Emite los datos del usuario a los suscriptores
       this.userDataSubject.next({
@@ -70,6 +73,7 @@ export class AuthService {
         nombre: response.nombre || '',
         apellidoPaterno: response.apellidoPaterno || '',
         apellidoMaterno: response.apellidoMaterno || '',
+        sexo:response.sexo || '',
         tipoUsuario: response.tipoUsuario || '',
         _id: response._id || ''
       });
@@ -80,7 +84,7 @@ export class AuthService {
   registrar(user: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.URL + '/ingresar', user).pipe(
       map(response => {
-        console.log('Respuesta completa del servidor (registrar):', response);
+      //  console.log('Respuesta completa del servidor (registrar):', response);
         this.actualizarDatosUsuario(response);
         return response;
       }),
@@ -95,7 +99,7 @@ export class AuthService {
   Iniciar(user: any, carritoService: CarritoServiceService): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.URL + '/iniciar', user).pipe(
       map(response => {
-        console.log('Respuesta completa del servidor (iniciar):', response);
+      //  console.log('Respuesta completa del servidor (iniciar):', response);
         this.actualizarDatosUsuario(response);
         
      
@@ -177,12 +181,14 @@ export class AuthService {
   getApellidoMaterno(): string | null {
     return localStorage.getItem('apellidoMaterno');
   }
-
+ getSexo():string | null{
+  return localStorage.getItem('sexo');
+ }
   getTipoUsuario(): string | null {
     return localStorage.getItem('tipoUsuario');
   }
   getId(): string | null {
-    return localStorage.getItem('id');
+       return localStorage.getItem('id');
 
   }
 

@@ -9,5 +9,6 @@ router.get('/:cliente_id', direccionController.obtenerDirecciones);
 router.get('/direccion/:id', direccionController.obtenerDireccionPorId);
 router.put('/direccion/:id', direccionController.actualizarDireccion);
 router.delete('/direccion/:id', direccionController.eliminarDireccion);
+router.get('/usuario/:cliente_id', direccionController.obtenerDireccionesPorCliente);
 
 module.exports = router;

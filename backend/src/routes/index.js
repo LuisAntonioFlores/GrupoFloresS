@@ -23,6 +23,7 @@ router.post('/ingresar', async (req, res) => {
       apellidoPaterno: newUser.apellidoP,
       apellidoMaterno: newUser.apellidoM,
       tipoUsuario: newUser.tipoUsuario,
+      sexo: newUser.sexo
     };
 
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET || 'llaveSecreta', { expiresIn: '20m' });
@@ -63,6 +64,7 @@ router.post('/iniciar', async (req, res) => {
       apellidoPaterno: user.apellidoP,
       apellidoMaterno: user.apellidoM,
       tipoUsuario: user.tipoUsuario,
+      sexo: user.sexo
     };
 
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET || 'llaveSecreta', { expiresIn: '20m' });
@@ -73,6 +75,7 @@ router.post('/iniciar', async (req, res) => {
       nombre: user.nombre,
       apellidoPaterno: user.apellidoP,
       apellidoMaterno: user.apellidoM,
+      sexo: user.sexo,
       tipoUsuario: user.tipoUsuario,
       _id: user._id
     });

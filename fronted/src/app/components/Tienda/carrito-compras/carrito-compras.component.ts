@@ -9,6 +9,7 @@ import { Pedido } from 'src/app/interfaces/Pedidos';
 import { AdressService } from '../../adress/adress.service';
 import { Direccion } from 'src/app/interfaces/direccion';
 import { environment } from 'src/environments/environment';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -24,20 +25,23 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
   direccionCompleta: Direccion | null = null;
   estadoPago: any;
   estadoPagoSubscription: Subscription | undefined;
-
+  private socketSubscription: Subscription | undefined;
   constructor(
     private carritoService: CarritoServiceService,
     private router: Router,
     private pedidoService: PedidoService,
     private authService: AuthService,
     private mercadoPagoService: MercadoPagoService,
-    private adressService: AdressService
+    private adressService: AdressService,
+    private socketService: SocketService
   ) { }
 
   ngOnInit() {
     this.cargarCarrito();
     this.subscribirAlCarrito();
-    this.clienteId = this.authService.getId() || '';
+    this.clienteId = this.authService.getId() || localStorage.getItem('clientId') || '';
+   
+    
     this.cargarDireccion();
   }
 
@@ -48,6 +52,7 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     if (this.estadoPagoSubscription) {
       this.estadoPagoSubscription.unsubscribe();
     }
+    this.desconectarSocketSiCarritoVacio();
   }
 
   cargarCarrito() {
@@ -63,6 +68,13 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     });
   }
 
+  listenToUpdates() {
+    this.socketSubscription = this.socketService.listenToEvent('updateEvent').subscribe((data) => {
+      console.log('Actualización recibida:', data);
+      //this.eliminarProductoDelCarrito(data.productId);
+      this.desconectarSocketSiCarritoVacio();
+    });
+  }
   cargarDireccion() {
     const direccionIdGuardada = this.adressService.obtenerDireccionSeleccionada();
     if (direccionIdGuardada) {
@@ -79,8 +91,17 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
         }
       );
     }
+    else {
+      // Si no hay dirección guardada, mostrar alerta y redirigir
+      this.mostrarAlertaYRedirigir();
+    }
   }
 
+  mostrarAlertaYRedirigir() {
+    const mensaje = 'Selecciona tu dirección';
+    alert(mensaje);
+    this.router.navigate(['/dashboard/Address/direccion_lista']);
+  }
   calcularTotal(): number {
     return this.productosEnCarrito.reduce((total, producto) => total + this.calcularSubtotal(producto), 0);
   }
@@ -119,6 +140,7 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     const producto = this.productosEnCarrito.find(prod => prod._id === productId);
     if (producto) {
       this.eliminarDelCarrito(producto);
+      this.desconectarSocketSiCarritoVacio();
     }
   }
 
@@ -130,21 +152,37 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     }
   }
 
+  desconectarSocketSiCarritoVacio() {
+    if (this.productosEnCarrito.length === 0 && this.socketSubscription) {
+      this.socketSubscription.unsubscribe();
+      this.socketService.leaveRoom(this.clienteId);
+      console.log('Socket desconectado porque el carrito está vacío');
+    }
+  }
+
+
   redirigirACompras() {
     this.router.navigate(['/dashboard/Shop/Tienda']);
   }
 
   vaciarCarrito(clienteId: string) {
-    localStorage.setItem('carrito', JSON.stringify(this.productosEnCarrito));
-    this.carritoService.limpiarCarrito();
+    // Solo vaciar el carrito si se ha confirmado la compra
+    if (this.estadoPago && this.estadoPago.status === 'approved') {
+      localStorage.setItem('carrito', JSON.stringify(this.productosEnCarrito));
+   //   this.carritoService.limpiarCarrito();
+      this.desconectarSocketSiCarritoVacio();
+    } else {
+      console.log("El carrito no se vació porque la compra no está confirmada.");
+    }
   }
+  
 
   crearPedido(): Pedido {
     const direccionIdGuardada = this.adressService.obtenerDireccionSeleccionada();
 
-    
+
     return {
-      numero_Pedido: '12345',
+      numero_Pedido: '${Date.now()}',
       cliente_id: this.clienteId,
       date_Pedido: new Date(),
       status: 'Pending',
@@ -236,7 +274,7 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
 
   vaciarCarritoEnLocalStorage(): void {
     localStorage.removeItem('carrito');
-    this.carritoService.limpiarCarrito();
+  //  this.carritoService.limpiarCarrito();
     this.mostrarAlerta('El carrito ha sido eliminado después de una compra exitosa');
     this.router.navigate(['/dashboard']);
   }
@@ -244,5 +282,8 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     const baseUrl = `${environment.baseUrl}:${environment.port}/`;
     return `${baseUrl}${imagePath || ''}`;
   }
-  
+
+
+ 
+ 
 }

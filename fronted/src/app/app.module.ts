@@ -34,10 +34,10 @@ import { ContactoComponent } from './components/Compartidos/contacto/contacto.co
 import { AuthService } from './services/auth.service';
 import { TiendaModule } from './components/Tienda/tienda.module';
 import { AdressModule } from './components/adress/adress.module';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { SocketService } from './services/socket.service';
+import { SeguridadModule } from './components/Segurity/seguridad.module';
 
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -58,9 +58,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     NavonepageComponent,
     RegistrarComponent,
     ContactoComponent,
-   
 
-   
+
+
   ],
   imports: [
     BrowserModule,
@@ -75,9 +75,11 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     ProductosModule,
     MaterialModule,
     TiendaModule,
-    AdressModule, SocketIoModule.forRoot(config),
-  ],
+    AdressModule,
+  SeguridadModule
+],
   providers: [
+    SocketService,
     AuthGuard, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

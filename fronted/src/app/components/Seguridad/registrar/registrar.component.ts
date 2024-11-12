@@ -110,7 +110,7 @@ export class RegistrarComponent {
         res => {
           console.log(res);
           localStorage.setItem('token', res.token);
-          this.router.navigate(['/private']);
+          this.router.navigate(['/dashboard/Address/direccion_fom']);
         },
         err => {
           console.error(err);

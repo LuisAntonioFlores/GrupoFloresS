@@ -15,6 +15,7 @@ export class BienvenidosComponent {
  apellidoPaterno: string = '';
  apellidoMaterno: string = '';
  tipoUsuario: string = '';
+ sexo: string = '';
  menuState: string = 'out';
  @ViewChild('almacenMenu') almacenMenu!: MatMenu;
  title: string = 'fronted';
@@ -29,6 +30,9 @@ export class BienvenidosComponent {
      this.apellidoPaterno = userData.apellidoPaterno || '';
      this.apellidoMaterno = userData.apellidoMaterno || '';
      this.tipoUsuario = userData.tipoUsuario || '';
+     this.sexo = userData.sexo || '';
+
+     console.log('Sexo recibido:', this.sexo);
    });
  }
  toggleSidenav() {
@@ -49,5 +53,14 @@ export class BienvenidosComponent {
      this.route.snapshot.firstChild?.routeConfig?.path === 'almacen'
    );
 
+}
+getSaludo(): string {
+  if (this.sexo === 'Femenino') {
+    return 'BIENVENIDA';
+  } else if (this.sexo === 'Masculino') {
+    return 'BIENVENIDO';
+  } else {
+    return 'BIENVENIDX'; // Para una opción neutra o inclusiva
+  }
 }
 }

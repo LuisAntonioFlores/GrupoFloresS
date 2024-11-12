@@ -36,7 +36,12 @@ export class ProductSubirService {
     return this.http.delete(`${this.URI}/${id}`);
   }
 
-  uptdateProducto(id: string, title: string, description: string, price: number, quantity: number): Observable<any> {
-    return this.http.put(`${this.URI}/${id}`, { title, description, price, quantity });
+  uptdateProducto(id: string, title: string, description: string, price: number, quantity: number,enOferta: boolean): Observable<any> {
+    const body = { title, description, price, quantity, enOferta };
+  
+  // Mostrar el cuerpo de la solicitud antes de enviarla
+  // console.log('Datos enviados en la solicitud PUT:', body);
+
+    return this.http.put(`${this.URI}/${id}`, { title, description, price, quantity, enOferta });
   }
 }

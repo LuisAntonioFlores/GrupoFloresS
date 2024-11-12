@@ -4,6 +4,9 @@ const path = require('path'); // importamos path
 const cors = require('cors');
 
 const http = require('http');
+
+const { setupSocketServer } = require('./controllers/socket.js');
+
 const contactoRoutes = require('./routes/quejasrutas');
 
 
@@ -50,7 +53,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Algo salió mal!' });
 });
 
-
+setupSocketServer(server);
 
   
 module.exports = {  app, server};

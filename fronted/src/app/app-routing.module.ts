@@ -64,6 +64,12 @@ const routes: Routes = [
         path: 'Address',
         loadChildren: () => import('./components/adress/adress.module').then(m => m.AdressModule),
         canActivate: [AuthGuard] 
+      },
+      
+      {
+        path: 'Perfil',
+        loadChildren: () => import('./components/Segurity/seguridad.module').then(m => m.SeguridadModule),
+        canActivate: [AuthGuard] 
       }
 
     ]

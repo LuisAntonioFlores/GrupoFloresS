@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Producto } from 'src/app/interfaces/Producto';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -95,7 +95,7 @@ export class CarritoServiceService {
     this.productosAgregados.clear(); 
     this.guardarCarrito();
     console.log('Carrito limpiado');
-    // console.log('Productos agregados después de limpiar:', Array.from(this.productosAgregados)); // Log después de limpiar
+    
 
   }
 
@@ -129,6 +129,5 @@ export class CarritoServiceService {
     this.guardarCarrito();
     // console.log('Carrito guardado después de eliminar:', JSON.stringify(this.carritoSubject.getValue()));
   }
-  
   
 }

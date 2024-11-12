@@ -78,13 +78,17 @@ const deleteProducto = async (req, res) => {
 const updateProducto = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, price, quantity } = req.body;
-    const updatedProducto = await Producto.findByIdAndUpdate(id, {
-      title,
-      description,
-      price,
-      quantity
-    }, { new: true });
+    const { title, description, price, quantity, enOferta } = req.body; // Asegúrate de que 'enOferta' esté siendo recibido
+
+    const updatedProducto = await Producto.findByIdAndUpdate(
+      id,
+      { title, description, price, quantity, enOferta }, // Asegúrate de pasar 'enOferta' correctamente
+      { new: true }
+    );
+
+    if (!updatedProducto) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
 
     return res.json({
       message: 'Producto actualizado correctamente',
@@ -95,6 +99,7 @@ const updateProducto = async (req, res) => {
     return res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
 
 module.exports = {
   getProductos,

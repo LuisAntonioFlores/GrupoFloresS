@@ -61,7 +61,7 @@ const createPreference = async (req, res) => {
                     pending: "https://youtu.be/5SiW4UWAf8g?list=RD5SiW4UWAf8g"
                 },
                 auto_return: "approved",
-                notification_url: "https://8b1a-201-141-22-5.ngrok-free.app/api/pago/webhook",
+                notification_url: "https://bb6a-201-141-22-5.ngrok-free.app/api/pago/webhook",
                 external_reference: cliente_id,
                 metadata: {
                     direccion_id: direccion_id // Agrega el ID de la dirección en metadata
@@ -143,14 +143,36 @@ const handleWebhook = async (req, res) => {
             
                 console.log(`Pago aprobado para el cliente con ID: ${cliente_id}`);
             
-                paymentStatus[cliente_id] = {
-                    status: 'approved',
-                    action: 'clear_cart',
-                    timestamp: new Date().toISOString()
-                };
+                const io = getSocketInstance();
+                let retries = 0;
+                const maxRetries = 5;
+                const retryInterval = 5000; // tiempo en ms para reintentar
+            
+                const clearCartInterval = setInterval(() => {
+                    if (retries >= maxRetries) {
+                        clearInterval(clearCartInterval);
+                        console.error(`No se recibió confirmación del cliente ${cliente_id} tras ${maxRetries} intentos. Emisión de "clearCart" detenida.`);
+                        return;
+                    }
+            
+                    console.log(`Emitiendo evento 'clearCart' al cliente ${cliente_id}, intento ${retries + 1}`);
+                    io.to(cliente_id).emit('clearCart', { 
+                        message: 'El pago fue aprobado, vacía el carrito.',
+                        action: 'clearCart'
+                    });
+            
+                    retries++;
+                }, retryInterval);
+            
+                // Escuchar respuesta de confirmación del cliente
+                io.on('confirmationFromClient', (data) => {
+                    if (data && data.cliente_id === cliente_id && data.confirmation === 'received') {
+                        console.log(`Confirmación de 'clearCart' recibida del cliente ${cliente_id}.`);
+                        clearInterval(clearCartInterval); // Detener reintentos
+                    }
+                });
             }
             
-
         }
 
         // Solo procesar el ajuste de stock en 'merchant_order' cuando el pago esté aprobado
@@ -185,6 +207,9 @@ const handleWebhook = async (req, res) => {
         processedPayments.delete(id);
     }
 };
+
+
+
 
 
 

@@ -9,7 +9,7 @@ export class SliderComponent implements OnInit, OnDestroy {
   imgActual: number = 0;
   arrUrlIMG: string[] = [
     "slide.jpg", "slide1.jpg", "slide2.jpg", "slide3.jpg", "slide4.jpg",
-    "slide5.jpg", "slide6.jpg", "slide7.jpg", "slide3.jpg", "slide4.jpg"
+    "slide5.jpg", "slide6.jpg", "slide7.jpg", "slide8.jpg", "slide9.jpg", "slide10.jpg"
   ];
   interval!: any;
 
