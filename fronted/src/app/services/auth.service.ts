@@ -188,7 +188,7 @@ export class AuthService {
     return localStorage.getItem('tipoUsuario');
   }
   getId(): string | null {
-    return localStorage.getItem('id');
+       return localStorage.getItem('id');
 
   }
 

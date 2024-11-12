@@ -1,0 +1,23 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div formGroupName="personalInfo">
+      <h3>Información Personal</h3>
+  
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" formControlName="nombre" readonly>
+  
+      <label for="apellidoPaterno">Apellido Paterno:</label>
+      <input id="apellidoPaterno" formControlName="apellidoPaterno" readonly>
+  
+      <label for="apellidoMaterno">Apellido Materno:</label>
+      <input id="apellidoMaterno" formControlName="apellidoMaterno" readonly>
+  
+      <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+      <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento" readonly>
+  
+      <label for="telefono">Teléfono:</label>
+      <input id="telefono" formControlName="telefono" readonly>
+    </div>
+  
+    <button type="submit" [disabled]="userForm.invalid">Guardar</button>
+  </form>
+  

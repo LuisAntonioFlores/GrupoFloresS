@@ -34,6 +34,8 @@ import { ContactoComponent } from './components/Compartidos/contacto/contacto.co
 import { AuthService } from './services/auth.service';
 import { TiendaModule } from './components/Tienda/tienda.module';
 import { AdressModule } from './components/adress/adress.module';
+import { SocketService } from './services/socket.service';
+import { SeguridadModule } from './components/Segurity/seguridad.module';
 
 
 
@@ -56,9 +58,9 @@ import { AdressModule } from './components/adress/adress.module';
     NavonepageComponent,
     RegistrarComponent,
     ContactoComponent,
-   
 
-   
+
+
   ],
   imports: [
     BrowserModule,
@@ -73,8 +75,11 @@ import { AdressModule } from './components/adress/adress.module';
     ProductosModule,
     MaterialModule,
     TiendaModule,
-    AdressModule, ],
+    AdressModule,
+  SeguridadModule
+],
   providers: [
+    SocketService,
     AuthGuard, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
