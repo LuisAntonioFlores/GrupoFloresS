@@ -7,6 +7,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -56,9 +57,11 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
             this.apellidoPaterno = userData.apellidoPaterno || '';
             this.apellidoMaterno = userData.apellidoMaterno || '';
             this.tipoUsuario = userData.tipoUsuario || '';
+            this.userImage = userData.imagen || ''; 
             this.loggedIn = true;
             this.cdr.detectChanges(); // Forzar la detección de cambios
-            
+          //  console.log(this.userImage);  // Verifica si la URL es correcta
+
           } else {
             console.error('No user data found');
           }
@@ -67,6 +70,8 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
         this.loggedIn = false;
         this.cdr.detectChanges(); // Forzar la detección de cambios
       }
+
+
     }
 
   ngOnDestroy(): void {
@@ -104,4 +109,12 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
   isCliente(): boolean {
     return this.tipoUsuario === 'Cliente';
   }
+  
+  getImageUrl(imagePath: string | undefined): string {
+    const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
+
+    // Asegura que hay una barra entre baseUrl e imagePath
+    return `${baseUrl}${imagePath?.startsWith('/') ? imagePath.slice(1) : imagePath || ''}`;
+}
+
 }

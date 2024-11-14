@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -36,6 +36,9 @@ import { TiendaModule } from './components/Tienda/tienda.module';
 import { AdressModule } from './components/adress/adress.module';
 import { SocketService } from './services/socket.service';
 import { SeguridadModule } from './components/Segurity/seguridad.module';
+import { ComprasModule } from './components/compras/compras.module';
+import { NotificacionModule } from './components/notificaciones/notificacion.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -76,7 +79,15 @@ import { SeguridadModule } from './components/Segurity/seguridad.module';
     MaterialModule,
     TiendaModule,
     AdressModule,
-  SeguridadModule
+  SeguridadModule,
+  ComprasModule,
+  NotificacionModule,
+  ServiceWorkerModule.register('ngsw-worker.js', {
+    enabled: !isDevMode(),
+    // Register the ServiceWorker as soon as the application is stable
+    // or after 30 seconds (whichever comes first).
+    registrationStrategy: 'registerWhenStable:30000'
+  })
 ],
   providers: [
     SocketService,

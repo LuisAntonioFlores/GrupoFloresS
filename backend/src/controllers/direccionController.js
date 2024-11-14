@@ -7,7 +7,7 @@ exports.crearDireccion = async (req, res) => {
     // console.log(req.body);
   
     // Verificar si los campos necesarios están presentes
-    const requiredFields = ['cliente_id', 'nombreUsuario', 'codigoPostal', 'estado', 'municipio', 'colonia', 'calle', 'numero', 'tipo', 'numeroContacto', 'descripcion'];
+    const requiredFields = ['cliente_id',  'codigoPostal', 'estado', 'municipio', 'colonia', 'calle', 'numero', 'tipo', 'numeroContacto', 'descripcion'];
     for (let field of requiredFields) {
       if (!req.body[field]) {
         return res.status(400).json({ message: `El campo ${field} es obligatorio.` });
@@ -15,14 +15,14 @@ exports.crearDireccion = async (req, res) => {
     }
   
     try {
-      const { cliente_id, nombreUsuario, codigoPostal, estado, municipio, alcaldia, colonia, calle, numero, numeroInterior, tipo, numeroContacto, descripcion } = req.body;
+      const { cliente_id,  codigoPostal, estado, municipio, alcaldia, colonia, calle, numero, numeroInterior, tipo, numeroContacto, descripcion } = req.body;
   
       // Validar que el estado, municipio y colonia sean válidos
       // (Aquí podrías consultar la base de datos o tener una lista de valores válidos)
   
       const nuevaDireccion = new Direccion({
         cliente_id,
-        nombreUsuario,
+        
         codigoPostal,
         estado,
         municipio,

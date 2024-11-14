@@ -7,4 +7,8 @@ export interface AuthResponse {
     
     tipoUsuario?: string;
     _id?: string;
+
+    email?: string;  // Correo electrónico del usuario (opcional)
+    fechaNacimiento?: string;  // Fecha de nacimiento del usuario (opcional)
+    imagen?: string; 
   }

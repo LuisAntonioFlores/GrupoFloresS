@@ -1,0 +1,49 @@
+<!-- Tarjetas de pedidos -->
+<div class="pedidos-container">
+  <div *ngFor="let pedido of pedidos" class="pedido-card">
+    <div class="card-header">
+      <h3>Pedido #{{ pedido.numero_Pedido }}</h3>
+      <span>Estado de la compra: {{ pedido.status }}</span>
+    </div>
+    <div class="card-body">
+      <p><strong>Total:</strong> ${{ pedido.total_price }}</p>
+      
+      <p><strong>Fecha de compra:</strong> {{ pedido.createdAt | date: 'short' }}</p>
+      <div class="items">
+        <h3>Productos:</h3>
+        <div *ngFor="let item of pedido.items" class="item">
+          <p><strong>{{ item.title }}</strong> - Cantidad: {{ item.quantity }} - Precio: ${{ item.price }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button (click)="viewDetails(pedido.numero_Pedido)">Ver detalles</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de detalles del pedido -->
+<div class="modal" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Detalles del Pedido #{{ selectedPedido?.numero_Pedido }}</h3>
+    <p><strong>Estado:</strong> {{ selectedPedido?.status }}</p>
+    <p><strong>Total:</strong> ${{ selectedPedido?.total_price }}</p>
+    <p><strong>Dirección:</strong> {{ direccionCompleta }}</p>
+    <p><strong>Fecha de compra:</strong> {{ selectedPedido?.createdAt | date: 'short' }}</p>
+    <p><strong>Estado de la entrega:</strong> {{ selectedPedido?.estado_entrega }}</p>
+
+    <div class="items">
+      <h4>Productos:</h4>
+      <div *ngFor="let item of selectedPedido?.items" class="item">
+        <p><strong>{{ item.title }}</strong> - Cantidad: {{ item.quantity }} - Precio: ${{ item.price }}</p>
+      </div>
+    </div>
+
+    <button (click)="closeModal()">Cerrar</button>
+  </div>
+</div>
+<div *ngIf="mensajeError" class="error-message">
+  {{ mensajeError }}
+</div>
+
+

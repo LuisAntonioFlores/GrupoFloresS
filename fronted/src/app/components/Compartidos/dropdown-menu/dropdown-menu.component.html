@@ -50,7 +50,7 @@
 
         <!-- Nueva pestaña "Compras" -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard/Shop/Compras" routerLinkActive="active"
+          <a class="nav-link" routerLink="/dashboard/Compras/Compra" routerLinkActive="active"
             *ngIf="!isIniciarRoute() && !isRegistrarseRoute() && authService.loggedIn() && (isCliente() || isAdministrador())">
             <i class="fas fa-shopping-bag"></i> Compras
           </a>
@@ -80,14 +80,15 @@
 
           <!-- Nueva pestaña "Notificaciones" -->
           <li *ngIf="isCliente() || isAdministrador()">
-            <button mat-icon-button routerLink="/dashboard/Shop/Notificaciones">
+            <button mat-icon-button routerLink="/dashboard/Notificacion/Notificar">
               <mat-icon style="vertical-align: middle;">notifications</mat-icon>
             </button>
           </li>
 
           <li class="nav-item">
             <button mat-button [matMenuTriggerFor]="userMenu">
-              <img [src]="userImage" class="user-image">
+              <img [src]="getImageUrl(userImage)" class="user-image">
+
               <br>
               {{ nombre || 'Usuario' }}
 

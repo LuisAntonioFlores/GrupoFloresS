@@ -8,7 +8,7 @@ const userSchema = new Schema({
     fechaNacimiento: Date,
     sexo: String,
     tipoUsuario: String,
-    imagen: String 
+    imagen: String ,
 },{
     timestamps: true
 });

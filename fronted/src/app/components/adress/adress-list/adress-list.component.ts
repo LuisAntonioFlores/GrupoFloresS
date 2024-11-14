@@ -37,11 +37,11 @@ export class AdressListComponent implements OnInit {
             const primeraDireccionId = this.direcciones[0]._id;
             this.seleccionarDireccion(primeraDireccionId); // Seleccionar la primera dirección
             this.direccionGuardadaAutomaticamente = true;
-            console.log('Primera dirección seleccionada automáticamente:', this.direcciones[0]);
+            // console.log('Primera dirección seleccionada automáticamente:', this.direcciones[0]);
           } else if (direccionGuardada) {
             // Si ya está seleccionada una dirección, la cargamos desde localStorage
             this.direccionSeleccionada = direccionGuardada;
-            console.log('Dirección cargada desde localStorage:', direccionGuardada);
+            // console.log('Dirección cargada desde localStorage:', direccionGuardada);
           }
         },
         error => {
@@ -56,7 +56,7 @@ export class AdressListComponent implements OnInit {
   
   seleccionarDireccion(direccionId: string): void {
     this.direccionSeleccionada = direccionId; 
-    console.log('Dirección seleccionada:', direccionId);
+    // console.log('Dirección seleccionada:', direccionId);
     this.addresServices.guardarDireccionSeleccionada(direccionId); // Guarda en localStorage
     alert('Dirección guardada en localStorage');
   }

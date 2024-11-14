@@ -51,7 +51,7 @@ export class FormAdressComponent implements OnInit {
     }
 
     // Recuperar la dirección desde localStorage y actualizar el formulario
-   
+
     this.addressForm.get('postalCode')?.valueChanges.subscribe(() => {
       this.onCodigoPostalChange();
     });
@@ -147,7 +147,6 @@ export class FormAdressComponent implements OnInit {
     }
     return {
       cliente_id: this.authService.getId(),
-      nombreUsuario: this.addressForm.get('fullName')?.value,
       codigoPostal: this.addressForm.get('postalCode')?.value,
       estado: this.addressForm.get('state')?.value,
       municipio: this.addressForm.get('municipality')?.value,

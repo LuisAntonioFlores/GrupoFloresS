@@ -6,5 +6,6 @@ export interface Direccion {
     estado: string;
     municipio: string;
     colonia: string;
+    descripcion:string;
     // Agrega otras propiedades que esperas recibir
 }

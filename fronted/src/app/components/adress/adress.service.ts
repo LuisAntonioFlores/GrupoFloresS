@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 export class AdressService {
   private Url = `${environment.baseUrl}:${environment.port}/api/direccion`;
 
-  // private Url = 'http://localhost:3000/api/direccion'; 
   private apiUrl = 'https://api.copomex.com/query/info_cp/';
    private token = '94943e85-c875-4d3a-a54f-ec83952a8a33'; // Asegúrate de que este token sea válido
 
@@ -47,6 +46,8 @@ export class AdressService {
       catchError(this.handleError)
     );
   }
+
+  
   obtenerDireccionesPorUsuario(cliente_id: string): Observable<{ existe: boolean, direcciones: Direccion[] }> {
     const url = `${this.Url}/usuario/${cliente_id}`;
     return this.http.get<Direccion[]>(url).pipe(
@@ -90,7 +91,7 @@ export class AdressService {
   
  // Método para guardar la dirección
  guardarDireccion(data: any): Observable<any> {
-   console.log('Datos que se enviarán al backend:', data);
+  //  console.log('Datos que se enviarán al backend:', data);
   
   return this.http.post(`${this.Url}/guardar`, data).pipe(
     catchError(this.handleError) // Maneja errores al guardar

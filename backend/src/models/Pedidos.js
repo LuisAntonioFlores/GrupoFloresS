@@ -13,7 +13,10 @@ const PedidoSchema = new mongoose.Schema({
     total_price: { type: Number, required: true },
     status: { type: String, default: 'pending' }, // Estado por defecto
     payment_id: { type: String }, // Para guardar el ID del pago
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    stockUpdated: { type: Boolean, default: false },
+  estado_entrega: { type: String, enum: ['en_proceso', 'entregado', 'pendiente'], default: 'pendiente' } // Nuevo campo
+
 });
 
 const Pedido = mongoose.model('Pedido', PedidoSchema);
