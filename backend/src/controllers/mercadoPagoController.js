@@ -61,7 +61,7 @@ const createPreference = async (req, res) => {
                     pending: "https://youtu.be/5SiW4UWAf8g?list=RD5SiW4UWAf8g"
                 },
                 auto_return: "approved",
-                notification_url: "https://bb6a-201-141-22-5.ngrok-free.app/api/pago/webhook",
+                notification_url: "/api/pago/webhook",
                 external_reference: cliente_id,
                 metadata: {
                     direccion_id: direccion_id // Agrega el ID de la dirección en metadata
