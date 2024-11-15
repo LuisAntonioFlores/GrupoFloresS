@@ -61,7 +61,7 @@ const createPreference = async (req, res) => {
                     pending: "https://youtu.be/5SiW4UWAf8g?list=RD5SiW4UWAf8g"
                 },
                 auto_return: "approved",
-                notification_url: "https://bb6a-201-141-22-5.ngrok-free.app/api/pago/webhook",
+                notification_url: "/api/pago/webhook",
                 external_reference: cliente_id,
                 metadata: {
                     direccion_id: direccion_id // Agrega el ID de la dirección en metadata
@@ -128,7 +128,8 @@ const handleWebhook = async (req, res) => {
                     total_price: paymentInfo.transaction_amount,
                     status,
                     payment_id: id,
-                    stockUpdated: false
+                    stockUpdated: false,
+                    estado_entrega: 'pendiente' 
                 });
                 await pedido.save();
             } else {
@@ -136,6 +137,8 @@ const handleWebhook = async (req, res) => {
                 await pedido.save();
             }
             if (status === 'approved') {
+                // obtenerComprobanteDePago(paymentId);
+                pedido.estado_entrega = 'en_proceso';
                 if (!cliente_id) {
                     console.error('cliente_id no está presente en la información del pago.');
                     return; // Termina la ejecución si cliente_id no está disponible
@@ -171,6 +174,15 @@ const handleWebhook = async (req, res) => {
                         clearInterval(clearCartInterval); // Detener reintentos
                     }
                 });
+                notificarEstadoPedido(cliente_id, status, pedido);
+            }else if (status === 'pending') {
+                // Si el pago está pendiente
+                pedido.estado_entrega = 'pendiente';  // Puedes asignar otro estado dependiendo del flujo de negocio
+            
+                console.log(`Pago pendiente para el cliente con ID: ${cliente_id}`);
+            
+                // Llamar a la función para notificar el estado del pago y entrega
+                notificarEstadoPedido(cliente_id, status, pedido);
             }
             
         }
@@ -195,10 +207,10 @@ const handleWebhook = async (req, res) => {
             for (const item of pedido.items) {
                 await updateProductQuantity(item.product_id, item.quantity);
             }
-            pedido.status = 'paid';
+            pedido.status = 'Pagado';
             pedido.stockUpdated = true;
             pedido.processing = false;
-            console.log(`Stock actualizado y estado de pedido marcado como 'paid': ${orderId}`);
+            console.log(`Stock actualizado y estado de pedido marcado como 'pagado': ${orderId}`);
             await pedido.save();
         }
     } catch (error) {
@@ -315,19 +327,59 @@ const fetchOrderInfo = async (orderId) => {
     return await response.json();
 };
 
-const mostrarPedidos = async (req, res) => {
+
+
+
+const mostrarPedidoCliente = async (req, res) => {
     try {
-        const pedidos = await Pedido.find(); // Recupera todos los pedidos
-        console.log('Pedidos en la base de datos:', pedidos); // Muestra los pedidos en la consola
-        res.status(200).json(pedidos); // Responde con la lista de pedidos
+        // Accedemos al clienteId desde los parámetros de la ruta
+        const { clienteId } = req.params;
+        console.log("Cliente ID recibido:", clienteId); // Verifica el valor recibido en la consola
+
+        // Si no se pasa clienteId, mostramos un mensaje adecuado
+        if (!clienteId) {
+            return res.status(400).json({ error: 'Se debe proporcionar un cliente_id para recuperar los pedidos.' });
+        }
+
+        const filtro = { cliente_id: clienteId }; // Usamos el clienteId recibido para filtrar los pedidos
+
+        // Recuperamos los pedidos del cliente específico
+        const pedidos = await Pedido.find(filtro);
+
+        // Si no se encuentran pedidos, se envía una respuesta adecuada
+        if (pedidos.length === 0) {
+            return res.status(404).json({ message: `No se encontraron pedidos ` });
+        }
+
+        // Si hay pedidos, se responden
+        res.status(200).json(pedidos); 
     } catch (error) {
         console.error('Error al recuperar los pedidos:', error);
         res.status(500).json({ error: 'Error al recuperar los pedidos.' });
     }
 };
+
+
+const marcarComoEntregado = async (pedidoId) => {
+    try {
+        const pedido = await Pedido.findById(pedidoId);
+        if (!pedido) {
+            console.error('Pedido no encontrado');
+            return;
+        }
+
+        // Marcar el estado de entrega como 'entregado'
+        pedido.estado_entrega = 'entregado';
+        await pedido.save();
+        console.log('Pedido marcado como entregado:', pedidoId);
+    } catch (error) {
+        console.error('Error al marcar el pedido como entregado:', error);
+    }
+};
+
 const obtenerEstadoPago = (req, res) => {
     const { clienteId } = req.params;
-    console.log('Recibiendo clienteId:', clienteId);
+   // console.log('Recibiendo clienteId:', clienteId);
 
     if (paymentStatus[clienteId]) {
 
@@ -339,12 +391,51 @@ const obtenerEstadoPago = (req, res) => {
     }
 };
 
+const obtenerPedidoPorNumero = async (req, res) => {
+    try {
+        const numeroPedido = req.params.numeroPedido; // Obtiene el número de pedido desde los parámetros de la URL
+        const pedido = await Pedido.findOne({ numero_Pedido: numeroPedido }); // Busca el pedido por su número de pedido
+
+        if (!pedido) {
+            return res.status(404).json({ error: 'Pedido no encontrado.' });
+        }
+
+        res.status(200).json(pedido); // Responde con el pedido encontrado
+    } catch (error) {
+        console.error('Error al recuperar el pedido:', error);
+        res.status(500).json({ error: 'Error al recuperar el pedido.' });
+    }
+};
+
+function notificarEstadoPedido(cliente_id, status, pedido) {
+    if (!cliente_id) {
+        console.error('cliente_id no está presente en la información del pago.');
+        return; // Termina la ejecución si cliente_id no está disponible
+    }
+
+    const io = getSocketInstance();
+
+    // Emitir el estado del pago
+    io.to(cliente_id).emit('paymentStatus', {
+        message: `Estado del pago: ${status}. El estado de entrega es: ${pedido.estado_entrega}`,
+        action: 'paymentStatus'
+    });
+
+    // Emitir el estado de entrega
+    io.to(cliente_id).emit('deliveryStatus', {
+        message: `El estado de entrega de tu pedido es: ${pedido.estado_entrega}.`,
+        action: 'deliveryStatus'
+    });
+}
+
+
 
 
 module.exports = {
     createPreference,
     handleWebhook,
     obtenerEstadoPago,
-    mostrarPedidos
+    mostrarPedidoCliente,
+    obtenerPedidoPorNumero
 
 };

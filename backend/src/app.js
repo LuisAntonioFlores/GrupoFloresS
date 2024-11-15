@@ -11,14 +11,14 @@ const contactoRoutes = require('./routes/quejasrutas');
 
 
 
+const notificationRoutes = require('./routes/notificationRoutes.js');
 const verifyEmailRouter = require('./routes/verifyEmail');
 const verifyInicioRouter = require('./routes/VerifyInicio');
 const orderRoutes = require('./routes/orderRoutes');
 const indexRoutes = require('./routes/index1'); // importamos indexRoutes
 const meruta = require('./routes/mercadoruta.js');
 const direccionRoutes = require('./routes/Direccion');
-
-const routes = require('./routes'); // Ajusta la ruta a tu archivo de rutas
+const userRoutes = require('./routes/UserRoutes.js'); 
 
 
 
@@ -33,15 +33,23 @@ app.use(express.json()); // debe estar al inicio antes de las rutas
 app.set('port', process.env.PORT ); // puerto
 
 //configiracion de rutas
+app.use('/api/notifications', notificationRoutes);  
 app.use('/api/informes', contactoRoutes); 
 app.use('/api', indexRoutes); // rutas
 app.use('/api', orderRoutes);
 app.use('/api/direccion', direccionRoutes);
-app.use('/uploads', express.static(path.resolve('uploads'))); // para que se pueda acceder a la carpeta uploads desde el navegador
+
+app.use('/uploads', express.static(path.resolve('uploads'))); 
+
+// para que se pueda acceder a la carpeta uploads desde el navegador
 app.use('/api/pago', meruta);
 app.use('/api/verify-inicio', verifyInicioRouter);
 app.use('/api/verify-email', verifyEmailRouter);
-app.use('/api', require('./routes/index.js'));
+app.use('/api', userRoutes); // Rutas de usuario
+
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
 
 
 app.get('/', (req, res) => {

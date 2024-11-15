@@ -70,6 +70,16 @@ const routes: Routes = [
         path: 'Perfil',
         loadChildren: () => import('./components/Segurity/seguridad.module').then(m => m.SeguridadModule),
         canActivate: [AuthGuard] 
+      },
+      {
+        path: 'Compras',
+        loadChildren: () => import('./components/compras/compras.module').then(m => m.ComprasModule),
+        canActivate: [AuthGuard] 
+      },
+      {
+        path: 'Notificacion',
+        loadChildren: () => import('./components/notificaciones/notificacion.module').then(m => m.NotificacionModule),
+        canActivate: [AuthGuard] 
       }
 
     ]

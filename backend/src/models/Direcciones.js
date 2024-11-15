@@ -11,10 +11,7 @@ const direccionSchema = new mongoose.Schema({
     required: true,
     default: 'México',
   },
-  nombreUsuario: {
-    type: String,
-    required: true,
-  },
+ 
   codigoPostal: {
     type: String,
     required: true,

@@ -1,23 +1,53 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <div formGroupName="personalInfo">
-      <h3>Información Personal</h3>
-  
-      <label for="nombre">Nombre:</label>
-      <input id="nombre" formControlName="nombre" readonly>
-  
-      <label for="apellidoPaterno">Apellido Paterno:</label>
-      <input id="apellidoPaterno" formControlName="apellidoPaterno" readonly>
-  
-      <label for="apellidoMaterno">Apellido Materno:</label>
-      <input id="apellidoMaterno" formControlName="apellidoMaterno" readonly>
-  
-      <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-      <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento" readonly>
-  
-      <label for="telefono">Teléfono:</label>
-      <input id="telefono" formControlName="telefono" readonly>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="form-container">
+  <div formGroupName="personalInfo">
+    <h3 class="form-title">Información Personal</h3>
+
+    <!-- Contenedor de la imagen -->
+    <div class="image-container" (click)="triggerFileInput()" [class.editable]="!isReadOnly">
+      <!-- Imagen de perfil mostrada antes de ser subida -->
+      <img *ngIf="imagePreview" [src]="imagePreview" alt="Imagen de perfil" class="profile-image"/>
+
+      <!-- Imagen predeterminada si no se ha seleccionado ninguna -->
+      <img *ngIf="!imagePreview" [src]="defaultImage" alt="Imagen predeterminada" class="profile-image"/>
+
+      <!-- Si no hay imagen seleccionada, muestra la imagen vacía con borde circular -->
+      <div *ngIf="!imagePreview && isReadOnly" class="empty-profile-image">
+        <span class="icon">+</span>
+      </div>
     </div>
-  
-    <button type="submit" [disabled]="userForm.invalid">Guardar</button>
-  </form>
-  
+
+    <!-- Campo oculto para seleccionar la imagen -->
+    <input type="file" id="image" (change)="onImageSelect($event)" #fileInput hidden [disabled]="isReadOnly"/>
+
+    <!-- Campos de información personal -->
+    <div class="input-group">
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" formControlName="nombre" [readonly]="isReadOnly" class="readonly-input">
+    </div>
+
+    <div class="input-group">
+      <label for="apellidoPaterno">Apellido Paterno:</label>
+      <input id="apellidoPaterno" formControlName="apellidoPaterno" [readonly]="isReadOnly" class="readonly-input">
+    </div>
+
+    <div class="input-group">
+      <label for="apellidoMaterno">Apellido Materno:</label>
+      <input id="apellidoMaterno" formControlName="apellidoMaterno" [readonly]="isReadOnly" class="readonly-input">
+    </div>
+
+    <div class="input-group">
+      <label for="sexo">Sexo:</label>
+      <input id="sexo" formControlName="sexo" [readonly]="isReadOnly" class="readonly-input">
+    </div>
+
+    <div class="input-group">
+      <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+      <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento" [readonly]="isReadOnly" class="readonly-input">
+    </div>
+
+    <!-- Botón para alternar la edición -->
+    <div class="form-footer">
+      <button type="submit">{{ isReadOnly ? 'Editar' : 'Actualizar' }}</button>
+    </div>
+  </div>
+</form>

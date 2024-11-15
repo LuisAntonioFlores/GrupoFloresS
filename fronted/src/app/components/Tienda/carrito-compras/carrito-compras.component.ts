@@ -185,7 +185,6 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
       numero_Pedido: '${Date.now()}',
       cliente_id: this.clienteId,
       date_Pedido: new Date(),
-      status: 'Pending',
       items: this.productosEnCarrito.map(producto => ({
         product_id: producto._id,
         title: producto.title,

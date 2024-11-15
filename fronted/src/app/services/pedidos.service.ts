@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { Pedido } from '../interfaces/Pedidos';
 import { environment } from 'src/environments/environment';
 
@@ -8,28 +8,36 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PedidoService {
+  
   constructor(private http: HttpClient) { }
 
-  URI = `${environment.baseUrl}:${environment.port}/api/Pedido`;
-  // URI = 'http://3.142.124.217:3000/api/Pedido';
+  // La URI ahora apunta correctamente a la ruta que maneja los pedidos.
+  URI = `${environment.baseUrl}:${environment.port}/api/pago/`;
 
-  createPedido(pedidoData: any): Observable<Pedido> {
-    return this.http.post<Pedido>(`${this.URI}`, pedidoData);
+  
+  // Para obtener los pedidos de un cliente específico
+  getPedidos(clienteId: string): Observable<Pedido[] | { message: string }> {
+    return this.http.get<Pedido[]>(`${this.URI}/pedidos/${clienteId}`).pipe(
+        catchError((error: HttpErrorResponse) => {
+            // Retornamos el mensaje de error en caso de recibir un 404
+            if (error.status === 404) {
+                return of(error.error); // Retornamos el mensaje de error como un Observable
+            }
+            return throwError(() => error); // Otros errores se manejan normalmente
+        })
+    );
+}
+
+
+  // Para obtener un pedido específico por su ID
+  getPedido(id: string): Observable<Pedido> {
+    return this.http.get<Pedido>(`${this.URI}/pedido/${id}`);
   }
-
+  // Para obtener todos los pedidos
   getAllPedidos(): Observable<Pedido[]> {
     return this.http.get<Pedido[]>(`${this.URI}`);
   }
-
-  getPedido(id: string): Observable<Pedido> {
-    return this.http.get<Pedido>(`${this.URI}/${id}`);
-  }
-
-  deletePedido(id: string): Observable<any> {
-    return this.http.delete(`${this.URI}/${id}`);
-  }
-
-  updatePedido(id: string, pedidoData: any): Observable<any> {
-    return this.http.put(`${this.URI}/uptdateP/${id}`, pedidoData);
-  }
+  
+ 
+ 
 }

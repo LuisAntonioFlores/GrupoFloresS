@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 
 import { environment } from 'src/environments/environment';
@@ -118,7 +118,7 @@ export class SocketService {
   emitEvent(eventName: string, data: any) {
     this.socket?.emit(eventName, data);
   }
-
+ 
   // Desconectar del servidor de Socket.IO
   private disconnect(): void {
     this.socket?.disconnect();

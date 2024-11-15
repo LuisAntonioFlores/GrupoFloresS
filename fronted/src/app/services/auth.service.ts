@@ -25,13 +25,28 @@ export class AuthService {
         apellidoMaterno: localStorage.getItem('apellidoMaterno') || '',
         sexo:localStorage.getItem('sexo')||'',
         tipoUsuario: localStorage.getItem('tipoUsuario') || '',
-        _id: localStorage.getItem('id') || ''
+        _id: localStorage.getItem('id') || '',
+        fechaNacimiento:localStorage.getItem('fechaNacimiento')||'',
+        imagen: localStorage.getItem('imagen') || '' 
       };
 
       // Actualizar el BehaviorSubject con los datos recuperados del localStorage
       this.userDataSubject.next(userData);
     }
   }
+
+  actualizarPerfil(userData: any): Observable<any> {
+    const url = `${this.URL}/update-profile`; // Cambia la URL según la ruta de tu API
+  
+    // Enviar la solicitud POST con los datos del usuario
+    return this.http.post<any>(url, userData).pipe(
+      catchError(error => {
+        console.error('Error en la actualización del perfil:', error);
+        return throwError(error);
+      })
+    );
+  }
+  
 
   private userDataSubject = new BehaviorSubject<AuthResponse>({
     token: '',
@@ -40,7 +55,9 @@ export class AuthService {
     apellidoMaterno: '',
     sexo:'',
     tipoUsuario: '',
-    _id: '' 
+    _id: '' ,
+    fechaNacimiento:'',
+    imagen: '' 
   });
 
   userData$ = this.userDataSubject.asObservable();
@@ -63,7 +80,11 @@ export class AuthService {
       localStorage.setItem('sexo', response.sexo || '');
       localStorage.setItem('tipoUsuario', response.tipoUsuario || '');
       localStorage.setItem('id', response._id || '');
-
+      localStorage.setItem('email', response.email || '');  // Almacena el correo electrónico
+      localStorage.setItem('fechaNacimiento', response.fechaNacimiento || ''); 
+      localStorage.setItem('imagen', response.imagen || ''); 
+       // Almacena la fecha de nacimiento
+  
       // Imprime el ID del usuario
    //   console.log('ID del usuario almacenado:', response._id);
 
@@ -75,10 +96,34 @@ export class AuthService {
         apellidoMaterno: response.apellidoMaterno || '',
         sexo:response.sexo || '',
         tipoUsuario: response.tipoUsuario || '',
-        _id: response._id || ''
+        _id: response._id || '',
+        email: response.email || '',  // Incluye el correo electrónico
+        fechaNacimiento: response.fechaNacimiento || '' ,
+        imagen: response.imagen || '' // Incluye la fecha de nacimiento
+   
       });
     }
   }
+
+  // Método para obtener el perfil del usuario
+getProfile(): Observable<AuthResponse> {
+  const url = `${this.URL}/perfil`; // Ruta de tu API para obtener el perfil
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${this.getToken()}` // Añade el token en los headers
+  });
+
+  return this.http.get<AuthResponse>(url, { headers }).pipe(
+    map(response => {
+      // Actualiza los datos del usuario en localStorage si es necesario
+      this.actualizarDatosUsuario(response);
+      return response;
+    }),
+    catchError(error => {
+      console.error('Error al obtener el perfil:', error);
+      return throwError(error);
+    })
+  );
+}
 
   // Función para realizar el registro
   registrar(user: any): Observable<AuthResponse> {
@@ -190,6 +235,17 @@ export class AuthService {
   getId(): string | null {
        return localStorage.getItem('id');
 
+  }
+  getEmail(): string | null {
+    return localStorage.getItem('email');
+  }
+  
+  getFechaNacimiento(): string | null {
+
+    return localStorage.getItem('fechaNacimiento');
+  }
+  getImagen(): string | null {
+    return localStorage.getItem('imagen');
   }
 
 }
