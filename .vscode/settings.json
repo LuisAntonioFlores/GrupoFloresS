@@ -1,3 +1,28 @@
 {
-    "gtp3.apiKey": "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"
+    "gtp3.apiKey": "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",
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "keyword.control.bg3txt",
+                "settings": {
+                    "foreground": "#C586C0"
+                }
+            },
+            {
+                "scope": "keyword.operator.bg3txt",
+                "settings": {
+                    "foreground": "#ffa200"
+                }
+            },
+            {
+                "scope": "string.first-column.bg3txt",
+                "settings": {
+                    "foreground": "#9CDCFE"
+                }
+            }
+        ]
+    },
+    "files.associations": {
+        "*.txt": "bg3txt"
+    }
 }

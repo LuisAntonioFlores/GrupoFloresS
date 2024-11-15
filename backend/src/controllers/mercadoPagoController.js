@@ -56,7 +56,7 @@ const createPreference = async (req, res) => {
             body: {
                 items,
                 back_urls: {
-                    success: "https://youtu.be/fJD3opkybpE",
+                    success: "www.grupofloress.com.mx/dashboard/Shop/Exito",
                     failure: "https://youtu.be/5SiW4UWAf8g?list=RD5SiW4UWAf8g",
                     pending: "https://youtu.be/5SiW4UWAf8g?list=RD5SiW4UWAf8g"
                 },
