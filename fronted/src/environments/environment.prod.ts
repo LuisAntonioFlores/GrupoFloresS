@@ -2,7 +2,7 @@
 
 export const environment = {
     production: true,
-    baseUrl: 'http://3.142.124.217',  // URL base para producción
-    port: 3003,  // Puerto para el backend en producción
+    baseUrl: 'http://3.140.186.210',  // URL base para producción
+    port: 80,  // Puerto para el backend en producción
   };
   
