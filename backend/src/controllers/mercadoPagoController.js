@@ -61,7 +61,7 @@ const createPreference = async (req, res) => {
                     pending: "https://youtu.be/5SiW4UWAf8g?list=RD5SiW4UWAf8g"
                 },
                 auto_return: "approved",
-                notification_url: "/api/pago/webhook",
+                notification_url: "https://18.227.111.215/api/pago/webhook",
                 external_reference: cliente_id,
                 metadata: {
                     direccion_id: direccion_id // Agrega el ID de la dirección en metadata
