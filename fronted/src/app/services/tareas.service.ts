@@ -5,7 +5,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class TareasService {
-  private URL = `${environment.baseUrl}:${environment.port}/api`;
+  private URL = `${environment.baseUrl}/api`;
+  // private URL = `${environment.baseUrl}:${environment.port}/api`;
 //  private URL ='http://3.142.124.217:3000/api';
   constructor(private http:HttpClient) { }
   getTarea(){

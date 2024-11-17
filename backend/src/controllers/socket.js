@@ -7,7 +7,8 @@ let io;
 function setupSocketServer(server) {
     io = socketIo(server, {
         cors: {
-            origin: "http://localhost:4200", // Cambia esto a la URL de tu cliente Angular
+            origin: "https://www.grupofloress.com.mx/", // Cambia esto a la URL de tu cliente Angular
+            // origin: "http://localhost:4200", // Cambia esto a la URL de tu cliente Angular
             methods: ["GET", "POST"],
             allowedHeaders: ["Content-Type"],
             credentials: true

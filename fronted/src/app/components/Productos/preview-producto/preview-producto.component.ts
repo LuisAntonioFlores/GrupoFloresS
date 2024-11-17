@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./preview-producto.component.scss']
 })
 export class PreviewProductoComponent implements OnInit {
-  private apiUrl = `${environment.baseUrl}:${environment.port}/`; // URL dinámica para la API
+ // private apiUrl = `${environment.baseUrl}:${environment.port}/`; // URL dinámica para la API
 
 
   id: string = '';
@@ -80,7 +80,8 @@ export class PreviewProductoComponent implements OnInit {
   }
   
   getImageUrl(imagePath: string | undefined): string {
-    const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
+    const baseUrl = `${environment.baseUrl}/`; // URL base desde el entorno
+    // const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
 
     // Asegura que hay una barra entre baseUrl e imagePath
     return `${baseUrl}${imagePath?.startsWith('/') ? imagePath.slice(1) : imagePath || ''}`;

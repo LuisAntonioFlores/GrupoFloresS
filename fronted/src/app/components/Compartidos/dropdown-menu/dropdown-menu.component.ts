@@ -111,8 +111,9 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
   }
   
   getImageUrl(imagePath: string | undefined): string {
-    const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
-
+    //const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
+    const baseUrl = `${environment.baseUrl}/`; // URL base desde el entorno
+    
     // Asegura que hay una barra entre baseUrl e imagePath
     return `${baseUrl}${imagePath?.startsWith('/') ? imagePath.slice(1) : imagePath || ''}`;
 }

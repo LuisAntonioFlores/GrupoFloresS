@@ -19,7 +19,8 @@ export interface Informe {
   providedIn: 'root'
 })
 export class InformesContactoService {
-  private apiUrl = `${environment.baseUrl}:${environment.port}/api/informes`;
+  private apiUrl = `${environment.baseUrl}/api/informes`;
+  // private apiUrl = `${environment.baseUrl}:${environment.port}/api/informes`;
 
   //  private apiUrl = 'http://localhost:3000/api/informes';  // Ruta de tu servidor backend
 

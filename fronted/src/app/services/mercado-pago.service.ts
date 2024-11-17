@@ -17,7 +17,8 @@ import { environment } from 'src/environments/environment';
     })
     export class MercadoPagoService {
 
-  private apiUrl = `${environment.baseUrl}:${environment.port}/api/pago`;
+  private apiUrl = `${environment.baseUrl}/api/pago`;
+  // private apiUrl = `${environment.baseUrl}:${environment.port}/api/pago`;
       // private apiUrl = 'http://localhost:3000/api/pago'; 
       constructor(private http: HttpClient) { }
 
