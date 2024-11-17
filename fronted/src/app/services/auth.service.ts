@@ -13,7 +13,8 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-    private URL = `${environment.baseUrl}:${environment.port}/api`;
+    private URL = `${environment.baseUrl}/api`;
+    // private URL = `${environment.baseUrl}:${environment.port}/api`;
   
   private cargarDatosUsuario(): void {
     const storedToken = localStorage.getItem('token');

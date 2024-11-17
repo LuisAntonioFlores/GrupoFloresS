@@ -12,7 +12,8 @@ export class PedidoService {
   constructor(private http: HttpClient) { }
 
   // La URI ahora apunta correctamente a la ruta que maneja los pedidos.
-  URI = `${environment.baseUrl}:${environment.port}/api/pago/`;
+  URI = `${environment.baseUrl}/api/pago/`;
+  // URI = `${environment.baseUrl}:${environment.port}/api/pago/`;
 
   
   // Para obtener los pedidos de un cliente específico

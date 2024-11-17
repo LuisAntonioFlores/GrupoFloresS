@@ -45,7 +45,8 @@ export class ArticulosComponent implements OnInit {
     return carrito.some((item) => item._id === producto._id);
   }
   getImageUrl(imagePath: string | undefined): string {
-    const baseUrl = `${environment.baseUrl}:${environment.port}/`;
+    const baseUrl = `${environment.baseUrl}/`;
+    // const baseUrl = `${environment.baseUrl}:${environment.port}/`;
     return `${baseUrl}${imagePath || ''}`;
   }
   filtrarProductos(): void {

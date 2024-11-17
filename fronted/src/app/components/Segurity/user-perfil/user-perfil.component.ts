@@ -61,7 +61,8 @@ export class UserPerfilComponent implements OnInit {
   }
 
   getImageUrl(imagePath: string | undefined): string {
-    const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
+    const baseUrl = `${environment.baseUrl}/`; // URL base desde el entorno
+    // const baseUrl = `${environment.baseUrl}:${environment.port}/`; // URL base desde el entorno
     return `${baseUrl}${imagePath?.startsWith('/') ? imagePath.slice(1) : imagePath || ''}`;
   }
 

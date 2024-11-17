@@ -11,7 +11,8 @@ import { environment } from 'src/environments/environment';
 export class ProductSubirService {
   constructor(private http: HttpClient) { }
 
-  URI = `${environment.baseUrl}:${environment.port}/api/producto`;
+  URI = `${environment.baseUrl}/api/producto`;
+  // URI = `${environment.baseUrl}:${environment.port}/api/producto`;
   // URI = 'http://3.142.124.217:3000/api/producto';
 
   createProduct(title: string, description: string, price: number, quantity: number, photo: File): Observable<Producto> {

@@ -278,7 +278,8 @@ export class CarritoComprasComponent implements OnInit, OnDestroy {
     this.router.navigate(['/dashboard']);
   }
   getImageUrl(imagePath: string | undefined): string {
-    const baseUrl = `${environment.baseUrl}:${environment.port}/`;
+    const baseUrl = `${environment.baseUrl}/`;
+    // const baseUrl = `${environment.baseUrl}:${environment.port}/`;
     return `${baseUrl}${imagePath || ''}`;
   }
 

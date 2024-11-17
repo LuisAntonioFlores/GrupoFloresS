@@ -31,7 +31,8 @@ export class ListaProductoComponent implements OnInit {
     this.router.navigate(['dashboard/admin/product',id ]);
   }
   getImageUrl(imagePath: string | undefined): string {
-    const baseUrl = `${environment.baseUrl}:${environment.port}/`;
+    // const baseUrl = `${environment.baseUrl}:${environment.port}/`;
+    const baseUrl = `${environment.baseUrl}/`;
     return `${baseUrl}${imagePath || ''}`;
   }
   
