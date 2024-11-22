@@ -39,6 +39,10 @@ import { SeguridadModule } from './components/Segurity/seguridad.module';
 import { ComprasModule } from './components/compras/compras.module';
 import { NotificacionModule } from './components/notificaciones/notificacion.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { VerificationComponent } from './components/Segurity/verification/verification.component';
+import { RecuperarContrasenaComponent } from './components/Seguridad/recuperar-contrasena/recuperar-contrasena.component';
+import { CambiarContrasenaComponent } from './components/Seguridad/cambiar-contrasena/cambiar-contrasena.component';
+import { VentasModule } from './components/ventas/ventas.module';
 
 
 
@@ -61,6 +65,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     NavonepageComponent,
     RegistrarComponent,
     ContactoComponent,
+    VerificationComponent,
+    RecuperarContrasenaComponent,
+    CambiarContrasenaComponent
+    
+
 
 
 
@@ -82,7 +91,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   SeguridadModule,
   ComprasModule,
   NotificacionModule,
-  ServiceWorkerModule.register('ngsw-worker.js', {
+  VentasModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
     enabled: !isDevMode(),
     // Register the ServiceWorker as soon as the application is stable
     // or after 30 seconds (whichever comes first).

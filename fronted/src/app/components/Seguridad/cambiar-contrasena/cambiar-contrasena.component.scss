@@ -1,0 +1,137 @@
+.cambiar-contrasena-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #6e7e85, #3f4b58);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  font-family: 'Roboto', sans-serif;
+  color: #f4f4f4;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cambiar-contrasena-container:hover {
+  transform: translateY(-10px);
+}
+
+.cambiar-contrasena-container h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.alert-success {
+  background-color: #28a745;
+  color: #fff;
+  border: 1px solid #218838;
+}
+
+.alert-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: 1px solid #c82333;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  display: block;
+  color: #f4f4f4;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #333;
+  background: #f9f9f9;
+  transition: all 0.3s ease-in-out;
+}
+
+.password-wrapper input:focus {
+  border-color: #007bff;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.password-wrapper input::placeholder {
+  color: #b0b0b0;
+}
+
+.toggle-visibility {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.toggle-visibility:hover {
+  color: #007bff;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  background-color: #1e3a58;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #644980;
+  transform: translateY(-3px);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(212, 0, 255, 0.25);
+}
+
+@media (max-width: 600px) {
+  .cambiar-contrasena-container {
+    padding: 20px;
+  }
+
+  .password-wrapper input {
+    font-size: 16px;
+  }
+
+  .btn-primary {
+    font-size: 16px;
+  }
+}

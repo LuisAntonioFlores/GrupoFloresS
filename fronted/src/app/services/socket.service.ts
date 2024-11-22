@@ -30,7 +30,7 @@ export class SocketService {
     }
 
 
-    this.socket = io('http://localhost:3003', {
+    this.socket = io(environment.baseUrl, {
       transports: ['websocket'],
       withCredentials: true,
     });

@@ -1,0 +1,38 @@
+<div *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="pedidos.length > 0">
+  <h2>Pedidos</h2>
+  <div class="card-container">
+    <div *ngFor="let pedido of pedidos" class="card">
+      
+      <div *ngIf="direccionCompleta; else noDireccion">
+        <h4>Dirección Completa</h4>
+        <p>Calle: {{ direccionCompleta.calle }}</p>
+        <p>Número: {{ direccionCompleta.numero }}</p>
+        <p>Colonia: {{ direccionCompleta.colonia }}</p>
+        <p>Municipio: {{ direccionCompleta.municipio }}</p>
+        <p>Estado: {{ direccionCompleta.estado }}</p>
+        <p>Código Postal: {{ direccionCompleta.codigoPostal }}</p>
+      </div>
+      
+      <!-- Plantilla alternativa cuando no se encuentra la dirección -->
+      <ng-template #noDireccion>
+        <h4>Dirección no disponible</h4>
+        <p>No se encontró la dirección asociada a este pedido.</p>
+      </ng-template>
+      
+      <h3>Pedido Nº: {{ pedido.numero_Pedido }}</h3>
+      <p>Cliente: {{ getClienteNombre(pedido.cliente_id) }}</p>
+      <p><strong>Estado de Entrega: </strong>{{ pedido.estado_entrega || 'No disponible' }}</p>
+      <p><strong>Fecha: </strong>{{ pedido.createdAt ? (pedido.createdAt | date: 'dd/MM/yyyy') : 'Fecha no disponible' }}</p>
+
+     
+    </div>
+  </div>
+</div>
+
+<div *ngIf="pedidos.length === 0">
+  <p>No hay pedidos disponibles.</p>
+</div>

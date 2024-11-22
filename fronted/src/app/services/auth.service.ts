@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -15,6 +15,12 @@ export class AuthService {
 
     private URL = `${environment.baseUrl}/api`;
     // private URL = `${environment.baseUrl}:${environment.port}/api`;
+
+    getNombrePorId(id: string): Observable<{ nombreCompleto: string }> {
+      const url = `${this.URL}/usuario/${id}/nombre`;
+      return this.http.get<{ nombreCompleto: string }>(url);
+    }
+    
   
   private cargarDatosUsuario(): void {
     const storedToken = localStorage.getItem('token');
@@ -69,7 +75,7 @@ export class AuthService {
 
   // Función para actualizar datos del usuario
   private actualizarDatosUsuario(response: AuthResponse): void {
-   // console.log('Actualizando datos del usuario:', response);
+  //  console.log('Actualizando datos del usuario:', response);
     if (response && response.token) {
       // Almacena el token en el localStorage
       localStorage.setItem('token', response.token);
@@ -85,7 +91,7 @@ export class AuthService {
       localStorage.setItem('fechaNacimiento', response.fechaNacimiento || ''); 
       localStorage.setItem('imagen', response.imagen || ''); 
        // Almacena la fecha de nacimiento
-  
+    
       // Imprime el ID del usuario
    //   console.log('ID del usuario almacenado:', response._id);
 
@@ -152,9 +158,14 @@ getProfile(): Observable<AuthResponse> {
         carritoService.cargarCarrito();
         return response;
       }),
-      catchError(error => {
+      catchError((error: HttpErrorResponse) => {
+        // Si el servidor retorna un error 404, extraer el mensaje
+        if (error.status === 404) {
+          console.error('Error en inicio de sesión:', error.error.message);
+          return throwError(() => new Error(error.error.message));
+        }
         console.error('Error en la solicitud de inicio de sesión:', error);
-        return throwError(error);
+        return throwError(() => new Error('Error al iniciar sesión.'));
       })
     );
   }
@@ -186,35 +197,31 @@ getProfile(): Observable<AuthResponse> {
 
   // Función para verificar la combinación de correo electrónico y contraseña al iniciar sesión
   checkInicioPass(email: string, password: string): Observable<any> {
-    const dato = '{"email":"' + email + '", "password":"' + password + '"}';
+    const dato = JSON.stringify({ email, password });  // Usamos JSON.stringify para un formato correcto
     const url = this.URL + '/verify-inicio';
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+  
     return this.http.post(url, dato, { headers }).pipe(
-      map(response => {
-        const typedResponse = response as { success?: boolean };
-
-        if (typedResponse && typeof typedResponse === 'object') {
-          const success = typedResponse.success === true;
-
-          if (success) {
-            console.log('Inicio de sesión exitoso');
-          } else {
-            console.warn('La propiedad "success" no está presente o es false en la respuesta.');
-          }
+      map((response: any) => {
+        // Aquí verificamos si la respuesta contiene el campo 'success'
+        if (response.success) {
+          console.log('Inicio de sesión exitoso');
+          return { success: true };
         } else {
-          console.warn('La respuesta no es un objeto.');
+          console.error(`Error: ${response.error}`);
+          return { success: false, error: response.error };  // Retornamos el mensaje de error
         }
-
-        return response;
       }),
-      catchError(error => {
-        console.error('Error en la solicitud de inicio de sesión:', error);
-        return throwError(error);
+      catchError((error) => {
+        // Si ocurre un error en la solicitud (como un problema de red o error 500)
+        console.error('Error al verificar el inicio de sesión en la base de datos:', error);
+        return throwError(error);  // Pasamos el error a la parte donde lo capturamos
       })
     );
   }
+  
 
+ 
   // Funciones para obtener detalles del usuario del localStorage
   getNombre(): string | null {
     return localStorage.getItem('nombre');

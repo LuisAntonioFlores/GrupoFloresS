@@ -1,0 +1,22 @@
+<div class="verification-container">
+  <h2>Verificación de Código</h2>
+
+  <!-- Formulario para enviar el código -->
+  <form (ngSubmit)="sendCode()" *ngIf="!isCodeSent">
+    <label for="email">Correo Electrónico:</label>
+    <!-- Obtiene el correo directamente desde AuthService -->
+   <input type="email" id="email" [value]="getEmail()" name="email" disabled required />
+
+    <button type="submit">Enviar Código</button>
+  </form>
+
+  <!-- Formulario para verificar el código -->
+  <form (ngSubmit)="verifyCode()" *ngIf="isCodeSent">
+    <label for="code">Código de Verificación:</label>
+    <input type="text" id="code" [(ngModel)]="code" name="code" required />
+    <button type="submit">Verificar</button>
+  </form>
+
+  <!-- Mensaje informativo -->
+  <p *ngIf="message">{{ message }}</p>
+</div>

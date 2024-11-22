@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ErrorModalComponent } from '../error-modal/error-modal.component';
+import { VerificationServiceService } from 'src/app/services/verification-service.service';
 
 
 @Component({
@@ -20,12 +21,18 @@ export class RegistrarComponent {
   passwordError: string = '';
   passwordVisible = false;
   ageError: string | null = null;
+
+  verificationCode: string = '';
+  isCodeSent: boolean = false;
+  codeError: string | null = null;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private modalService: NgbModal,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef, 
+   
     
   ) {}
   getMaxDate(): Date {
@@ -64,11 +71,11 @@ export class RegistrarComponent {
   async registrar() {   
     // MENSAJE DE ERROR DEL REGISTRO
     if (!this.user.nombre || !this.user.apellidoP || !this.user.apellidoM || !this.user.email || !this.user. password || !this.user.fechaNacimiento || !this.user.sexo || !this.user.tipoUsuario) {
-      this.openErrorModal('Por favor, diligenciar todos los datos requeridos en el formulario.');
+      this.openErrorModal('Por favor, ingresar todos los datos requeridos en el formulario.');
       return;
     }
     if (!this.validarEmail(this.user.email)) {
-      this.openErrorModal('Por favor, diligenciar correo electrónico válido.');
+      this.openErrorModal('Por favor, ingresar correo electrónico válido.');
       return;
     }
     // this.validarPassword(); // Validar la contraseña
@@ -110,7 +117,7 @@ export class RegistrarComponent {
         res => {
           console.log(res);
           localStorage.setItem('token', res.token);
-          this.router.navigate(['/dashboard/Address/direccion_fom']);
+          this.router.navigate(['/verificacion']);
         },
         err => {
           console.error(err);
@@ -129,4 +136,11 @@ export class RegistrarComponent {
     const modalRef = this.modalService.open(ErrorModalComponent, { centered: true });
     modalRef.componentInstance.message = message;
   }
+
+
+
+
+
+
+
 }

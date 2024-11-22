@@ -18,7 +18,8 @@ exports.registerUser = async (req, res) => {
       fechaNacimiento,
       sexo,
       tipoUsuario,
-      imagen: req.file ? `/uploads/${req.file.filename}` : null
+      imagen: req.file ? `/uploads/${req.file.filename}` : null,
+      emailVerified: false 
     });
 
     await newUser.save();
@@ -29,6 +30,7 @@ exports.registerUser = async (req, res) => {
       nombre: newUser.nombre,
       apellidoPaterno: newUser.apellidoP,
       apellidoMaterno: newUser.apellidoM,
+      email:newUser.email,
       tipoUsuario: newUser.tipoUsuario,
       sexo: newUser.sexo,
       imagen: newUser.imagen,
@@ -43,6 +45,7 @@ exports.registerUser = async (req, res) => {
       nombre: newUser.nombre,
       apellidoPaterno: newUser.apellidoP,
       apellidoMaterno: newUser.apellidoM,
+      email:newUser.email,
       tipoUsuario: newUser.tipoUsuario,
       _id: newUser._id,
       imagen: newUser.imagen,
@@ -60,8 +63,14 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
 
-    if (!user) return res.status(401).send("El Correo no existe");
+   if (!user) {
+      console.log(`Verificando inicio de sesión: ${email}\nUsuario no encontrado.`);
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
+    }
 
+    if (!user.emailVerified) {
+      return res.status(403).json({ message: 'El correo electrónico no ha sido verificado.' });
+    }
     // Comparar contraseñas
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) return res.status(401).send('Contraseña incorrecta');
@@ -72,6 +81,7 @@ exports.loginUser = async (req, res) => {
       nombre: user.nombre,
       apellidoPaterno: user.apellidoP,
       apellidoMaterno: user.apellidoM,
+      email:user.email,
       tipoUsuario: user.tipoUsuario,
       sexo: user.sexo,
       imagen: user.imagen,
@@ -86,6 +96,7 @@ exports.loginUser = async (req, res) => {
       nombre: user.nombre,
       apellidoPaterno: user.apellidoP,
       apellidoMaterno: user.apellidoM,
+      email: user.email,
       sexo: user.sexo,
       tipoUsuario: user.tipoUsuario,
       _id: user._id,
@@ -165,6 +176,7 @@ exports.updateProfile = async (req, res) => {
       imagePath = req.file.path;
       user.imagen = imagePath;
     }
+    
     // Guardar los cambios en la base de datos
     await user.save();
 
@@ -181,5 +193,27 @@ exports.updateProfile = async (req, res) => {
   } catch (error) {
     console.error('Error al actualizar perfil:', error);
     return res.status(500).send('Error interno del servidor');
+  }
+};
+
+
+exports.getNombrePorId = async (req, res) => {
+  try {
+    const { id } = req.params; // Obtener el ID de los parámetros de la solicitud
+
+    // Buscar el usuario por su ID en la base de datos
+    const user = await UserModel.findById(id, 'nombre apellidoP apellidoM'); // Solo obtener el nombre y apellidos
+
+    if (!user) {
+      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+    }
+
+    // Enviar la respuesta con el nombre completo
+    return res.status(200).json({
+      nombreCompleto: `${user.nombre} ${user.apellidoP} ${user.apellidoM}`,
+    });
+  } catch (error) {
+    console.error('Error al obtener el nombre por ID:', error);
+    return res.status(500).json({ mensaje: 'Error interno del servidor' });
   }
 };

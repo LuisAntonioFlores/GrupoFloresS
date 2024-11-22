@@ -20,18 +20,47 @@ exports.createOrder = async (req, res) => {
 
 // Controlador para obtener todos los pedidos
 exports.getAllOrders = async (req, res) => {
+  const { page = 1, limit = 10, status } = req.query; // Paginación y filtros
+  const query = status ? { status } : {};  // Si se proporciona un estado, filtra por él
+  
+  console.log(`Paginación: página ${page}, límite ${limit}`);
+  if (status) {
+    console.log(`Filtrando por estado: ${status}`);
+  } else {
+    console.log('Sin filtro de estado.');
+  }
+
   try {
-    const orders = await Order.find().populate('cliente_id', 'name'); // Populate para obtener solo el nombre del cliente
-    res.status(200).json({ success: true, data: orders });
+    // Obtener los pedidos con paginación y filtro
+    const orders = await Order.find(query)
+      .populate('cliente_id', 'name') // Solo el nombre del cliente
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+    
+    console.log(`Pedidos obtenidos: ${orders.length}`);
+
+    const total = await Order.countDocuments(query); // Cuenta los pedidos que coinciden con el filtro
+    console.log(`Total de pedidos: ${total}`);
+    
+    // Enviar respuesta con los datos
+    res.status(200).json({
+      success: true,
+      data: orders,
+      total,
+      page: Number(page),
+      totalPages: Math.ceil(total / limit) // Calcula las páginas totales
+    });
   } catch (error) {
+    console.error('Error al obtener los pedidos:', error.message);
     res.status(500).json({ success: false, message: 'Error al obtener los pedidos', error: error.message });
   }
 };
 
+
 // Controlador para obtener un pedido por su ID
 exports.getOrderById = async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id).populate('cliente_id', 'name'); // Populate para obtener solo el nombre del cliente
+    const order = await Order.findById(req.params.id).populate('cliente_id', 'name'); // Populate para obtener el nombre del cliente
     if (!order) {
       return res.status(404).json({ success: false, message: 'Pedido no encontrado' });
     }
@@ -43,6 +72,14 @@ exports.getOrderById = async (req, res) => {
 
 // Controlador para actualizar un pedido por su ID
 exports.updateOrderById = async (req, res) => {
+  const allowedUpdates = ['status', 'estado_entrega']; // Campos que pueden ser actualizados
+  const updates = Object.keys(req.body);
+  const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+
+  if (!isValidOperation) {
+    return res.status(400).json({ success: false, message: 'Actualización no permitida en estos campos' });
+  }
+
   try {
     const order = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!order) {

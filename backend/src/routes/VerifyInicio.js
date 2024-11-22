@@ -10,19 +10,22 @@ router.post('/', async (req, res) => {
 
   try {
     const user = await UserModel.findOne({ email });
+
+    // Verificar si el usuario existe
     if (user) {
+    //  console.log('Usuario encontrado:', user.email);
+
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (passwordMatch) {
-        console.log('Inicio de sesión exitoso.');
+       // console.log('Inicio de sesión exitoso.');
         res.json({
           success: true,
         });
       } else {
-        console.log('Contraseña incorrecta.');
         res.status(401).json({ error: 'Contraseña incorrecta' });
       }
     } else {
-      console.log('Usuario no encontrado.');
+     
       res.status(404).json({ error: 'Usuario no encontrado' });
     }
   } catch (error) {
@@ -30,5 +33,6 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Error al verificar el inicio de sesión' });
   }
 });
+
 
 module.exports = router;

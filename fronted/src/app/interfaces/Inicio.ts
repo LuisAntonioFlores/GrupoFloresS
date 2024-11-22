@@ -11,4 +11,5 @@ export interface AuthResponse {
     email?: string;  // Correo electrónico del usuario (opcional)
     fechaNacimiento?: string;  // Fecha de nacimiento del usuario (opcional)
     imagen?: string; 
+    clienteNombre?: string;
   }

@@ -10,6 +10,9 @@ import { AuthGuard } from './auth.guard';
 import { SliderComponent } from './components/Compartidos/slider/slider.component';
 import { BienvenidosComponent } from './components/Compartidos/bienvenidos/bienvenidos.component';
 import { RegistrarComponent } from './components/Seguridad/registrar/registrar.component';
+import { VerificationComponent } from './components/Segurity/verification/verification.component';
+import { RecuperarContrasenaComponent } from './components/Seguridad/recuperar-contrasena/recuperar-contrasena.component';
+import { CambiarContrasenaComponent } from './components/Seguridad/cambiar-contrasena/cambiar-contrasena.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,10 @@ const routes: Routes = [
   },
   {
     path: 'slider', component: SliderComponent
+
+  },
+  {
+    path: 'verificacion', component: VerificationComponent
 
   },
   {
@@ -48,6 +55,8 @@ const routes: Routes = [
     path: 'registrar',
     component: RegistrarComponent
   },
+  { path: 'recuperar-contrasena', component: RecuperarContrasenaComponent },
+  { path: 'cambiar-contrasena', component: CambiarContrasenaComponent },
   {
     path: 'dashboard',
     children: [
@@ -74,6 +83,11 @@ const routes: Routes = [
       {
         path: 'Compras',
         loadChildren: () => import('./components/compras/compras.module').then(m => m.ComprasModule),
+        canActivate: [AuthGuard] 
+      },
+      {
+        path: 'Ventas',
+        loadChildren: () => import('./components/ventas/ventas.module').then(m => m.VentasModule),
         canActivate: [AuthGuard] 
       },
       {
