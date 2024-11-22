@@ -1,0 +1,60 @@
+<div class="cambiar-contrasena-container">
+  <h2>Cambiar Contraseña</h2>
+
+  <!-- Mensajes de éxito o error -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Formulario para cambio de contraseña -->
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="newPassword">Nueva Contraseña</label>
+      <div class="password-wrapper">
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          id="newPassword"
+          [(ngModel)]="newPassword"
+          name="newPassword"
+          class="form-control"
+          required
+          placeholder="Ingresa tu nueva contraseña"
+        />
+        <button
+          type="button"
+          class="toggle-visibility"
+          (click)="togglePasswordVisibility()"
+        >
+          {{ passwordVisible ? '👁️' : '🙈' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirmar Contraseña</label>
+      <div class="password-wrapper">
+        <input
+          [type]="confirmPasswordVisible ? 'text' : 'password'"
+          id="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          class="form-control"
+          required
+          placeholder="Confirma tu nueva contraseña"
+        />
+        <button
+          type="button"
+          class="toggle-visibility"
+          (click)="toggleConfirmPasswordVisibility()"
+        >
+          {{ confirmPasswordVisible ? '👁️' : '🙈' }}
+        </button>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
+  </form>
+</div>

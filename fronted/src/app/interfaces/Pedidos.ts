@@ -8,7 +8,7 @@ export interface Pedido {
   total_price: number;
   direccion_id?: string;
   estado_entrega?: string;
-  createdAt?: string;
+  createdAt?: Date;
 
 }
 
@@ -19,3 +19,13 @@ export interface Item {
   price: number;
 
 }
+
+// respuesta-pedidos.interface.ts
+export interface RespuestaPedidos {
+  success: boolean;
+  data: Pedido[];  // El arreglo de pedidos
+  total: number;
+  page: number;
+  totalPages: number;
+}
+

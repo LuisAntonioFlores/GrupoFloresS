@@ -16,6 +16,7 @@ export class AdminLoginComponent {
   showPassword = false;
 iniciarForm: FormGroup;
 mensajeBienvenida: string = '';
+errorMessage: string = '';
 constructor(
   private formBuilder: FormBuilder,
   private authService: AuthService,
@@ -36,27 +37,32 @@ togglePasswordVisibility() {
 checInicio() {
   const email = this.iniciarForm.get('email')?.value;
   const password = this.iniciarForm.get('password')?.value;
-  
-  // console.log('Email:', email);
-  // console.log('Password:', password);
-  
+
   this.authService.checkInicioPass(email, password).subscribe(
     (res) => {
-      console.log('Response:', res);
-  
-      if (!res.exists) {
+      if (res.success) {
+        // Si el inicio de sesión es exitoso, procedemos a iniciar sesión
         this.iniciarSesion();
       } else {
-        console.log('El usuario y la contraseña son incorrectas');
+        // Si hubo un error, mostramos el mensaje
+        alert(`Error: ${res.error}`);
       }
     },
     (err) => {
-      console.error(err);
-      console.log('Error al verificar el inicio de sesión en la base de datos.');
+      // Si ocurre un error inesperado en la solicitud
+      if (err.status === 404) {
+        alert('Usuario no encontrado');
+      } else if (err.status === 401) {
+        alert('Contraseña incorrecta');
+      } else {
+        alert('Ocurrió un error inesperado al verificar el inicio de sesión.');
+      }
+      console.error('Error al verificar el inicio de sesión en la base de datos:', err);
     }
   );
 }
-  
+
+
 iniciarSesion() {
   const email = this.iniciarForm.get('email')?.value;
   const password = this.iniciarForm.get('password')?.value;
@@ -65,9 +71,15 @@ iniciarSesion() {
     (res) => {
       localStorage.setItem('token', res.token);
       this.router.navigate(['/private']);
+      this.errorMessage = '';
     },
     (err) => {
-      console.log(err);
+      if (err.error && err.error.message) {
+        this.errorMessage = err.error.message; // Mostrar mensaje del backend
+      } else {
+        this.errorMessage = 'Error al iniciar sesión. Intente nuevamente.';
+      }
+      console.error('Error en el inicio de sesión:', err);
     }
   );
 }

@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, getTasks, getPrivateTasks,updateProfile,getProfile } = require('../controllers/userController.js');
+const { 
+  registerUser,
+   loginUser,
+    getTasks,
+     getPrivateTasks,
+     updateProfile,
+     getProfile,
+     getNombrePorId, } = require('../controllers/userController.js');
 const verifyToken = require('../middlewares/auth');
 const multer = require('../libs/multer');
 
@@ -20,4 +27,7 @@ router.get('/pruebas', (req, res) => {
   res.status(200).json({ message: "Hola, soy usuario de pruebas" });
 });
 
+
+
+router.get('/usuario/:id',getNombrePorId);
 module.exports = router;

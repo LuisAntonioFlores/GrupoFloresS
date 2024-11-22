@@ -1,13 +1,14 @@
 // socket.js
 const http = require('http');
 const socketIo = require('socket.io');
+require('dotenv').config();
 
 let io;
 
 function setupSocketServer(server) {
     io = socketIo(server, {
         cors: {
-            origin: "https://www.grupofloress.com.mx/", // Cambia esto a la URL de tu cliente Angular
+            origin: "${process.env.FRONTEND_URL}", // Cambia esto a la URL de tu cliente Angular
             // origin: "http://localhost:4200", // Cambia esto a la URL de tu cliente Angular
             methods: ["GET", "POST"],
             allowedHeaders: ["Content-Type"],

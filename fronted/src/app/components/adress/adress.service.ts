@@ -16,6 +16,7 @@ export class AdressService {
   // private Url = `${environment.baseUrl}:${environment.port}/api/direccion`;
 
   private apiUrl = 'https://api.copomex.com/query/info_cp/';
+  
    private token = '94943e85-c875-4d3a-a54f-ec83952a8a33'; // Asegúrate de que este token sea válido
 
   constructor(private http: HttpClient,private authService: AuthService) {}
@@ -110,7 +111,8 @@ export class AdressService {
   obtenerDatosPorCodigoPostal(cp: string): Observable<ApiResponse[]> {
     return this.validatePostalCode(cp).pipe(
       switchMap(() =>
-        this.http.get<ApiResponse[]>(`${this.apiUrl}/${cp}?token=pruebas`).pipe(
+        // this.http.get<ApiResponse[]>(`${this.apiUrl}/${cp}?token=pruebas`).pipe(
+      this.http.get<ApiResponse[]>(`${this.apiUrl}/${cp}?token=${environment.token}`).pipe( // Usar el token válido
           catchError(this.handleError)
         )
       )

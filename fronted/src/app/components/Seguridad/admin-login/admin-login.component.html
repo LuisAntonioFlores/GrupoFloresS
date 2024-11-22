@@ -37,8 +37,11 @@
               <i class="fa" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}"></i>
             </span>
           </div>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
           <div class="forgot-password">
-            <a href="#" class="link-forgot-password">¿Olvidaste tu contraseña?</a>
+            <a routerLink="/recuperar-contrasena" class="link-forgot-password">¿Olvidaste tu contraseña?</a>
           </div>
           <div *ngIf="iniciarForm.get('password')?.hasError('required') && iniciarForm.get('password')?.    touched" class="text-danger">
             Contraseña es requerida.

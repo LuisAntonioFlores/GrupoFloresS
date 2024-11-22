@@ -4,12 +4,14 @@ import { SeguridadRoutingModule } from './seguridad-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserPerfilComponent } from './user-perfil/user-perfil.component';
+import { VerificationComponent } from './verification/verification.component';
 
 
 
 @NgModule({
   declarations: [
-    UserPerfilComponent
+    UserPerfilComponent,
+    
   ],
   imports: [
     CommonModule,

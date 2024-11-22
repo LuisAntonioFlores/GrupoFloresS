@@ -6,6 +6,7 @@ import { UserPerfilComponent } from './user-perfil/user-perfil.component';
 const routes:Routes =[
   
   { path: 'User', component: UserPerfilComponent },
+ 
   
   
 

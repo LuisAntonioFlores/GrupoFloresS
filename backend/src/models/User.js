@@ -9,6 +9,7 @@ const userSchema = new Schema({
     sexo: String,
     tipoUsuario: String,
     imagen: String ,
+    emailVerified: { type: Boolean, default: false },
 },{
     timestamps: true
 });

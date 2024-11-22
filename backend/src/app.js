@@ -8,9 +8,12 @@ const http = require('http');
 const { setupSocketServer } = require('./controllers/socket.js');
 
 const contactoRoutes = require('./routes/quejasrutas');
+const pedidoRoutes = require('./routes/orderRoutes.js');
+
+const authRoutes = require('./routes/auth.routes.js');
 
 
-
+const verificationRoutes = require('./routes/validacionEmail.js');
 const notificationRoutes = require('./routes/notificationRoutes.js');
 const verifyEmailRouter = require('./routes/verifyEmail');
 const verifyInicioRouter = require('./routes/VerifyInicio');
@@ -33,6 +36,11 @@ app.use(express.json()); // debe estar al inicio antes de las rutas
 app.set('port', process.env.PORT ); // puerto
 
 //configiracion de rutas
+
+
+app.use('/api/Pedido', pedidoRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/verificacion', verificationRoutes);
 app.use('/api/notifications', notificationRoutes);  
 app.use('/api/informes', contactoRoutes); 
 app.use('/api', indexRoutes); // rutas
