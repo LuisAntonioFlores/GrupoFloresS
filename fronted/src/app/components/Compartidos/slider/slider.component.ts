@@ -14,7 +14,7 @@ export class SliderComponent implements OnInit, OnDestroy {
   interval!: any;
 
   ngOnInit(): void {
-    console.log(this.arrUrlIMG);  // Verifica los nombres de las imágenes
+  //  console.log(this.arrUrlIMG);  // Verifica los nombres de las imágenes
     this.startAutoSlide();
   }
 

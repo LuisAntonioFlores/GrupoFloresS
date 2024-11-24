@@ -62,6 +62,7 @@ const createPreference = async (req, res) => {
                 },
                 auto_return: "approved",
                 notification_url: "https://api.grupofloress.com.mx/api/pago/webhook",
+                // notification_url: "https://84ec-201-141-22-5.ngrok-free.app/api/pago/webhook",
                 external_reference: cliente_id,
                 metadata: {
                     direccion_id: direccion_id // Agrega el ID de la dirección en metadata
@@ -129,7 +130,7 @@ const handleWebhook = async (req, res) => {
                     status,
                     payment_id: id,
                     stockUpdated: false,
-                    estado_entrega: 'pendiente' 
+                    estado_entrega: 'pendiente'
                 });
                 await pedido.save();
             } else {
@@ -137,36 +138,38 @@ const handleWebhook = async (req, res) => {
                 await pedido.save();
             }
             if (status === 'approved') {
-                // obtenerComprobanteDePago(paymentId);
+
+           
+
                 pedido.estado_entrega = 'en_proceso';
                 if (!cliente_id) {
                     console.error('cliente_id no está presente en la información del pago.');
                     return; // Termina la ejecución si cliente_id no está disponible
                 }
-            
+
                 console.log(`Pago aprobado para el cliente con ID: ${cliente_id}`);
-            
+
                 const io = getSocketInstance();
                 let retries = 0;
                 const maxRetries = 5;
                 const retryInterval = 5000; // tiempo en ms para reintentar
-            
+
                 const clearCartInterval = setInterval(() => {
                     if (retries >= maxRetries) {
                         clearInterval(clearCartInterval);
                         console.error(`No se recibió confirmación del cliente ${cliente_id} tras ${maxRetries} intentos. Emisión de "clearCart" detenida.`);
                         return;
                     }
-            
+
                     console.log(`Emitiendo evento 'clearCart' al cliente ${cliente_id}, intento ${retries + 1}`);
-                    io.to(cliente_id).emit('clearCart', { 
+                    io.to(cliente_id).emit('clearCart', {
                         message: 'El pago fue aprobado, vacía el carrito.',
                         action: 'clearCart'
                     });
-            
+
                     retries++;
                 }, retryInterval);
-            
+
                 // Escuchar respuesta de confirmación del cliente
                 io.on('confirmationFromClient', (data) => {
                     if (data && data.cliente_id === cliente_id && data.confirmation === 'received') {
@@ -175,16 +178,36 @@ const handleWebhook = async (req, res) => {
                     }
                 });
                 notificarEstadoPedido(cliente_id, status, pedido);
-            }else if (status === 'pending') {
+
+                // console.log('Estado del pago:', paymentInfo.status);
+                // const ticketUrl = paymentInfo.ticket_url || null;
+                // if (ticketUrl) {
+                //     // Guardar el comprobante en la base de datos
+                //     pedido.comprobante_url = ticketUrl;
+                //     console.log(`Comprobante guardado para el pedido: ${ticketUrl}`);
+
+                //     // Guardar el pedido en la base de datos
+                //     pedido.save()
+                //         .then((pedidoGuardado) => {
+                //             console.log('Pedido guardado exitosamente con el comprobante:', pedidoGuardado);
+                //         })
+                //         .catch((error) => {
+                //             console.error('Error al guardar el pedido:', error);
+                //         });
+                // } else {
+                //     console.warn('No se generó un comprobante para este pago.');
+                // }
+
+            } else if (status === 'pending') {
                 // Si el pago está pendiente
                 pedido.estado_entrega = 'pendiente';  // Puedes asignar otro estado dependiendo del flujo de negocio
-            
+
                 console.log(`Pago pendiente para el cliente con ID: ${cliente_id}`);
-            
+
                 // Llamar a la función para notificar el estado del pago y entrega
                 notificarEstadoPedido(cliente_id, status, pedido);
             }
-            
+
         }
 
         // Solo procesar el ajuste de stock en 'merchant_order' cuando el pago esté aprobado
@@ -273,8 +296,10 @@ const fetchPaymentInfo = async (paymentId) => {
         console.error('Error al obtener la información del pago:', errorBody);
         throw new Error(`Error al obtener la información del pago: ${response.status} ${response.statusText}`);
     }
-
-    return await response.json();
+    const paymentData = await response.json();
+    
+  
+    return paymentData;
 };
 
 
@@ -352,7 +377,7 @@ const mostrarPedidoCliente = async (req, res) => {
         }
 
         // Si hay pedidos, se responden
-        res.status(200).json(pedidos); 
+        res.status(200).json(pedidos);
     } catch (error) {
         console.error('Error al recuperar los pedidos:', error);
         res.status(500).json({ error: 'Error al recuperar los pedidos.' });
@@ -379,7 +404,7 @@ const marcarComoEntregado = async (pedidoId) => {
 
 const obtenerEstadoPago = (req, res) => {
     const { clienteId } = req.params;
-   // console.log('Recibiendo clienteId:', clienteId);
+    // console.log('Recibiendo clienteId:', clienteId);
 
     if (paymentStatus[clienteId]) {
 

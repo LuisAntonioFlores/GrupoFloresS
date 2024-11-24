@@ -52,19 +52,19 @@ export class FormAdressComponent implements OnInit {
 
     // Recuperar la dirección desde localStorage y actualizar el formulario
 
-    this.addressForm.get('postalCode')?.valueChanges.subscribe(() => {
-      this.onCodigoPostalChange();
-    });
+    // this.addressForm.get('postalCode')?.valueChanges.subscribe(() => {
+    //   this.onCodigoPostalChange();
+    // });
   }
 
   onCodigoPostalChange(): void {
     const codigoPostal = this.addressForm.get('postalCode')?.value;
-
+  
     if (codigoPostal && codigoPostal.length === 5) {
       this.addressService.obtenerDatosPorCodigoPostal(codigoPostal).subscribe(
         (data: ApiResponse[]) => {
           this.colonias = data.map(item => item.response.asentamiento);
-
+  
           const firstResponse = data[0]?.response;
           if (firstResponse) {
             this.addressForm.patchValue({
@@ -78,19 +78,22 @@ export class FormAdressComponent implements OnInit {
           console.error('Error al obtener datos del código postal:', error);
         }
       );
+    } else {
+      console.warn('El código postal debe tener 5 dígitos.');
     }
   }
+  
 
   onSubmit(): void {
     const userId = this.authService.getId() || '';
-    console.log('ID del usuario que está consultando:', userId);
+  // console.log('ID del usuario que está consultando:', userId);
 
     if (this.addressForm.valid) {
       const formData = this.prepareFormData();
 
       this.addressService.obtenerDireccionesPorUsuario(userId).subscribe(
         (response) => {
-          console.log('Respuesta de direcciones obtenida:', response);
+       //  console.log('Respuesta de direcciones obtenida:', response);
 
           // Comprobación basada en la estructura del objeto devuelto
           if (response.existe === false || response.direcciones.length === 0) {

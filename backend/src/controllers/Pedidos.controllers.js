@@ -72,7 +72,7 @@ exports.getOrderById = async (req, res) => {
 
 // Controlador para actualizar un pedido por su ID
 exports.updateOrderById = async (req, res) => {
-  const allowedUpdates = ['status', 'estado_entrega']; // Campos que pueden ser actualizados
+  const allowedUpdates = ['estado_entrega']; // Los campos que se pueden actualizar
   const updates = Object.keys(req.body);
   const isValidOperation = updates.every(update => allowedUpdates.includes(update));
 
@@ -81,15 +81,23 @@ exports.updateOrderById = async (req, res) => {
   }
 
   try {
-    const order = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    // Buscar el pedido por numero_Pedido en lugar de _id
+    const order = await Order.findOneAndUpdate(  // Usamos `findOneAndUpdate` para buscar por numero_Pedido
+      { _id: req.params.id },  // Aquí buscamos con numero_Pedido
+      req.body,
+      { new: true } // Devuelve el pedido actualizado
+    );
+
     if (!order) {
       return res.status(404).json({ success: false, message: 'Pedido no encontrado' });
     }
+
     res.status(200).json({ success: true, message: 'Pedido actualizado correctamente', data: order });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error al actualizar el pedido', error: error.message });
   }
 };
+
 
 // Controlador para eliminar un pedido por su ID
 exports.deleteOrderById = async (req, res) => {

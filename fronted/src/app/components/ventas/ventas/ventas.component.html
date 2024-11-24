@@ -6,32 +6,117 @@
   <h2>Pedidos</h2>
   <div class="card-container">
     <div *ngFor="let pedido of pedidos" class="card">
-      
-      <div *ngIf="direccionCompleta; else noDireccion">
-        <h4>Dirección Completa</h4>
-        <p>Calle: {{ direccionCompleta.calle }}</p>
-        <p>Número: {{ direccionCompleta.numero }}</p>
-        <p>Colonia: {{ direccionCompleta.colonia }}</p>
-        <p>Municipio: {{ direccionCompleta.municipio }}</p>
-        <p>Estado: {{ direccionCompleta.estado }}</p>
-        <p>Código Postal: {{ direccionCompleta.codigoPostal }}</p>
+      <!-- Mostrar estado de carga de la dirección -->
+      <div *ngIf="pedido._id && loadingDireccion[pedido._id]; else direccionCargada">
+        <p>Cargando dirección...</p>
       </div>
-      
-      <!-- Plantilla alternativa cuando no se encuentra la dirección -->
-      <ng-template #noDireccion>
-        <h4>Dirección no disponible</h4>
-        <p>No se encontró la dirección asociada a este pedido.</p>
-      </ng-template>
-      
-      <h3>Pedido Nº: {{ pedido.numero_Pedido }}</h3>
-      <p>Cliente: {{ getClienteNombre(pedido.cliente_id) }}</p>
-      <p><strong>Estado de Entrega: </strong>{{ pedido.estado_entrega || 'No disponible' }}</p>
-      <p><strong>Fecha: </strong>{{ pedido.createdAt ? (pedido.createdAt | date: 'dd/MM/yyyy') : 'Fecha no disponible' }}</p>
 
-     
+
+
+      <ng-template #direccionCargada>
+        <!-- Mostrar dirección del pedido -->
+        <div *ngIf="pedido._id && obtenerDireccionDePedido(pedido._id); else noDireccion">
+          <h4>Direccion</h4>
+          <p>{{ obtenerDireccionDePedido(pedido._id)?.calle || 'Dirección no disponible' }},
+            {{ obtenerDireccionDePedido(pedido._id)?.numero || 'Dirección no disponible' }},
+            {{ obtenerDireccionDePedido(pedido._id)?.colonia || 'Dirección no disponible' }},
+            {{ obtenerDireccionDePedido(pedido._id)?.municipio || 'Dirección no disponible' }},
+            {{ obtenerDireccionDePedido(pedido._id)?.estado || 'Dirección no disponible' }},
+            {{ obtenerDireccionDePedido(pedido._id)?.codigoPostal || 'Dirección no disponible' }}</p>
+        </div>
+      </ng-template>
+
+      <ng-template #noDireccion>
+        <p>No se encontró dirección.</p>
+      </ng-template>
+
+      <h3>Pedido Nº: {{ pedido.numero_Pedido }}</h3>
+      <p><strong>Cliente: </strong>{{ getClienteNombre(pedido.cliente_id) || 'Nombre no disponible' }}</p>
+      <p><strong>Estado de Entrega: </strong>{{ pedido.estado_entrega || 'No disponible' }}</p>
+      <p><strong>Fecha: </strong>{{ pedido.createdAt ? (pedido.createdAt | date: 'dd/MM/yyyy') : 'Fecha no disponible'
+        }}</p>
+      <button class="view-details-btn" (click)="viewDetails(pedido)">Ver detalles del pedido</button>
+
     </div>
+
   </div>
 </div>
+
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Detalles del Pedido Nº: {{ selectedPedido?.numero_Pedido }}</h2>
+    <p><strong>Cliente: </strong>{{ getClienteNombre(selectedPedido?.cliente_id || '') }}</p>
+    <p><strong>Estado de Entrega: </strong>{{ selectedPedido?.estado_entrega || 'No disponible' }}</p>
+    <p><strong>Fecha: </strong>{{ selectedPedido?.createdAt ? (selectedPedido?.createdAt | date: 'dd/MM/yyyy') : 'No
+      disponible' }}</p>
+
+  
+    <!-- Detalles completos de la dirección -->
+    <ng-container *ngIf="selectedPedido?._id as pedidoId">
+      <ng-container *ngIf="obtenerDireccionDePedido(pedidoId) as direccion">
+        <h4>Dirección</h4>
+        <p> {{ direccion.calle || 'No disponible' }}
+          {{ direccion.numero || 'No disponible' }}
+          {{ direccion.colonia || 'No disponible' }},
+          {{ direccion.municipio || 'No disponible' }}.
+          {{ direccion.estado || 'No disponible' }}.
+          {{ direccion.codigoPostal || 'No disponible' }}</p>
+      </ng-container>
+    </ng-container>
+
+
+    <div *ngIf="hasItems; else noItems">
+           <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of selectedPedido?.items">
+            <td>{{ item.title }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ item.price }}</td>
+            <td>${{ item.quantity * item.price }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="total">
+        <p><strong>Total:</strong> ${{ selectedPedido?.total_price }}</p>
+      </div>
+    </div>
+    
+    <!-- Bloque de plantilla para cuando no haya ítems -->
+    <ng-template #noItems>
+      <p>No hay productos en este pedido.</p>
+    </ng-template>
+    
+
+    <div *ngIf="selectedPedido">
+      <select [(ngModel)]="selectedPedido.estado_entrega" id="estadoEntrega">
+        <option value="Pendiente">Pendiente</option>
+        <option value="En_proceso">En Proceso</option>
+        <option value="Llega_hoy">Llega Hoy</option>
+        <option value="Entregado">Entregado</option>
+      </select>
+    </div>
+
+    <button *ngIf="selectedPedido?.estado_entrega"
+      (click)="updatePedido(selectedPedido?._id ?? '', selectedPedido?.estado_entrega ?? 'Pendiente')">
+      Actualizar Estado
+    </button>
+
+
+    <button (click)="closeModal()">Cerrar</button>
+  </div>
+</div>
+
 
 <div *ngIf="pedidos.length === 0">
   <p>No hay pedidos disponibles.</p>

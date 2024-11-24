@@ -16,47 +16,47 @@
         Nombre completo es obligatorio.
       </div>
     </div>
-
+   
     <!-- Campo Código Postal -->
     <div class="form-group">
       <label for="postalCode" class="form-label">Código Postal</label>
-      <input id="postalCode" formControlName="postalCode" class="form-control" />
-      <div *ngIf="addressForm.get('postalCode')?.invalid && addressForm.get('postalCode')?.touched" class="error-message">
-        Código Postal es obligatorio.
+      <div class="input-group">
+        <input 
+          id="postalCode" 
+          formControlName="postalCode" 
+          type="text" 
+          placeholder="Escribe el código postal" 
+          class="form-control" 
+        />
+        <button 
+          type="button" 
+          (click)="onCodigoPostalChange()" 
+          class="btn btn-primary">
+          Consultar
+        </button>
       </div>
     </div>
-
-    <!-- Campo Estado (rellenado automáticamente por el código postal) -->
+    
+    <!-- Campos Estado, Municipio y Colonia -->
     <div class="form-group">
       <label for="state" class="form-label">Estado</label>
       <input id="state" formControlName="state" class="form-control" readonly />
-      <div *ngIf="addressForm.get('state')?.invalid && addressForm.get('state')?.touched" class="error-message">
-        Estado es obligatorio.
-      </div>
     </div>
 
-    <!-- Campo Municipio (rellenado automáticamente por el código postal) -->
     <div class="form-group">
       <label for="municipality" class="form-label">Municipio</label>
       <input id="municipality" formControlName="municipality" class="form-control" readonly />
-      <div *ngIf="addressForm.get('municipality')?.invalid && addressForm.get('municipality')?.touched" class="error-message">
-        Municipio es obligatorio.
-      </div>
     </div>
 
-    <!-- Campo Colonia (rellenado automáticamente por el código postal) -->
-<div class="form-group">
-  <label for="locality" class="form-label">Colonia</label>
-  <select id="locality" formControlName="locality" class="form-control">
-    <option value="">Seleccione una colonia</option>
-    <option *ngFor="let colonia of colonias" [value]="colonia">{{ colonia }}</option>
-  </select>
-  <div *ngIf="addressForm.get('locality')?.invalid && addressForm.get('locality')?.touched" class="error-message">
-    Colonia es obligatoria.
-  </div>
-</div>
-
-    <!-- Campo Calle -->
+    <div class="form-group">
+      <label for="locality" class="form-label">Colonia</label>
+      <select id="locality" formControlName="locality" class="form-control">
+        <option value="">Seleccione una colonia</option>
+        <option *ngFor="let colonia of colonias" [value]="colonia">{{ colonia }}</option>
+      </select>
+    </div>
+    
+    <!-- Calle y Número -->
     <div class="form-group">
       <label for="street" class="form-label">Calle</label>
       <input id="street" formControlName="street" class="form-control" />
@@ -65,7 +65,6 @@
       </div>
     </div>
 
-    <!-- Campo Número -->
     <div class="form-group">
       <label for="number" class="form-label">Número</label>
       <input id="number" formControlName="number" class="form-control" />
@@ -74,13 +73,13 @@
       </div>
     </div>
 
-    <!-- Campo Número Interior (con placeholder "SN") -->
+    <!-- Número Interior -->
     <div class="form-group">
       <label for="interiorNumber" class="form-label">Número Interior</label>
-      <input id="interiorNumber" formControlName="interiorNumber" class="form-control" placeholder="SN" />
-    </div>
+      <input id="interiorNumber" formControlName="interiorNumber" class="form-control"  />
+    </div>SN
 
-    <!-- Campo Calle 1 -->
+    <!-- Calles Cruzadas -->
     <div class="form-group">
       <label for="crossStreet1" class="form-label">Calle 1</label>
       <input id="crossStreet1" formControlName="crossStreet1" class="form-control" />
@@ -89,7 +88,6 @@
       </div>
     </div>
 
-    <!-- Campo Calle 2 -->
     <div class="form-group">
       <label for="crossStreet2" class="form-label">Calle 2</label>
       <input id="crossStreet2" formControlName="crossStreet2" class="form-control" />
@@ -98,27 +96,24 @@
       </div>
     </div>
 
-    <!-- Selección de Tipo de Dirección (Casa o Trabajo) -->
+    <!-- Selección de Tipo de Dirección -->
     <div class="form-group">
       <label>Tipo de Dirección</label>
       <div>
         <label>
-          <input type="radio" formControlName="addressType" value="home" name="addressType" />
+          <input type="radio" formControlName="addressType" value="home" />
           Casa
         </label>
         <label>
-          <input type="radio" formControlName="addressType" value="work" name="addressType" />
+          <input type="radio" formControlName="addressType" value="work" />
           Trabajo
         </label>
       </div>
     </div>
-    
 
-    <!-- Campo Número de Contacto Celular -->
+    <!-- Número de Contacto Celular -->
     <div class="form-group">
-      <label class="form-label">Número de Contacto Celular</label>
-      
-      <!-- Campo para el prefijo +52 (solo lectura) -->
+      <label for="contactNumber" class="form-label">Número de Contacto Celular</label>
       <div class="input-group">
         <input 
           class="form-control" 
@@ -126,8 +121,6 @@
           readonly 
           style="width: 60px; text-align: center;" 
         />
-        
-        <!-- Campo para el número de 10 dígitos -->
         <input 
           id="contactNumber" 
           formControlName="contactNumber" 
@@ -136,16 +129,12 @@
           maxlength="10" 
         />
       </div>
-    
-      <!-- Mensaje de error de validación -->
       <div *ngIf="addressForm.get('contactNumber')?.invalid && addressForm.get('contactNumber')?.touched" class="error-message">
         Número de contacto es obligatorio y debe tener 10 dígitos.
       </div>
     </div>
-    
-    
 
-    <!-- Campo Descripción/Fachada -->
+    <!-- Descripción/Fachada -->
     <div class="form-group">
       <label for="description" class="form-label">Descripción/Fachada</label>
       <input id="description" formControlName="description" class="form-control" />

@@ -32,7 +32,7 @@ export class BienvenidosComponent {
      this.tipoUsuario = userData.tipoUsuario || '';
      this.sexo = userData.sexo || '';
 
-     console.log('Sexo recibido:', this.sexo);
+     //console.log('Sexo recibido:', this.sexo);
    });
  }
  toggleSidenav() {

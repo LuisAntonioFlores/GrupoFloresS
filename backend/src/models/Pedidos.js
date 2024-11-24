@@ -13,9 +13,13 @@ const PedidoSchema = new mongoose.Schema({
     total_price: { type: Number, required: true },
     status: { type: String, default: 'pending' }, // Estado por defecto
     payment_id: { type: String }, // Para guardar el ID del pago
+    comprobante_url: {
+      type: String, // Almacenar la URL del comprobante de pago
+      default: null
+    },
     createdAt: { type: Date, default: Date.now },
     stockUpdated: { type: Boolean, default: false },
-  estado_entrega: { type: String, enum: ['en_proceso', 'entregado', 'pendiente'], default: 'pendiente' } // Nuevo campo
+  estado_entrega: { type: String, enum: ['pendiente','En_proceso', 'llega_hoy', 'Entregado'], default: 'pendiente' } // Nuevo campo
 
 });
 

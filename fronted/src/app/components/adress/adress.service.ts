@@ -59,7 +59,7 @@ export class AdressService {
       })),
       tap(({ existe, direcciones }) => {
         if (existe) {
-          console.log('Direcciones obtenidas:', direcciones);
+         // console.log('Direcciones obtenidas:', direcciones);
         } else {
           console.log('No se encontraron direcciones para el usuario.');
         }

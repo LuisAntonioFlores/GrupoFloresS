@@ -1,3 +1,4 @@
+import { Direccion } from 'src/app/interfaces/direccion';
 export interface Pedido {
   _id?: string;
   numero_Pedido: string;
@@ -7,6 +8,7 @@ export interface Pedido {
   items: Item[];
   total_price: number;
   direccion_id?: string;
+  direccion?: Direccion;
   estado_entrega?: string;
   createdAt?: Date;
 

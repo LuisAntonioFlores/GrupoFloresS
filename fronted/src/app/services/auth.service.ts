@@ -17,7 +17,9 @@ export class AuthService {
     // private URL = `${environment.baseUrl}:${environment.port}/api`;
 
     getNombrePorId(id: string): Observable<{ nombreCompleto: string }> {
-      const url = `${this.URL}/usuario/${id}/nombre`;
+      
+      const url = `${this.URL}/usuario/${id}`;
+     // console.log('URL generada:', url); // Verifica la URL
       return this.http.get<{ nombreCompleto: string }>(url);
     }
     
