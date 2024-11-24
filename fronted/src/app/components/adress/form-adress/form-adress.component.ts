@@ -52,19 +52,19 @@ export class FormAdressComponent implements OnInit {
 
     // Recuperar la dirección desde localStorage y actualizar el formulario
 
-    this.addressForm.get('postalCode')?.valueChanges.subscribe(() => {
-      this.onCodigoPostalChange();
-    });
+    // this.addressForm.get('postalCode')?.valueChanges.subscribe(() => {
+    //   this.onCodigoPostalChange();
+    // });
   }
 
   onCodigoPostalChange(): void {
     const codigoPostal = this.addressForm.get('postalCode')?.value;
-
+  
     if (codigoPostal && codigoPostal.length === 5) {
       this.addressService.obtenerDatosPorCodigoPostal(codigoPostal).subscribe(
         (data: ApiResponse[]) => {
           this.colonias = data.map(item => item.response.asentamiento);
-
+  
           const firstResponse = data[0]?.response;
           if (firstResponse) {
             this.addressForm.patchValue({
@@ -78,8 +78,11 @@ export class FormAdressComponent implements OnInit {
           console.error('Error al obtener datos del código postal:', error);
         }
       );
+    } else {
+      console.warn('El código postal debe tener 5 dígitos.');
     }
   }
+  
 
   onSubmit(): void {
     const userId = this.authService.getId() || '';

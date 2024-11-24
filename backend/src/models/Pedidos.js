@@ -15,7 +15,7 @@ const PedidoSchema = new mongoose.Schema({
     payment_id: { type: String }, // Para guardar el ID del pago
     createdAt: { type: Date, default: Date.now },
     stockUpdated: { type: Boolean, default: false },
-  estado_entrega: { type: String, enum: ['en_proceso', 'entregado', 'pendiente'], default: 'pendiente' } // Nuevo campo
+  estado_entrega: { type: String, enum: ['Pendiente','En_proceso', 'llega_hoy', 'Entregado'], default: 'pendiente' } // Nuevo campo
 
 });
 

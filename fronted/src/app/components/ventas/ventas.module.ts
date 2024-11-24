@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VentasRoutingModule } from './ventas-routing.module';
 import { VentasComponent } from './ventas/ventas.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,8 @@ import { VentasComponent } from './ventas/ventas.component';
   declarations: [VentasComponent],
   imports: [
     CommonModule,
-    VentasRoutingModule
+    VentasRoutingModule,
+    FormsModule
   ],
   exports: [VentasComponent]
 })

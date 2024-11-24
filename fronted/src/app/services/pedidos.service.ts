@@ -38,6 +38,14 @@ export class PedidoService {
   getAllPedidos(): Observable<RespuestaPedidos> {
     return this.http.get<RespuestaPedidos>(`${this.URI}/Pedido/Pedido`);
   }
+// pedido.service.ts
+  // Actualizar un pedido por su numero_Pedido
+  updatePedido(numero_Pedido: string, data: any): Observable<any> {
+    const url = `${this.URI}/Pedido/${numero_Pedido}`;
+    return this.http.put<any>(url, data);
+  }
+
+
   
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocurrió un error inesperado.';
