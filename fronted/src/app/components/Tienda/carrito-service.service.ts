@@ -81,7 +81,7 @@ export class CarritoServiceService {
       this.guardarCarrito();
       // console.log('Productos agregados después de añadir:', Array.from(this.productosAgregados)); // Log después de añadir
     } else {
-      console.log('El producto ya está en el carrito:', producto);
+    //  console.log('El producto ya está en el carrito:', producto);
     }
   }
   

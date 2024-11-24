@@ -86,14 +86,14 @@ export class FormAdressComponent implements OnInit {
 
   onSubmit(): void {
     const userId = this.authService.getId() || '';
-    console.log('ID del usuario que está consultando:', userId);
+  // console.log('ID del usuario que está consultando:', userId);
 
     if (this.addressForm.valid) {
       const formData = this.prepareFormData();
 
       this.addressService.obtenerDireccionesPorUsuario(userId).subscribe(
         (response) => {
-          console.log('Respuesta de direcciones obtenida:', response);
+       //  console.log('Respuesta de direcciones obtenida:', response);
 
           // Comprobación basada en la estructura del objeto devuelto
           if (response.existe === false || response.direcciones.length === 0) {

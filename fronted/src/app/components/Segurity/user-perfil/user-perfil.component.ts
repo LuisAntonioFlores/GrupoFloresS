@@ -112,7 +112,7 @@ export class UserPerfilComponent implements OnInit {
 
       this.authService.actualizarPerfil(userData).subscribe(
         (response) => {
-          console.log('Perfil actualizado correctamente:', response);
+       //   console.log('Perfil actualizado correctamente:', response);
           this.isReadOnly = true;
         },
         (error) => {

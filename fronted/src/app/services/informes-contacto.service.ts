@@ -36,7 +36,7 @@ export class InformesContactoService {
     return this.http.get<Informe[]>(`${this.apiUrl}/informes`).pipe(
       // Agregar un tap para ver la respuesta antes de devolverla
       tap((informes) => {
-        console.log('Informes obtenidos:', informes);  // Muestra los informes recibidos
+       // console.log('Informes obtenidos:', informes);  // Muestra los informes recibidos
       })
     );
   }
